@@ -47,6 +47,7 @@ class BaseScaffold extends StatelessWidget {
               ),
             ),
             ListTile(
+              leading: const Icon(Icons.query_stats_rounded),
               title: const Text('Finanzas'),
               onTap: () {
                 Navigator.of(context).pop(); // Cierra el Drawer antes de navegar
@@ -55,13 +56,15 @@ class BaseScaffold extends StatelessWidget {
                 
             ),
             ListTile(
+              leading: const Icon(Icons.price_check_rounded),
               title: const Text('Precios'),
-             onTap: () {
+              onTap: () {
                 Navigator.of(context).pop(); // Cierra el Drawer antes de navegar
                 context.go('/precios');
               }
             ),
             ListTile(
+              leading: const Icon(Icons.payments_rounded),
               title: const Text('Gastos'),
               onTap: () {
                 Navigator.of(context).pop(); // Cierra el Drawer antes de navegar
@@ -75,11 +78,7 @@ class BaseScaffold extends StatelessWidget {
     body: child,
     bottomNavigationBar: 
       NavigationBarApp(
-        currentIndex: 0,
-        onDestinationSelected: (index) {
-          // Acción predeterminada, por ejemplo:
-          debugPrint('Default navigation: $index');
-        },
+        
       ),
     );
   }

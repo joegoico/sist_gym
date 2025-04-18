@@ -7,49 +7,15 @@ import 'screens/gastos.dart';
 import 'screens/deudores.dart';
 import 'screens/fechas_de_pago.dart';
 import 'base_scaffold.dart';
-import 'screens/custom_navigation_bar.dart';
 
-int determineIndex(String location) {
-  // Revisa si la ubicación coincide o comienza con cierta ruta.
-  print("el indice es: $location");
-  if (location.startsWith('/alumnos')) {
-    return 0;
-  } else if (location.startsWith('/fechasDePago')) {
-    return 1;
-  } else if (location.startsWith('/deudores')) {
-    return 2;
-  }
-  // Devolver un valor por defecto, por ejemplo 0, si no coincide con ningún caso.
-  return 0;
-}
 // Configuración de go_router
 final GoRouter router = GoRouter(
   initialLocation: '/alumnos',  // o la ruta que desees iniciar
   routes: [
     ShellRoute(
       builder: (BuildContext context, GoRouterState state, Widget child) {
-        print("ShellRoute - currentLocation: ${state.location}");
         return BaseScaffold(
           title: 'Le Groupe Gym',
-          // Aquí inyectas la barra de navegación "tonta":
-          navigationBar: NavigationBarApp(
-            currentIndex: determineIndex(state.location), // Función que mapea la ruta a un índice
-            onDestinationSelected: (int newIndex) {
-              // Dependiendo del índice, navega a la ruta correspondiente:
-              print("route - Nuevo índice seleccionado desde la barra: $newIndex");
-              switch (newIndex) {
-                case 0:
-                  context.go('/alumnos');
-                  break;
-                case 1:
-                  context.go('/fechasDePago');
-                  break;
-                case 2:
-                  context.go('/deudores');
-                  break;
-              }
-            },
-          ),
           child: child,
         );
       },
