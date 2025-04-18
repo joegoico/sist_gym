@@ -17,6 +17,7 @@ class BaseScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.brown,
       // AppBar común
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
@@ -37,10 +38,6 @@ class BaseScaffold extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  CircleAvatar(
-                    radius: 40,
-                    backgroundImage: AssetImage('assets/logo.png'),
-                  ),
                   SizedBox(height: 10),
                   Text(
                     'Le Groupe Gym',
@@ -59,19 +56,31 @@ class BaseScaffold extends StatelessWidget {
             ),
             ListTile(
               title: const Text('Precios'),
-              onTap: () => context.go('/precios'),
+             onTap: () {
+                Navigator.of(context).pop(); // Cierra el Drawer antes de navegar
+                context.go('/precios');
+              }
             ),
             ListTile(
               title: const Text('Gastos'),
-              onTap: () => context.go('/gastos'),
+              onTap: () {
+                Navigator.of(context).pop(); // Cierra el Drawer antes de navegar
+                context.go('/gastos');
+              }
             ),
           ],
         ),
       ),
       // Contenido variable
-      //body: child,
-      // NavigationBar opcional
-      bottomNavigationBar: const NavigationBarApp(), // Si no se proporciona, se usa la Navigation Bar por defecto
+    body: child,
+    bottomNavigationBar: 
+      NavigationBarApp(
+        currentIndex: 0,
+        onDestinationSelected: (index) {
+          // Acción predeterminada, por ejemplo:
+          debugPrint('Default navigation: $index');
+        },
+      ),
     );
   }
 }

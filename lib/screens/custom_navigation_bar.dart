@@ -1,28 +1,26 @@
 import 'package:flutter/material.dart';
 
-class NavigationBarApp extends StatefulWidget {
-  const NavigationBarApp({super.key});
+class NavigationBarApp extends StatelessWidget {
+  final int currentIndex;
+  final ValueChanged<int> onDestinationSelected;
 
-  @override
-  State<NavigationBarApp> createState() => _NavigationBarAppState();
-}
+  const NavigationBarApp({
+    Key? key,
+    required this.currentIndex,
+    required this.onDestinationSelected,
+  }) : super(key: key);
 
-class _NavigationBarAppState extends State<NavigationBarApp> {
-  int _currentIndex = 0;
-
-  // Lista de páginas o la lógica de navegación puede gestionarse en otro nivel,
-  // ya que aquí solo regresarás la barra propia.
   @override
   Widget build(BuildContext context) {
+    // Imprimir el valor actual y el callback (aunque este último solo
+    // mostrará la referencia de la función)
+
     return NavigationBar(
       height: 60,
-      selectedIndex: _currentIndex,
+      selectedIndex: currentIndex,
       onDestinationSelected: (int index) {
-        setState(() {
-          _currentIndex = index;
-          // Aquí podrías llamar a alguna función de navegación,
-          // o notificar a un widget padre mediante un callback.
-        });
+        print("Nuevo índice seleccionado desde la barra: $index");
+        onDestinationSelected(index);
       },
       destinations: const [
         NavigationDestination(
