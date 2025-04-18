@@ -15,7 +15,6 @@ class _AlumnosState extends State<Alumnos> {
   @override
   Widget build(BuildContext context) {
     return Center(
-
       child: const Center(  // Usamos "child" en lugar de "body"
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

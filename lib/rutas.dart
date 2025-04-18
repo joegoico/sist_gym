@@ -4,7 +4,7 @@ import 'screens/alumnos.dart';
 import 'screens/finanzas.dart';
 import 'screens/precios.dart';
 import 'screens/gastos.dart';
-import 'baseScaffold.dart';
+import 'base_scaffold.dart';
 
 // Configuración de go_router
 final GoRouter router = GoRouter(
