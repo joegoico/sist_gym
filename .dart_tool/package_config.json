@@ -74,6 +74,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "intl",
+      "rootUri": "file:///C:/Users/jmgoi/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.17.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "leak_tracker",
       "rootUri": "file:///C:/Users/jmgoi/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker-10.0.8",
       "packageUri": "lib/",
@@ -188,7 +194,7 @@
       "languageVersion": "3.7"
     }
   ],
-  "generated": "2025-04-18T21:40:43.077063Z",
+  "generated": "2025-04-19T17:07:52.894906Z",
   "generator": "pub",
   "generatorVersion": "3.7.2",
   "flutterRoot": "file:///E:/flutter/flutter",

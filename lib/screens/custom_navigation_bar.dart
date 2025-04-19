@@ -40,6 +40,7 @@ class _NavigationBarAppState extends State<NavigationBarApp> {
       height: 60,
       selectedIndex: currentIndex,
       indicatorColor: Colors.blue,
+      backgroundColor: Colors.redAccent,
       onDestinationSelected: (int index) {
         setState((){
           currentIndex = index;
