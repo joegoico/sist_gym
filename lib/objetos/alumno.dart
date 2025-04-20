@@ -4,14 +4,16 @@ class Alumno {
   String nombre;
   String apellido;
   String correoElectronico;
-  String fechaUltimoPago;
-  double monto;
+  int candidadDias;
+  DateTime fechaUltimoPago;
+  bool descuento = false;
 
   Alumno({
     required this.nombre,
     required this.apellido,
     required this.correoElectronico,
+    required this.candidadDias,
     required this.fechaUltimoPago,
-    required this.monto,
+    required this.descuento,
   });
 }
