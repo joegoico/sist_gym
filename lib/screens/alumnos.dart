@@ -24,7 +24,6 @@ class _AlumnosState extends State<Alumnos> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (BuildContext context) {
-        print("Abriendo formulario de nuevo alumno");
         // Se espera que NuevoAlumnoForm retorne un objeto Alumno al cerrar
         return const NuevoAlumnoForm();
       },
@@ -32,12 +31,9 @@ class _AlumnosState extends State<Alumnos> {
 
     // Si el formulario retorna un alumno, se agrega a la lista y se actualiza la UI
     if (result != null && result is Alumno) {
-      print("Alumno agregado: ${result.nombre} ${result.apellido}");
       setState(() {
         _alumnos.add(result);
       });
-    } else if (result == null) {
-      print("No se agregó ningún alumno");
     }
   }
 

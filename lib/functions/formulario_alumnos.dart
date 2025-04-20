@@ -19,7 +19,7 @@ class _NuevoAlumnoFormState extends State<NuevoAlumnoForm> {
   String _apellido="";
   String _correoElectronico="";
   int _candidadDias=0;
-  bool _descuento=false;
+
 
   Future<void> _pickDate() async {
     final DateTime? pickedDate = await showDatePicker(
@@ -80,7 +80,7 @@ class _NuevoAlumnoFormState extends State<NuevoAlumnoForm> {
                         return null;
                       },
                       onSaved: (value) {
-                        _nombre = value!;
+                        _nombre = value?.trim() ?? '';
                       },
                     ),
                     const SizedBox(height: 10),
@@ -96,7 +96,7 @@ class _NuevoAlumnoFormState extends State<NuevoAlumnoForm> {
                         return null;
                       },
                       onSaved: (value) {
-                        _apellido = value!;
+                        _apellido = value?.trim() ?? '';
                       },
                     ),
                     const SizedBox(height: 10),
@@ -116,7 +116,7 @@ class _NuevoAlumnoFormState extends State<NuevoAlumnoForm> {
                         return null;
                       },
                       onSaved: (value) {
-                        _correoElectronico = value!;
+                        _correoElectronico = value?.trim() ?? '';
                       },
                     ),
                     const SizedBox(height: 10),
@@ -211,14 +211,15 @@ class _NuevoAlumnoFormState extends State<NuevoAlumnoForm> {
                                     duration: Duration(seconds: 2),
                                   ),
                                 );
+                                _formKey.currentState!.save(); // Guarda los datos del formulario
                                 final Alumno nuevoAlumno = Alumno(
                                   nombre: _nombre,
                                   apellido: _apellido,
                                   correoElectronico: _correoElectronico,
-                                  candidadDias: _candidadDias,
+                                  candidadDias: _selectedDays!,
                                   fechaUltimoPago: selectedDate!,
                                   descuento: applyDiscount, // Cambia el monto según la lógica de descuento
-                                );
+                                );                    
                                 Navigator.pop(context, nuevoAlumno); // Cierra el modal
                               } else if (selectedDate == null) {
                                 setState(() {});

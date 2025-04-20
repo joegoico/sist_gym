@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // Asegúrate de tener la dependencia intl en pubspec.yaml
+import 'package:sistema_gym/objetos/gasto.dart';
 
 class AgregarGastoForm extends StatefulWidget {
   const AgregarGastoForm({Key? key}) : super(key: key);
@@ -69,7 +70,13 @@ class AgregarGastoFormState extends State<AgregarGastoForm> {
           duration: Duration(seconds: 2),
         ),
       );
-      Navigator.pop(context); // Cierra el modal después de guardar
+      final Gasto nuevoGasto = Gasto(
+        titulo: _titulo,
+        monto: _monto!,
+        fecha: _fecha!,
+        descripcion: _descripcion,
+      );
+      Navigator.pop(context,nuevoGasto); // Cierra el modal después de guardar
 
       // Aquí puedes limpiar el formulario o navegar hacia atrás
     } else {

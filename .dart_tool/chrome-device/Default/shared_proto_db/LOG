@@ -1,7 +1,10 @@
-2025/04/20-12:39:37.719 2264 Reusing MANIFEST C:\Users\jmgoi\AppData\Local\Temp\flutter_tools.c1814b5\flutter_tools_chrome_device.bbbe67b4\Default\shared_proto_db/MANIFEST-000001
-2025/04/20-12:39:37.720 2264 Recovering log #13
-2025/04/20-12:39:37.721 2264 Reusing old log C:\Users\jmgoi\AppData\Local\Temp\flutter_tools.c1814b5\flutter_tools_chrome_device.bbbe67b4\Default\shared_proto_db/000013.log 
-2025/04/20-12:39:37.721 2264 Delete type=0 #3
-2025/04/20-12:39:37.721 2264 Delete type=0 #4
-2025/04/20-12:39:37.721 2264 Delete type=0 #7
-2025/04/20-12:39:37.721 2264 Delete type=0 #10
+2025/04/20-18:45:20.565 4730 Reusing MANIFEST C:\Users\jmgoi\AppData\Local\Temp\flutter_tools.8dfa1675\flutter_tools_chrome_device.2eb9ed76\Default\shared_proto_db/MANIFEST-000001
+2025/04/20-18:45:20.566 4730 Recovering log #13
+2025/04/20-18:45:20.567 4730 Reusing old log C:\Users\jmgoi\AppData\Local\Temp\flutter_tools.8dfa1675\flutter_tools_chrome_device.2eb9ed76\Default\shared_proto_db/000013.log 
+2025/04/20-18:45:20.568 4730 Delete type=0 #3
+2025/04/20-18:45:20.568 4730 Delete type=0 #4
+2025/04/20-18:45:20.568 4730 Delete type=0 #7
+2025/04/20-18:45:20.568 4730 Delete type=0 #10
+2025/04/20-18:45:31.363 4fcc Level-0 table #17: started
+2025/04/20-18:45:31.376 4fcc Level-0 table #17: 134499 bytes OK
+2025/04/20-18:45:31.378 4fcc Delete type=0 #13
