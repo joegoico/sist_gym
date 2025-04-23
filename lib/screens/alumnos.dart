@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sistema_gym/functions/formulario_alumnos.dart';
 import 'package:sistema_gym/objetos/alumno.dart';
-// Modelo para el alumno.
+import 'package:sistema_gym/providers/alumnos_provider.dart';
 
 class Alumnos extends StatefulWidget {
   const Alumnos({super.key, required this.title});
@@ -11,9 +12,8 @@ class Alumnos extends StatefulWidget {
   State<Alumnos> createState() => _AlumnosState();
 }
 
-class _AlumnosState extends State<Alumnos> {
+class _AlumnosState extends State<Alumnos>   {
   // Lista que almacena todos los alumnos creados
-  final List<Alumno> _alumnos = [];
 
   // Muestra el formulario y espera que retorne los datos del alumno nuevo
   Future<void> _showNuevoAlumnoForm(BuildContext context) async {
@@ -32,17 +32,18 @@ class _AlumnosState extends State<Alumnos> {
     // Si el formulario retorna un alumno, se agrega a la lista y se actualiza la UI
     if (result != null && result is Alumno) {
       setState(() {
-        _alumnos.add(result);
+        Provider.of<AlumnosModel>(context, listen: false).agregarAlumno(result);
       });
     }
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {// Llama al método build de la clase padre
+    final alumnosProvider = Provider.of<AlumnosModel>(context).alumnos; // Obtiene la lista de alumnos del provider
     return Stack(
       children: [
         // Si no hay alumnos, se muestra un mensaje. Caso contrario, se muestra un ListView de Cards.
-        _alumnos.isEmpty
+        alumnosProvider.isEmpty
             ? const Center(
                 child: Text(
                   "No hay alumnos agregados",
@@ -51,9 +52,9 @@ class _AlumnosState extends State<Alumnos> {
               )
             : ListView.builder(
                 padding: const EdgeInsets.all(10),
-                itemCount: _alumnos.length,
+                itemCount: alumnosProvider.length,
                 itemBuilder: (context, index) {
-                  final alumno = _alumnos[index];
+                  final alumno = alumnosProvider[index];
                   return Card(
                     margin: const EdgeInsets.only(bottom: 8),
                     child: Column(
@@ -76,7 +77,8 @@ class _AlumnosState extends State<Alumnos> {
                               onPressed: () {
                                 // Aquí puedes agregar la lógica para eliminar el alumno
                                 setState(() {
-                                  _alumnos.removeAt(index);
+                                  Provider.of<AlumnosModel>(context, listen: false)
+                                      .eliminarAlumno(alumno);
                                 });
                               },
                               icon: const Icon(Icons.delete),
@@ -109,5 +111,5 @@ class _AlumnosState extends State<Alumnos> {
         ),
       ],
     );
-  }
+  } // Mantiene el estado de la pestaña
 }

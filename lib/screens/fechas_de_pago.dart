@@ -6,9 +6,10 @@ class FechasDePago extends StatefulWidget {
   @override
   State<FechasDePago> createState() => _FechasDePagoState();
 }
-class _FechasDePagoState extends State<FechasDePago> {
+class _FechasDePagoState extends State<FechasDePago> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
+    super.build(context); // Llama al método build de la clase padre
     return Center(
         child: Text(
           'Fechas de Pago',
@@ -16,4 +17,6 @@ class _FechasDePagoState extends State<FechasDePago> {
         ),
       );
   }
+  @override
+  bool get wantKeepAlive => true; // Mantiene el estado de la pestaña
 }

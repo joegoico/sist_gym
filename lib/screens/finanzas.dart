@@ -7,9 +7,10 @@ class Finanzas extends StatefulWidget {
   @override
   State<Finanzas> createState() => _FinanzasState();
 }
-class _FinanzasState extends State<Finanzas> {
+class _FinanzasState extends State<Finanzas> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
+    super.build(context); // Llama al método build de la clase padre
     return Center(
       child: Text(
           'Finanzas',
@@ -17,4 +18,6 @@ class _FinanzasState extends State<Finanzas> {
         ),
       );
   }
+  @override
+  bool get wantKeepAlive => true; // Mantiene el estado de la pestaña
 }

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sistema_gym/functions/formulario_gastos.dart';
 import 'package:sistema_gym/objetos/gasto.dart';
+import 'package:sistema_gym/providers/gastos_provider.dart';
 class Gastos extends StatefulWidget {
   const Gastos({super.key});
 
   @override
   State<Gastos> createState() => _GastosState();
 }
-class _GastosState extends State<Gastos> {
-  final List<Gasto> _gastos = []; // Lista para almacenar los gastos
+class _GastosState extends State<Gastos>   {
+
 
   void _showNuevoGastoForm(BuildContext context) async {
     final result = await showModalBottomSheet(
@@ -23,16 +25,19 @@ class _GastosState extends State<Gastos> {
     );
     if (result != null && result is Gasto) {
       setState(() {
-        _gastos.add(result); // Agrega el nuevo gasto a la lista
+        Provider.of<GastosProvider>(context,listen: false,).agregarGasto(result); // Agrega el nuevo gasto a la lista
       });
     }
   }
   @override
   Widget build(BuildContext context) {
+    // Obtiene la lista de gastos del provider
+    final gastosProvider = Provider.of<GastosProvider>(context).gastos;
+    // Mantiene el estado de la pantalla al cambiar de pestaña
   return Stack(
     children: [
       // El contenido principal.
-      _gastos.isEmpty
+      gastosProvider.isEmpty
         ? const Center(
             child: Text(
               "No hay gastos agregados",
@@ -41,9 +46,9 @@ class _GastosState extends State<Gastos> {
           )
         : ListView.builder(
             padding: const EdgeInsets.all(10),
-            itemCount: _gastos.length,
+            itemCount: gastosProvider.length,
             itemBuilder: (context, index) {
-              final gasto = _gastos[index];
+              final gasto = gastosProvider[index];
               return Card(
                 margin: const EdgeInsets.only(bottom: 8),
                 child: Column(
@@ -66,7 +71,7 @@ class _GastosState extends State<Gastos> {
                           onPressed: () {
                             // Aquí puedes agregar la lógica para eliminar el alumno
                             setState(() {
-                              _gastos.removeAt(index);
+                              Provider.of<GastosProvider>(context, listen: false).eliminarGasto(gasto);
                             });
                           },
                           icon: const Icon(Icons.delete),
@@ -99,5 +104,5 @@ class _GastosState extends State<Gastos> {
         ),
       ],
     );
-  }
+  } // Mantiene el estado de la pantalla al cambiar de pestaña
 }
