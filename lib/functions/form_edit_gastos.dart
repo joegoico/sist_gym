@@ -11,6 +11,38 @@ class FormEditGastos extends StatefulWidget{
 
 class _FormEditGastosState extends State<FormEditGastos>{
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  late TextEditingController _fechaController;
+
+  @override
+  void initState() {
+    super.initState();
+    // Puedes formatear la fecha como prefieras; aquí se muestra en formato dd/MM/yyyy.
+    _fechaController = TextEditingController(
+      text: "${widget.gasto.fecha.day.toString().padLeft(2, '0')}/${widget.gasto.fecha.month.toString().padLeft(2, '0')}/${widget.gasto.fecha.year}"
+    );
+  }
+    
+  @override
+  void dispose() {
+    _fechaController.dispose();
+    super.dispose();
+  }
+  Future<void> _selectDate() async {
+    DateTime? newSelectedDate = await showDatePicker(
+      context: context,
+      initialDate: widget.gasto.fecha,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+    if (newSelectedDate != null) {
+      setState(() {
+        widget.gasto.fecha = newSelectedDate;
+        // Actualiza el controlador con la nueva fecha formateada
+        _fechaController.text =
+            "${newSelectedDate.day.toString().padLeft(2, '0')}/${newSelectedDate.month.toString().padLeft(2, '0')}/${newSelectedDate.year}";
+      });
+    }
+  }
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
@@ -37,6 +69,7 @@ class _FormEditGastosState extends State<FormEditGastos>{
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
       child: Form(
         key: _formKey,
         child: Column(
@@ -47,36 +80,60 @@ class _FormEditGastosState extends State<FormEditGastos>{
             const SizedBox(height: 20),
             TextFormField(
               initialValue: widget.gasto.titulo,
-              decoration: const InputDecoration(labelText: 'Nombre del gasto'),
+              decoration: const InputDecoration(
+                labelText: 'Nombre del gasto',
+                border:  OutlineInputBorder(),
+              ),
               validator: (value) => value == null || value.isEmpty ? 'Por favor, ingrese un nombre' : null,
               onSaved: (value) {
                 widget.gasto.titulo = value!;
               },
             ),
+            const SizedBox(height: 20),
             TextFormField(
               initialValue: widget.gasto.monto.toString(),
-              decoration: const InputDecoration(labelText: 'Monto del gasto'),
+              decoration: const InputDecoration(
+                labelText: 'Monto del gasto',
+                border:  OutlineInputBorder(),
+              ),
               keyboardType: TextInputType.number,
               validator: (value) => value == null || value.isEmpty ? 'Por favor, ingrese un monto' : null,
               onSaved: (value) {
                 widget.gasto.monto = double.parse(value!);
               },
             ),
+            const SizedBox(height: 20),
             TextFormField(
-              initialValue: widget.gasto.fecha.toString(),
-              decoration: const InputDecoration(labelText: 'Fecha del gasto'),
-              validator: (value) => value == null || value.isEmpty ? 'Por favor, ingrese una fecha' : null,
-              onSaved: (value) {
-                widget.gasto.fecha = DateTime.parse(value!);
-              },
+              controller: _fechaController,
+              decoration: const InputDecoration(
+                labelText: 'Fecha del gasto',
+                border:  OutlineInputBorder(),
+              ),
+              readOnly: true, // Esto evita que el usuario escriba manualmente
+              onTap: _selectDate, // Función que usará el date picker
+              validator: (value) =>
+                value == null || value.isEmpty ? 'Por favor, ingrese una fecha' : null,
+              // No necesitas onSaved aquí, ya que actualizas directamente en el objeto.
             ),
-            ElevatedButton(
-              onPressed: () {
-                // Aquí puedes manejar la lógica para editar el gasto
-                _submitForm();
-              },
-              child: const Text('Guardar Cambios'),
-            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    // Aquí puedes manejar la lógica para editar el gasto
+                    _submitForm();
+                  },
+                  child: const Text('Guardar Cambios'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context); // Cierra el modal sin guardar cambios
+                  },
+                  child: const Text('Cancelar'),
+                ),
+              ],
+            )
           ],
         ),
       ),

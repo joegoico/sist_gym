@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class NuevoPagoForm extends StatefulWidget {
-  const NuevoPagoForm({Key? key}) : super(key: key);
+class NuevoPrecioForm extends StatefulWidget {
+  const NuevoPrecioForm({Key? key}) : super(key: key);
 
   @override
-  _NuevoPagoFormState createState() => _NuevoPagoFormState();
+  _NuevoPrecioFormState createState() => _NuevoPrecioFormState();
 }
 
-class _NuevoPagoFormState extends State<NuevoPagoForm> {
+class _NuevoPrecioFormState extends State<NuevoPrecioForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   // Variables del formulario

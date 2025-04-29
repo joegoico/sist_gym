@@ -8,7 +8,7 @@ class Alumno {
   String nombre;
   String apellido;
   String correoElectronico;
-  //Disciplina disciplina;
+  Disciplina disciplina;
   DateTime fechaUltimoPago;
   bool descuento = false;
   List<Pago> pagosRealizados = [];
@@ -18,7 +18,7 @@ class Alumno {
     required this.nombre,
     required this.apellido,
     required this.correoElectronico,
-    //required this.cuota,
+    required this.disciplina,
     required this.fechaUltimoPago,
     required this.descuento,
   });

@@ -49,23 +49,40 @@ class _FormEditDisciplinaState extends State<FormEditDisciplina>{
         key: _formKey,
         child: Column(
           children: [
+            Text(
+              'Editar Disciplina',
+            ),
+            const SizedBox(height: 20),
             // Campo para el nombre de la disciplina
             TextFormField(
               initialValue: widget.disciplina.nombre,
-              decoration: const InputDecoration(labelText: 'Nombre de la disciplina'),
+              decoration: const InputDecoration(
+                labelText: 'Nombre de la disciplina',
+                border: OutlineInputBorder(),
+              ),
               validator: (value) => value == null || value.isEmpty ? 'Por favor, ingrese un nombre' : null,
               onSaved: (value) {
                 widget.disciplina.nombre = value!;
               },
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Aquí puedes guardar los cambios o hacer lo que necesites
-                _submitForm(); // Cierra el modal después de guardar
-              },
-              child: const Text('Guardar Cambios'),
-            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    _submitForm();
+                  },
+                  child: const Text('Guardar Cambios'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context); // Cierra el modal sin guardar cambios
+                  },
+                  child: const Text('Cancelar'),
+                ),
+              ],
+            )
           ],
         ),
       ),

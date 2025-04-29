@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sistema_gym/objetos/alumno.dart';
+import 'package:sistema_gym/objetos/disciplina.dart';
+import 'package:provider/provider.dart';
+import 'package:sistema_gym/providers/disciplinas_provider.dart';
 
 class NuevoAlumnoForm extends StatefulWidget {
   const NuevoAlumnoForm({Key? key}) : super(key: key);
@@ -10,15 +13,14 @@ class NuevoAlumnoForm extends StatefulWidget {
 }
 
 class _NuevoAlumnoFormState extends State<NuevoAlumnoForm> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); 
   bool applyDiscount = false;
   DateTime? selectedDate;
-  int? _selectedDays; // Valor por defecto para la cantidad de días
 
   String _nombre="";
   String _apellido="";
   String _correoElectronico="";
-  int _candidadDias=0;
+  Disciplina? _disciplinaSeleccionada;
 
 
   Future<void> _pickDate() async {
@@ -37,6 +39,8 @@ class _NuevoAlumnoFormState extends State<NuevoAlumnoForm> {
 
   @override
   Widget build(BuildContext context) {
+    final DisciplinasProvider disciplinasProvider = Provider.of<DisciplinasProvider>(context);
+    final List<Disciplina> disciplinas = disciplinasProvider.disciplinas;
     // Formato de la fecha
     final String fechaDisplay = selectedDate == null
         ? 'Seleccionar fecha de pago'
@@ -120,33 +124,33 @@ class _NuevoAlumnoFormState extends State<NuevoAlumnoForm> {
                       },
                     ),
                     const SizedBox(height: 10),
-                    DropdownButtonFormField<int>(
+                    DropdownButtonFormField<Disciplina>(
                       decoration: const InputDecoration(
-                        labelText: 'Cantidad de Días',
+                        labelText: 'Disciplina',
                         border: OutlineInputBorder(),
                       ),
-                      items: List.generate(5, (index) => index + 1)
-                          .map((day) => DropdownMenuItem<int>(
-                                value: day,
-                                child: Text(day.toString()),
-                              ))
-                          .toList(),
-                      value: _selectedDays,
-                      onChanged: (int? newValue) {
+                      value: _disciplinaSeleccionada,
+                      items: disciplinas.map((disciplina) {
+                        return DropdownMenuItem<Disciplina>(
+                          value: disciplina,
+                          child: Text(disciplina.nombre),
+                        );
+                      }).toList(),
+                      onChanged: (Disciplina? newValue) {
                         setState(() {
-                          _selectedDays = newValue;
+                          _disciplinaSeleccionada = newValue;
                         });
                       },
                       validator: (value) {
                         if (value == null) {
-                          return 'Seleccione la cantidad de días';
+                          return 'La disciplina es obligatoria';
                         }
                         return null;
                       },
                       onSaved: (value) {
-                        _candidadDias = value!;
+                        _disciplinaSeleccionada = value;
                       },
-                    ),
+                    ),                    
                     const SizedBox(height: 10),
                     Row(
                       children: [
@@ -217,6 +221,7 @@ class _NuevoAlumnoFormState extends State<NuevoAlumnoForm> {
                                   nombre: _nombre,
                                   apellido: _apellido,
                                   correoElectronico: _correoElectronico,
+                                  disciplina: _disciplinaSeleccionada!,
                                   fechaUltimoPago: selectedDate!,
                                   descuento: applyDiscount, // Cambia el monto según la lógica de descuento
                                 );                    

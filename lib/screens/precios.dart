@@ -1,40 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:sistema_gym/functions/formulario_precios.dart';
-import 'package:sistema_gym/providers/precios_provider.dart';
+import 'package:sistema_gym/objetos/disciplina.dart';
 import 'package:sistema_gym/objetos/precio.dart';
-class Precios extends StatefulWidget {
-  const Precios({super.key});
+import 'package:sistema_gym/functions/formulario_precios.dart'; // Formulario para agregar/editar precios
+
+class PreciosPage extends StatefulWidget {
+  final Disciplina disciplina;
+  const PreciosPage({Key? key, required this.disciplina}) : super(key: key);
 
   @override
-  State<Precios> createState() => _PreciosState();
+  State<PreciosPage> createState() => _PreciosPageState();
 }
-class _PreciosState extends State<Precios>  {
 
-  void _showNuevoPrecioForm(BuildContext context) async{
-    //guarda el resultado del formulario en la variable result
-    final result = await showModalBottomSheet(
+class _PreciosPageState extends State<PreciosPage> {
+  // Método para mostrar el formulario de un nuevo precio:
+  void _showNuevoPrecioForm(BuildContext context) async {
+    final nuevoPrecio = await showModalBottomSheet<Precio>(
       context: context,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (BuildContext context) {
-        return const NuevoPagoForm();
+        return const NuevoPrecioForm();  // Se espera que retorne un objeto Precio
       },
     );
-    if (result != null && result is Precio) {
+    if (nuevoPrecio != null) {
       setState(() {
-        Provider.of<PreciosProvider>(context, listen: false).agregarPrecio(result); // Agrega el nuevo gasto a la lista
+        widget.disciplina.agregarPrecio(nuevoPrecio);
       });
     }
   }
+
   @override
   Widget build(BuildContext context) {
-    final preciosProvider = Provider.of<PreciosProvider>(context).precios;
+    // Utilizar la lista interna de la disciplina para mostrar los precios.
+    final precios = widget.disciplina.getPrecios();
+
     return Stack(
       children: [
-        preciosProvider.isEmpty
+
+      precios.isEmpty
           ? const Center(
               child: Text(
                 "No hay precios agregados",
@@ -43,14 +48,13 @@ class _PreciosState extends State<Precios>  {
             )
           : ListView.builder(
               padding: const EdgeInsets.all(10),
-              itemCount: preciosProvider.length,
+              itemCount: precios.length,
               itemBuilder: (context, index) {
-                final precio = preciosProvider[index];
+                final precio = precios[index];
                 return Card(
                   margin: const EdgeInsets.only(bottom: 8),
                   child: Column(
                     children: [
-                      // Aquí se muestran los datos del precio
                       ListTile(
                         title: Text('${precio.cantDias} días'),
                         subtitle: Text('${precio.precio} ARS'),
@@ -61,44 +65,33 @@ class _PreciosState extends State<Precios>  {
                           IconButton(
                             icon: const Icon(Icons.edit),
                             onPressed: () {
-                              // Acción al presionar el botón de editar
-                               // Muestra el formulario para editar el precio
+                              // Aquí podrías llamar a un formulario para editar el precio.
+                              // Luego, usando setState, actualizar el precio modificado en la lista.
                             },
                           ),
                           IconButton(
                             icon: const Icon(Icons.delete),
                             onPressed: () {
-                              // Elimina el precio de la lista
-                              Provider.of<PreciosProvider>(context, listen: false).eliminarPrecio(precio);
+                              setState(() {
+                                widget.disciplina.eliminarPrecio(precio);
+                              });
                             },
                           ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 );
               },
             ),
-        // El contenido principal.
-        // Posiciona el botón en la esquina inferior derecha.
-        Positioned(
-          right: 20,
-          bottom: 20,
-          child: RawMaterialButton(
-            onPressed: () {
-              _showNuevoPrecioForm(context );// Acción al presionar el botón
-            },
-            elevation: 2.0,
-            fillColor: const Color.fromARGB(255, 146, 181, 209),
-            padding: EdgeInsets.all(15.0),
-            shape: CircleBorder(),
-            child: Icon(
-              Icons.add,
-              size: 25.0,
-              color: Colors.white,
-            ),
-          ),
+      Positioned(
+        bottom: 20,
+        right: 20,
+        child: FloatingActionButton(
+          onPressed: () => _showNuevoPrecioForm(context),
+          child: const Icon(Icons.add),
         ),
+      ),
       ],
     );
   }

@@ -57,6 +57,8 @@ class _NuevaDisciplinaFormState extends State<NuevaDisciplinaForm> {
         key: _formKey,
         child: Column(
           children: [
+            Text( 'Agregar Disciplina'),
+            const SizedBox(height: 16),
             // Campo para el nombre de la disciplina
             TextFormField(
               decoration: const InputDecoration(

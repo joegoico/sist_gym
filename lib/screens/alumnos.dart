@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sistema_gym/functions/formulario_alumnos.dart';
 import 'package:sistema_gym/objetos/alumno.dart';
 import 'package:sistema_gym/providers/alumnos_provider.dart';
+import 'package:sistema_gym/functions/edit_alumno.dart';
 
 class Alumnos extends StatefulWidget {
   const Alumnos({super.key, required this.title});
@@ -33,6 +34,27 @@ class _AlumnosState extends State<Alumnos>   {
     if (result != null && result is Alumno) {
       setState(() {
         Provider.of<AlumnosModel>(context, listen: false).agregarAlumno(result);
+      });
+    }
+  }
+
+  Future<void> _showEditAlumnoForm(BuildContext context, Alumno alumno) async {
+    final result = await showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (BuildContext context) {
+        // Se espera que NuevoAlumnoForm retorne un objeto Alumno al cerrar
+        return FormEditAlumnos(alumno: alumno);
+      },
+    );
+
+    // Si el formulario retorna un alumno, se agrega a la lista y se actualiza la UI
+    if (result != null && result is Alumno) {
+      setState(() {
+        Provider.of<AlumnosModel>(context, listen: false).editarAlumno(alumno, result);
       });
     }
   }
@@ -69,7 +91,7 @@ class _AlumnosState extends State<Alumnos>   {
                           children: [
                             IconButton(
                               onPressed: () {
-                                // Aquí puedes agregar la lógica para editar el alumno
+                                _showEditAlumnoForm(context, alumno);
                               },
                               icon: const Icon(Icons.edit),
                             ),

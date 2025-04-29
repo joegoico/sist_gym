@@ -18,6 +18,13 @@ class AlumnosModel extends ChangeNotifier {
     print("Alumno eliminado: ${alumno.nombre} ${alumno.apellido}");
     notifyListeners();
   }
+  void editarAlumno(Alumno alumno, Alumno nuevoAlumno) {
+    int index = _alumnos.indexOf(alumno);
+    if (index != -1) {
+      _alumnos[index] = nuevoAlumno;
+      notifyListeners();
+    }
+  }
 
   // Agrega otros métodos, como eliminar o editar, si los necesitas
 }

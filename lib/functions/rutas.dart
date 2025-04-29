@@ -30,10 +30,6 @@ final GoRouter router = GoRouter(
           builder: (context, state) => const Finanzas(), // Por ejemplo, el contenido de Fechas de Pago
         ),
         GoRoute(
-          path: '/precios',
-          builder: (context, state) => const Precios(), // Por ejemplo, el contenido de Fechas de Pago
-        ),
-        GoRoute(
           path: '/gastos',
           builder: (context, state) => const Gastos(),
         ),

@@ -5,6 +5,7 @@ import 'package:sistema_gym/objetos/disciplina.dart';
 import 'package:sistema_gym/functions/form_edit_disciplina.dart';
 import 'package:sistema_gym/objetos/precio.dart';
 import 'package:sistema_gym/providers/disciplinas_provider.dart';
+import 'package:sistema_gym/screens/precios.dart';
 
 class DiscplinasPage extends StatefulWidget {
   const DiscplinasPage({super.key, required this.title});
@@ -103,7 +104,12 @@ class _DiscplinasPageState extends State<DiscplinasPage> {
                           ),
                           IconButton(icon: const Icon(Icons.monetization_on),
                             onPressed: (){
-                              //dirige a la lista de precios para esa disciplina
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => PreciosPage(disciplina: disciplina),
+                                ),
+                              );//dirige a la lista de precios para esa disciplina
                             },)
                         ],
                       ),
