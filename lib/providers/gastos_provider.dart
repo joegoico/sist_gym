@@ -17,5 +17,13 @@ class GastosProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void editarGasto(Gasto gasto, Gasto nuevoGasto) {
+    final index = _gastos.indexOf(gasto);
+    if (index != -1) {
+      _gastos[index] = nuevoGasto;
+      notifyListeners();
+    }
+  }
+
   // Agrega otros métodos, como eliminar o editar, si los necesitas
 }

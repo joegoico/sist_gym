@@ -4,6 +4,7 @@ import 'functions/rutas.dart'; // Tus rutas ya definidas
 import 'package:sistema_gym/providers/alumnos_provider.dart';
 import 'package:sistema_gym/providers/gastos_provider.dart';
 import 'package:sistema_gym/providers/precios_provider.dart'; // El modelo de alumnos que creamos
+import 'package:sistema_gym/providers/disciplinas_provider.dart';
 
 void main() {
   runApp(
@@ -12,6 +13,7 @@ void main() {
         ChangeNotifierProvider<AlumnosModel>(create: (_) => AlumnosModel(),),
         ChangeNotifierProvider<GastosProvider>(create: (_) => GastosProvider(),),
         ChangeNotifierProvider<PreciosProvider>(create: (_) => PreciosProvider(),),
+        ChangeNotifierProvider<DisciplinasProvider>(create: (_) => DisciplinasProvider(),),
         // Puedes agregar más providers aquí si es necesario
       ],
       child: const MyApp(),

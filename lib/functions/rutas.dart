@@ -6,6 +6,7 @@ import '../screens/precios.dart';
 import '../screens/gastos.dart';
 import '../screens/deudores.dart';
 import '../screens/fechas_de_pago.dart';
+import 'package:sistema_gym/screens/disciplinas.dart';
 import '../base_scaffold.dart';
 
 // Configuración de go_router
@@ -43,6 +44,10 @@ final GoRouter router = GoRouter(
         GoRoute(
           path: '/deudores',
           builder: (context, state) => const Deudores(),
+        ),
+        GoRoute(
+          path: '/disciplinas',
+          builder: (context, state) => const DiscplinasPage(title: 'Disciplinas'), // Por ejemplo, el contenido de Fechas de Pago
         )
       ],
     ),

@@ -16,6 +16,13 @@ class PreciosProvider extends ChangeNotifier {
     _precios.remove(precio);
     notifyListeners();
   }
+  void editarPrecio(Precio precio, Precio nuevoPrecio ) {
+    int index = _precios.indexOf(precio);
+    if (index != -1) {
+      _precios[index] = nuevoPrecio;
 
+      notifyListeners();
+    }
+  }
   // Agrega otros métodos, como eliminar o editar, si los necesitas
 }

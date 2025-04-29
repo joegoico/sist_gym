@@ -56,11 +56,11 @@ class BaseScaffold extends StatelessWidget {
                 
             ),
             ListTile(
-              leading: const Icon(Icons.price_check_rounded),
-              title: const Text('Precios'),
+              leading: const Icon(Icons.sports_gymnastics),
+              title: const Text('Disciplinas'),
               onTap: () {
                 Navigator.of(context).pop(); // Cierra el Drawer antes de navegar
-                context.go('/precios');
+                context.go('/disciplinas');
               }
             ),
             ListTile(

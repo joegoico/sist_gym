@@ -26,4 +26,23 @@ class Gasto {
       fecha: DateTime.parse(json['fecha']),
     );
   }
+  void setTitulo(String titulo) {
+    this.titulo = titulo;
+  }
+  void setMonto(double monto) {
+    this.monto = monto;
+  }
+  void setFecha(DateTime fecha) {
+    this.fecha = fecha;
+  }
+
+  String getTitulo() {
+    return titulo;
+  }
+  double getMonto() {
+    return monto;
+  }
+  DateTime getFecha() {
+    return fecha;
+  }
 }

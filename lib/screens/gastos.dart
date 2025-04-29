@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sistema_gym/functions/formulario_gastos.dart';
 import 'package:sistema_gym/objetos/gasto.dart';
 import 'package:sistema_gym/providers/gastos_provider.dart';
+import 'package:sistema_gym/functions/form_edit_gastos.dart';
 class Gastos extends StatefulWidget {
   const Gastos({super.key});
 
@@ -11,7 +12,23 @@ class Gastos extends StatefulWidget {
 }
 class _GastosState extends State<Gastos>   {
 
-
+  void _showEditGastoForm(BuildContext context, Gasto gasto) async {
+    final result = await showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (BuildContext context) {
+        return FormEditGastos(gasto: gasto);
+      },
+    );
+    if (result != null && result is Gasto) {
+      setState(() {
+        Provider.of<GastosProvider>(context,listen: false,).editarGasto(gasto,result); // Agrega el nuevo gasto a la lista
+      });
+    }
+  }
   void _showNuevoGastoForm(BuildContext context) async {
     final result = await showModalBottomSheet(
       context: context,
@@ -62,10 +79,10 @@ class _GastosState extends State<Gastos>   {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         IconButton(
-                          onPressed: () {
-                            // Aquí puedes agregar la lógica para editar el alumno
-                          },
                           icon: const Icon(Icons.edit),
+                          onPressed: () {
+                            _showEditGastoForm(context, gasto);
+                          },
                         ),
                         IconButton(
                           onPressed: () {

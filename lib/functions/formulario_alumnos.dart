@@ -213,10 +213,10 @@ class _NuevoAlumnoFormState extends State<NuevoAlumnoForm> {
                                 );
                                 _formKey.currentState!.save(); // Guarda los datos del formulario
                                 final Alumno nuevoAlumno = Alumno(
+                                  id: 1,
                                   nombre: _nombre,
                                   apellido: _apellido,
                                   correoElectronico: _correoElectronico,
-                                  candidadDias: _selectedDays!,
                                   fechaUltimoPago: selectedDate!,
                                   descuento: applyDiscount, // Cambia el monto según la lógica de descuento
                                 );                    
