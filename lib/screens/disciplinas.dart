@@ -110,6 +110,7 @@ class _DiscplinasPageState extends State<DiscplinasPage> {
                                   builder: (context) => PreciosPage(disciplina: disciplina),
                                 ),
                               );//dirige a la lista de precios para esa disciplina
+                            print(disciplina.precios.length);
                             },)
                         ],
                       ),

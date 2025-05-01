@@ -1,7 +1,6 @@
 
 import 'package:sistema_gym/objetos/disciplina.dart';
-import 'package:sistema_gym/objetos/fecha_pago.dart';
-import 'package:sistema_gym/objetos/precio.dart';
+import 'package:sistema_gym/objetos/pago.dart';
 
 class Alumno {
   int id;
@@ -56,5 +55,8 @@ class Alumno {
   }
   bool getDescuento() {
     return descuento;
+  }
+  List<Pago> getPagosRealizados() {
+    return pagosRealizados;
   }
 }

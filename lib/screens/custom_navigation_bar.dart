@@ -53,10 +53,6 @@ class _NavigationBarAppState extends State<NavigationBarApp> {
           label: 'Alumnos',
         ),
         NavigationDestination(
-          icon: Icon(Icons.calendar_month_rounded),
-          label: 'Fechas de Pago',
-        ),
-        NavigationDestination(
           icon: Icon(Icons.money_off_rounded),
           label: 'Deudores',
           

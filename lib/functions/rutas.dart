@@ -33,10 +33,6 @@ final GoRouter router = GoRouter(
           path: '/gastos',
           builder: (context, state) => const Gastos(),
         ),
-         GoRoute(
-          path: '/fechasDePago',
-          builder: (context, state) => const FechasDePago(), // Por ejemplo, el contenido de Fechas de Pago
-        ),
         GoRoute(
           path: '/deudores',
           builder: (context, state) => const Deudores(),

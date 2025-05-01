@@ -4,6 +4,7 @@ import 'package:sistema_gym/functions/formulario_alumnos.dart';
 import 'package:sistema_gym/objetos/alumno.dart';
 import 'package:sistema_gym/providers/alumnos_provider.dart';
 import 'package:sistema_gym/functions/edit_alumno.dart';
+import 'package:sistema_gym/screens/fechas_de_pago.dart';
 
 class Alumnos extends StatefulWidget {
   const Alumnos({super.key, required this.title});
@@ -89,6 +90,16 @@ class _AlumnosState extends State<Alumnos>   {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
+                            IconButton(
+                              onPressed: (){
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => FechasDePago(alumno: alumno, ),
+                                  ),
+                                );
+                              }, 
+                              icon: const Icon(Icons.calendar_month_rounded),),
                             IconButton(
                               onPressed: () {
                                 _showEditAlumnoForm(context, alumno);

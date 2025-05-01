@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sistema_gym/objetos/precio.dart';
 
 class NuevoPrecioForm extends StatefulWidget {
   const NuevoPrecioForm({Key? key}) : super(key: key);
@@ -93,7 +94,8 @@ class _NuevoPrecioFormState extends State<NuevoPrecioForm> {
                           duration: Duration(seconds: 2),
                       ),
                     );
-                    Navigator.pop(context); // Cierra el modal después de guardar
+                    final nuevoPrecio = Precio(cantDias: _selectedDays!, precio: _monto!);
+                    Navigator.pop(context,nuevoPrecio); // Cierra el modal después de guardar
                   // Aquí podrías limpiar el formulario, enviar los datos a un servidor, etc.
                 }
               },

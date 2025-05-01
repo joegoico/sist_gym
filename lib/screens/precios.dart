@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sistema_gym/objetos/disciplina.dart';
 import 'package:sistema_gym/objetos/precio.dart';
-import 'package:sistema_gym/functions/formulario_precios.dart'; // Formulario para agregar/editar precios
-
+import 'package:sistema_gym/objetos/disciplina.dart';
+import 'package:sistema_gym/functions/formulario_precios.dart';
 class PreciosPage extends StatefulWidget {
   final Disciplina disciplina;
   const PreciosPage({Key? key, required this.disciplina}) : super(key: key);
@@ -12,7 +11,6 @@ class PreciosPage extends StatefulWidget {
 }
 
 class _PreciosPageState extends State<PreciosPage> {
-  // Método para mostrar el formulario de un nuevo precio:
   void _showNuevoPrecioForm(BuildContext context) async {
     final nuevoPrecio = await showModalBottomSheet<Precio>(
       context: context,
@@ -21,7 +19,7 @@ class _PreciosPageState extends State<PreciosPage> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (BuildContext context) {
-        return const NuevoPrecioForm();  // Se espera que retorne un objeto Precio
+        return const NuevoPrecioForm();
       },
     );
     if (nuevoPrecio != null) {
@@ -33,13 +31,14 @@ class _PreciosPageState extends State<PreciosPage> {
 
   @override
   Widget build(BuildContext context) {
-    // Utilizar la lista interna de la disciplina para mostrar los precios.
     final precios = widget.disciplina.getPrecios();
 
-    return Stack(
-      children: [
-
-      precios.isEmpty
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Precios de ${widget.disciplina.nombre}'),
+        // El botón de retroceso se genera automáticamente si esta no es la ruta raíz.
+      ),
+      body: precios.isEmpty
           ? const Center(
               child: Text(
                 "No hay precios agregados",
@@ -65,8 +64,7 @@ class _PreciosPageState extends State<PreciosPage> {
                           IconButton(
                             icon: const Icon(Icons.edit),
                             onPressed: () {
-                              // Aquí podrías llamar a un formulario para editar el precio.
-                              // Luego, usando setState, actualizar el precio modificado en la lista.
+                              // Aquí podrías llamar al formulario para editar el precio.
                             },
                           ),
                           IconButton(
@@ -84,15 +82,10 @@ class _PreciosPageState extends State<PreciosPage> {
                 );
               },
             ),
-      Positioned(
-        bottom: 20,
-        right: 20,
-        child: FloatingActionButton(
-          onPressed: () => _showNuevoPrecioForm(context),
-          child: const Icon(Icons.add),
-        ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _showNuevoPrecioForm(context),
+        child: const Icon(Icons.add),
       ),
-      ],
     );
   }
 }
