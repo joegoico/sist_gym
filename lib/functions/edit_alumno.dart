@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sistema_gym/objetos/alumno.dart';
+import 'package:sistema_gym/objetos/precio.dart';
 import 'package:sistema_gym/providers/disciplinas_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:sistema_gym/objetos/disciplina.dart';
@@ -140,6 +141,24 @@ class _FormEditAlumnosState extends State<FormEditAlumnos> {
               },
             ),                   
             const SizedBox(height: 20),
+            DropdownButtonFormField<Precio>(
+              decoration: const InputDecoration(
+                labelText: 'Cuota',
+                border: OutlineInputBorder(),
+              ),
+              value: widget.alumno.cuota,
+              items: widget.alumno.disciplina.precios.map((precio){
+                return DropdownMenuItem<Precio>(
+                  value: precio,
+                  child: Text(
+                      '${precio.precio.toStringAsFixed(2)} ARS - ${precio.cantDias} días'));
+              }).toList(), 
+              onChanged: (Precio? newValue){
+                setState(() {
+                  widget.alumno.cuota = newValue!;
+                });
+              }),
+            const SizedBox(height: 16),
             TextFormField(
               controller: _fechaController,
               decoration: const InputDecoration(

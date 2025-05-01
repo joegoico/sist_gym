@@ -1,6 +1,7 @@
 
 import 'package:sistema_gym/objetos/disciplina.dart';
 import 'package:sistema_gym/objetos/pago.dart';
+import 'package:sistema_gym/objetos/precio.dart';
 
 class Alumno {
   int id;
@@ -8,6 +9,7 @@ class Alumno {
   String apellido;
   String correoElectronico;
   Disciplina disciplina;
+  Precio cuota;
   DateTime fechaUltimoPago;
   bool descuento = false;
   List<Pago> pagosRealizados = [];
@@ -18,6 +20,7 @@ class Alumno {
     required this.apellido,
     required this.correoElectronico,
     required this.disciplina,
+    required this.cuota,
     required this.fechaUltimoPago,
     required this.descuento,
   });

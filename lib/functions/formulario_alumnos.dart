@@ -4,6 +4,7 @@ import 'package:sistema_gym/objetos/alumno.dart';
 import 'package:sistema_gym/objetos/disciplina.dart';
 import 'package:provider/provider.dart';
 import 'package:sistema_gym/providers/disciplinas_provider.dart';
+import 'package:sistema_gym/objetos/precio.dart';
 
 class NuevoAlumnoForm extends StatefulWidget {
   const NuevoAlumnoForm({Key? key}) : super(key: key);
@@ -21,6 +22,7 @@ class _NuevoAlumnoFormState extends State<NuevoAlumnoForm> {
   String _apellido="";
   String _correoElectronico="";
   Disciplina? _disciplinaSeleccionada;
+  Precio? _precioSeleccionado;
 
 
   Future<void> _pickDate() async {
@@ -139,6 +141,7 @@ class _NuevoAlumnoFormState extends State<NuevoAlumnoForm> {
                       onChanged: (Disciplina? newValue) {
                         setState(() {
                           _disciplinaSeleccionada = newValue;
+                          _precioSeleccionado = null;
                         });
                       },
                       validator: (value) {
@@ -152,6 +155,51 @@ class _NuevoAlumnoFormState extends State<NuevoAlumnoForm> {
                       },
                     ),                    
                     const SizedBox(height: 10),
+                    _disciplinaSeleccionada != null ?
+                      _disciplinaSeleccionada!.getPrecios().isNotEmpty ?
+                        DropdownButtonFormField<Precio>(
+                          decoration: const InputDecoration(
+                            labelText: "Cuota",
+                            border: OutlineInputBorder(),
+                          ),
+                          value: _precioSeleccionado,
+                          items: _disciplinaSeleccionada!.getPrecios().map((precio) {
+                          return DropdownMenuItem<Precio>(
+                            value: precio,
+                            child: Text(
+                                '${precio.precio.toStringAsFixed(2)} ARS - ${precio.cantDias} días'),
+                          );
+                        }).toList(), 
+                          onChanged: (Precio? newPrecio){
+                            setState(() {
+                              _precioSeleccionado=newPrecio;
+                            });
+                          },
+                          validator: (value) => 
+                            value == null? 'Seleccione la cuota del alumno': null,
+                          onSaved: (value){
+                            _precioSeleccionado = value;
+                          },
+                          )
+                        : Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: const Text(
+                          'La disciplina seleccionada no tiene precios asignados',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      )
+                    : Container(
+                        padding: const EdgeInsets.all(8),
+                        child: const Text(
+                          'Seleccione una disciplina para ver precios asociados',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ),
+                const SizedBox(height: 24),
                     Row(
                       children: [
                         Expanded(
@@ -222,6 +270,7 @@ class _NuevoAlumnoFormState extends State<NuevoAlumnoForm> {
                                   apellido: _apellido,
                                   correoElectronico: _correoElectronico,
                                   disciplina: _disciplinaSeleccionada!,
+                                  cuota: _precioSeleccionado!,
                                   fechaUltimoPago: selectedDate!,
                                   descuento: applyDiscount, // Cambia el monto según la lógica de descuento
                                 );                    
