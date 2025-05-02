@@ -1,38 +1,38 @@
 class Pago{
-  int id;
-  DateTime fechaDePago;
-  double monto;
-  bool descuento;
+  int _id;
+  DateTime _fechaDePago;
+  double _monto;
+  bool _descuento;
 
   Pago({
-    required this.id,
-    required this.fechaDePago,
-    required this.monto,
-    required this.descuento,
-  });
+    required int id,
+    required DateTime fechaDePago,
+    required double monto,
+    required bool descuento,
+  }) : _id = id, _fechaDePago = fechaDePago, _monto = monto, _descuento = descuento;
   void setId(int id) {
-    this.id = id;
+    _id = id;
   }
   void setFechaDePago(DateTime fechaDePago) {
-    this.fechaDePago = fechaDePago;
+    _fechaDePago = fechaDePago;
   }
   void setMonto(double monto) {
-    this.monto = monto;
+    _monto = monto;
   }
   void setDescuento(bool descuento) {
-    this.descuento = descuento;
+    _descuento = descuento;
   }
   int getId() {
-    return id;
+    return _id;
   }
   DateTime getFechaDePago() {
-    return fechaDePago;
+    return _fechaDePago;
   }
   double getMonto() {
-    return monto;
+    return _monto;
   }
   bool getDescuento() {
-    return descuento;
+    return _descuento;
   }
   
 }

@@ -4,7 +4,7 @@ import 'package:sistema_gym/objetos/disciplina.dart';
 import 'package:sistema_gym/functions/formulario_precios.dart';
 class PreciosPage extends StatefulWidget {
   final Disciplina disciplina;
-  const PreciosPage({Key? key, required this.disciplina}) : super(key: key);
+  const PreciosPage({super.key, required this.disciplina});
 
   @override
   State<PreciosPage> createState() => _PreciosPageState();
@@ -35,7 +35,7 @@ class _PreciosPageState extends State<PreciosPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Precios de ${widget.disciplina.nombre}'),
+        title: Text('Precios de ${widget.disciplina.getNombre()}'),
         // El botón de retroceso se genera automáticamente si esta no es la ruta raíz.
       ),
       body: precios.isEmpty
@@ -55,8 +55,8 @@ class _PreciosPageState extends State<PreciosPage> {
                   child: Column(
                     children: [
                       ListTile(
-                        title: Text('${precio.cantDias} días'),
-                        subtitle: Text('${precio.precio} ARS'),
+                        title: Text('${precio.getCantDias()} días'),
+                        subtitle: Text('${precio.getPrecio()} ARS'),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,

@@ -22,7 +22,7 @@ class _FormEditAlumnosState extends State<FormEditAlumnos> {
     super.initState();
     // Puedes formatear la fecha como prefieras; aquí se muestra en formato dd/MM/yyyy.
     _fechaController = TextEditingController(
-      text: "${widget.alumno.fechaUltimoPago.day.toString().padLeft(2, '0')}/${widget.alumno.fechaUltimoPago.month.toString().padLeft(2, '0')}/${widget.alumno.fechaUltimoPago.year}"
+      text: "${widget.alumno.getFechaUltimoPago().day.toString().padLeft(2, '0')}/${widget.alumno.getFechaUltimoPago().month.toString().padLeft(2, '0')}/${widget.alumno.getFechaUltimoPago().year}"
     );
   }
     
@@ -34,13 +34,13 @@ class _FormEditAlumnosState extends State<FormEditAlumnos> {
   Future<void> _selectDate() async {
     DateTime? newSelectedDate = await showDatePicker(
       context: context,
-      initialDate: widget.alumno.fechaUltimoPago,
+      initialDate: widget.alumno.getFechaUltimoPago(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
     );
     if (newSelectedDate != null) {
       setState(() {
-        widget.alumno.fechaUltimoPago = newSelectedDate;
+        widget.alumno.setFechaUltimoPago(newSelectedDate);
         // Actualiza el controlador con la nueva fecha formateada
         _fechaController.text =
             "${newSelectedDate.day.toString().padLeft(2, '0')}/${newSelectedDate.month.toString().padLeft(2, '0')}/${newSelectedDate.year}";
@@ -87,38 +87,38 @@ class _FormEditAlumnosState extends State<FormEditAlumnos> {
             ),
             const SizedBox(height: 20),
             TextFormField(
-              initialValue: widget.alumno.nombre,
+              initialValue: widget.alumno.getNombre(),
               decoration: const InputDecoration(
                 labelText: 'Nombre del alumno',
                 border: OutlineInputBorder(),
               ),
               validator: (value) => value == null || value.isEmpty ? 'Por favor, ingrese un nombre' : null,
               onSaved: (value) {
-                widget.alumno.nombre = value!;
+                widget.alumno.setNombre(value!);
               },
             ),
             const SizedBox(height: 20),
             TextFormField(
-              initialValue: widget.alumno.apellido,
+              initialValue: widget.alumno.getApellido(),
               decoration: const InputDecoration(
                 labelText: 'Apellido del alumno',
                 border: OutlineInputBorder(),
               ),
               validator: (value) => value == null || value.isEmpty ? 'Por favor, ingrese un apellido' : null,
               onSaved: (value) {
-                widget.alumno.apellido = value!;
+                widget.alumno.setApellido(value!);
               },
             ),
             const SizedBox(height: 20),
             TextFormField(
-              initialValue: widget.alumno.correoElectronico,
+              initialValue: widget.alumno.getCorreoElectronico(),
               decoration: const InputDecoration(
                 labelText: 'Correo electrónico del alumno',
                 border: OutlineInputBorder(),
               ),
               validator: (value) => value == null || value.isEmpty ? 'Por favor, ingrese un correo electrónico' : null,
               onSaved: (value) {
-                widget.alumno.correoElectronico = value!;
+                widget.alumno.setCorreoElectronico(value!);
               },
             ),
             const SizedBox(height: 20),
@@ -127,16 +127,16 @@ class _FormEditAlumnosState extends State<FormEditAlumnos> {
                 labelText: 'Disciplina',
                 border: OutlineInputBorder(),
               ),
-              value: widget.alumno.disciplina,
+              value: widget.alumno.getDisciplina(),
               items: disciplinas.map((disciplina) {
                 return DropdownMenuItem<Disciplina>(
                   value: disciplina,
-                  child: Text(disciplina.nombre),
+                  child: Text(disciplina.getNombre()),
                 );
               }).toList(),
               onChanged: (Disciplina? newValue) {
                 setState(() {
-                  widget.alumno.disciplina = newValue!;
+                  widget.alumno.setDisciplina(newValue!);
                 });
               },
             ),                   
@@ -146,16 +146,16 @@ class _FormEditAlumnosState extends State<FormEditAlumnos> {
                 labelText: 'Cuota',
                 border: OutlineInputBorder(),
               ),
-              value: widget.alumno.cuota,
-              items: widget.alumno.disciplina.precios.map((precio){
+              value: widget.alumno.getCuota(),
+              items: widget.alumno.getDisciplina().getPrecios().map((precio){
                 return DropdownMenuItem<Precio>(
                   value: precio,
                   child: Text(
-                      '${precio.precio.toStringAsFixed(2)} ARS - ${precio.cantDias} días'));
+                      '${precio.getPrecio().toStringAsFixed(2)} ARS - ${precio.getCantDias()} días'));
               }).toList(), 
               onChanged: (Precio? newValue){
                 setState(() {
-                  widget.alumno.cuota = newValue!;
+                  widget.alumno.setCuota(newValue!);
                 });
               }),
             const SizedBox(height: 16),
@@ -175,10 +175,10 @@ class _FormEditAlumnosState extends State<FormEditAlumnos> {
             Row(
               children: [
                 Switch(
-                  value: widget.alumno.descuento,
+                  value: widget.alumno.getDescuento(),
                   onChanged: (bool? value) {
                     setState(() {
-                      widget.alumno.descuento = value ?? false;
+                      widget.alumno.setDescuento(value!);
                     });
                   },
                 ),

@@ -1,33 +1,50 @@
+// go_router/router.dart
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../screens/alumnos.dart';
 import '../screens/finanzas.dart';
-import '../screens/precios.dart';
 import '../screens/gastos.dart';
 import '../screens/deudores.dart';
-import '../screens/fechas_de_pago.dart';
 import 'package:sistema_gym/screens/disciplinas.dart';
 import '../base_scaffold.dart';
 
-// Configuración de go_router
 final GoRouter router = GoRouter(
-  initialLocation: '/alumnos',  // o la ruta que desees iniciar
+  initialLocation: '/alumnos',
   routes: [
     ShellRoute(
       builder: (BuildContext context, GoRouterState state, Widget child) {
+        // Usamos state.extra para el título, o un valor por defecto.
+        final String title = state.extra as String? ?? 'Le Groupe Gym';
+
+        // Definimos las acciones para el AppBar solo en la ruta `/alumnos`.
+        List<Widget>? appBarActions;
+        if (state.matchedLocation == '/alumnos') {
+          appBarActions = [
+            Padding(padding: const EdgeInsets.only(right: 20),
+            child:ElevatedButton(
+              child: const Text('Nuevo pago'),
+              onPressed: () {
+                // Acción al presionar el botón.
+                // Por ejemplo, navegar a una pantalla para agregar un alumno:
+              },
+            ), ),
+          ];
+        }
+
         return BaseScaffold(
-          title: 'Le Groupe Gym',
+          title: title,
           child: child,
+          appBarActions: appBarActions,
         );
       },
       routes: [
         GoRoute(
           path: '/alumnos',
-          builder: (context, state) => const Alumnos(title: 'alumnos'), // Tu contenido de Alumnos sin Scaffold
+          builder: (context, state) => const Alumnos(title: 'Alumnos'),
         ),
         GoRoute(
           path: '/finanzas',
-          builder: (context, state) => const Finanzas(), // Por ejemplo, el contenido de Fechas de Pago
+          builder: (context, state) => const Finanzas(),
         ),
         GoRoute(
           path: '/gastos',
@@ -39,8 +56,8 @@ final GoRouter router = GoRouter(
         ),
         GoRoute(
           path: '/disciplinas',
-          builder: (context, state) => const DiscplinasPage(title: 'Disciplinas'), // Por ejemplo, el contenido de Fechas de Pago
-        )
+          builder: (context, state) => const DiscplinasPage(title: 'Disciplinas'),
+        ),
       ],
     ),
   ],

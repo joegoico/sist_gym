@@ -1,23 +1,26 @@
 class Precio {
-  int cantDias;
-  double precio;
+  int _cantDias;
+  double _precio;
 
   Precio({
-    required this.cantDias,
-    required this.precio,
-  });
+    required int cantDias,
+    required double precio,
+  })  : _cantDias = cantDias,
+        _precio = precio;
 
   void setCantDias(int cantDias) {
-    this.cantDias = cantDias;
+    _cantDias = cantDias;
   }
+
   void setPrecio(double precio) {
-    this.precio = precio;
+    _precio = precio;
   }
 
   int getCantDias() {
-    return cantDias;
+    return _cantDias;
   }
+
   double getPrecio() {
-    return precio;
+    return _precio;
   }
 }

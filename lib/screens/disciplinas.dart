@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:sistema_gym/functions/form_agregar_disciplina.dart';
 import 'package:sistema_gym/objetos/disciplina.dart';
 import 'package:sistema_gym/functions/form_edit_disciplina.dart';
-import 'package:sistema_gym/objetos/precio.dart';
 import 'package:sistema_gym/providers/disciplinas_provider.dart';
 import 'package:sistema_gym/screens/precios.dart';
 
@@ -84,7 +83,7 @@ class _DiscplinasPageState extends State<DiscplinasPage> {
                   child: Column(
                     children: [
                       ListTile(
-                        title: Text(disciplina.nombre),
+                        title: Text(disciplina.getNombre()),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -110,7 +109,6 @@ class _DiscplinasPageState extends State<DiscplinasPage> {
                                   builder: (context) => PreciosPage(disciplina: disciplina),
                                 ),
                               );//dirige a la lista de precios para esa disciplina
-                            print(disciplina.precios.length);
                             },)
                         ],
                       ),

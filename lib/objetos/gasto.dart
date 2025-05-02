@@ -1,21 +1,24 @@
 class Gasto {
-  String titulo;
-  double monto;
-  DateTime fecha;
-  String? descripcion;
+  String _titulo;
+  double _monto;
+  DateTime _fecha;
+  String? _descripcion;
 
   Gasto({
-    required this.titulo,
-    required this.monto,
-    required this.fecha,
-    this.descripcion,
-  });
+    required String titulo,
+    required double monto,
+    required DateTime fecha,
+    String? descripcion,
+  })  : _titulo = titulo,
+        _monto = monto,
+        _fecha = fecha,
+        _descripcion = descripcion;
 
   Map<String, dynamic> toJson() {
     return {
-      'titulo': titulo,
-      'monto': monto,
-      'fecha': fecha.toIso8601String(),
+      'titulo': _titulo,
+      'monto': _monto,
+      'fecha': _fecha.toIso8601String(),
     };
   }
 
@@ -27,22 +30,27 @@ class Gasto {
     );
   }
   void setTitulo(String titulo) {
-    this.titulo = titulo;
+    _titulo = titulo;
   }
   void setMonto(double monto) {
-    this.monto = monto;
+    _monto = monto;
   }
   void setFecha(DateTime fecha) {
-    this.fecha = fecha;
+    _fecha = fecha;
   }
-
+  void setDescripcion(String descripcion) {
+    _descripcion = descripcion;
+  }
+  String getDescripcion() {
+    return _descripcion ?? '';
+  }
   String getTitulo() {
-    return titulo;
+    return _titulo;
   }
   double getMonto() {
-    return monto;
+    return _monto;
   }
   DateTime getFecha() {
-    return fecha;
+    return _fecha;
   }
 }

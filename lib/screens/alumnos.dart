@@ -84,8 +84,8 @@ class _AlumnosState extends State<Alumnos>   {
                       children: [
                         // Aquí se muestran los datos del alumno
                         ListTile(
-                          title: Text('${alumno.nombre} '),
-                          subtitle: Text('${alumno.apellido}'),
+                          title: Text('${alumno.getNombre()} '),
+                          subtitle: Text(alumno.getApellido()),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,

@@ -18,7 +18,7 @@ class _FormEditGastosState extends State<FormEditGastos>{
     super.initState();
     // Puedes formatear la fecha como prefieras; aquí se muestra en formato dd/MM/yyyy.
     _fechaController = TextEditingController(
-      text: "${widget.gasto.fecha.day.toString().padLeft(2, '0')}/${widget.gasto.fecha.month.toString().padLeft(2, '0')}/${widget.gasto.fecha.year}"
+      text: "${widget.gasto.getFecha().day.toString().padLeft(2, '0')}/${widget.gasto.getFecha().month.toString().padLeft(2, '0')}/${widget.gasto.getFecha().year}"
     );
   }
     
@@ -30,13 +30,13 @@ class _FormEditGastosState extends State<FormEditGastos>{
   Future<void> _selectDate() async {
     DateTime? newSelectedDate = await showDatePicker(
       context: context,
-      initialDate: widget.gasto.fecha,
+      initialDate: widget.gasto.getFecha(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
     );
     if (newSelectedDate != null) {
       setState(() {
-        widget.gasto.fecha = newSelectedDate;
+        widget.gasto.setFecha(newSelectedDate); // Actualiza el objeto Gasto con la nueva fecha
         // Actualiza el controlador con la nueva fecha formateada
         _fechaController.text =
             "${newSelectedDate.day.toString().padLeft(2, '0')}/${newSelectedDate.month.toString().padLeft(2, '0')}/${newSelectedDate.year}";
@@ -79,19 +79,19 @@ class _FormEditGastosState extends State<FormEditGastos>{
             ),
             const SizedBox(height: 20),
             TextFormField(
-              initialValue: widget.gasto.titulo,
+              initialValue: widget.gasto.getTitulo(),
               decoration: const InputDecoration(
                 labelText: 'Nombre del gasto',
                 border:  OutlineInputBorder(),
               ),
               validator: (value) => value == null || value.isEmpty ? 'Por favor, ingrese un nombre' : null,
               onSaved: (value) {
-                widget.gasto.titulo = value!;
+                widget.gasto.setTitulo(value!);
               },
             ),
             const SizedBox(height: 20),
             TextFormField(
-              initialValue: widget.gasto.monto.toString(),
+              initialValue: widget.gasto.getMonto().toString(),
               decoration: const InputDecoration(
                 labelText: 'Monto del gasto',
                 border:  OutlineInputBorder(),
@@ -99,7 +99,7 @@ class _FormEditGastosState extends State<FormEditGastos>{
               keyboardType: TextInputType.number,
               validator: (value) => value == null || value.isEmpty ? 'Por favor, ingrese un monto' : null,
               onSaved: (value) {
-                widget.gasto.monto = double.parse(value!);
+                widget.gasto.setMonto(double.parse(value!));
               },
             ),
             const SizedBox(height: 20),

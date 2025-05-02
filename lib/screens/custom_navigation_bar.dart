@@ -6,9 +6,9 @@ class NavigationBarApp extends StatefulWidget {
 
 
   const NavigationBarApp({
-    Key? key,
+    super.key,
 
-  }) : super(key: key);
+  });
 
   @override
   State<NavigationBarApp> createState() => _NavigationBarAppState();
@@ -19,16 +19,13 @@ class _NavigationBarAppState extends State<NavigationBarApp> {
   void goToRouteNavigation(int index, BuildContext context) {
     switch (index) {
       case 0:
-        context.go('/alumnos');
+        context.go('/alumnos', extra: 'Alumnos');
         break;
       case 1:
-        context.go('/fechasDePago');
-        break;
-      case 2:
-        context.go('/deudores');
+        context.go('/deudores',extra: 'Deudores');  
         break;
       default:
-        context.go('/alumnos');
+        context.go('/alumnos',extra: 'Alumnos');
     }
   }
   @override

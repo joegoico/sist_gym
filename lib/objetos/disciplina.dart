@@ -1,37 +1,40 @@
 import 'package:sistema_gym/objetos/precio.dart';
 
 class Disciplina {
-  int id;
-  String nombre;
-  List<Precio> precios;
+  int _id;
+  String _nombre;
+  List<Precio> _precios;
 
   Disciplina({
-    required this.id,
-    required this.nombre,
+    required int id,
+    required String nombre,
     List<Precio>? precios, // Parámetro opcional y nullable
-  }) : precios = precios ?? []; // Si no se pasa un valor, se asigna una lista mutable nueva
+  }) :_id = id,
+       _nombre = nombre,
+       _precios = precios ?? []; // Si no se pasa un valor, se asigna una lista mutable nueva 
+   // Si no se pasa un valor, se asigna una lista mutable nueva
   void setNombre(String nombre) {
-    this.nombre = nombre;
+    _nombre = nombre;
   }
   void agregarPrecio(Precio precio) {
-    precios.add(precio);
+    _precios.add(precio);
   }
   void eliminarPrecio(Precio precio) {
-    precios.remove(precio);
+    _precios.remove(precio);
   }
   String getNombre() {
-    return nombre;
+    return _nombre;
   }
   List<Precio> getPrecios() {
-    return precios;
+    return _precios;
   }
   Precio getPrecio(int index) {
-    return precios[index];
+    return _precios[index];
   }
   int getId() {
-    return id;
+    return _id;
   }
   void setId(int id) {
-    this.id = id;
+    _id = id;
   }
 }

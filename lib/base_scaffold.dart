@@ -6,13 +6,15 @@ class BaseScaffold extends StatelessWidget {
   final String title;
   final Widget child;
   final Widget? navigationBar; // propiedad opcional para la Navigation Bar // propiedad opcional para el FAB
+  final List<Widget>? appBarActions; // propiedad opcional para el AppBar
 
   const BaseScaffold({
-    Key? key,
+    super.key,
     required this.title,
     required this.child,
     this.navigationBar,
-  }) : super(key: key);
+    this.appBarActions,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +24,8 @@ class BaseScaffold extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
         title: Text(title),
+        actions: appBarActions,
+        centerTitle: false,
       ),
       // Drawer común
       drawer: Drawer(
@@ -51,7 +55,7 @@ class BaseScaffold extends StatelessWidget {
               title: const Text('Finanzas'),
               onTap: () {
                 Navigator.of(context).pop(); // Cierra el Drawer antes de navegar
-                context.go('/finanzas');
+                context.go('/finanzas', extra: 'Finanzas');
               }
                 
             ),
@@ -60,7 +64,7 @@ class BaseScaffold extends StatelessWidget {
               title: const Text('Disciplinas'),
               onTap: () {
                 Navigator.of(context).pop(); // Cierra el Drawer antes de navegar
-                context.go('/disciplinas');
+                context.go('/disciplinas', extra: 'Disciplinas');
               }
             ),
             ListTile(
@@ -68,7 +72,7 @@ class BaseScaffold extends StatelessWidget {
               title: const Text('Gastos'),
               onTap: () {
                 Navigator.of(context).pop(); // Cierra el Drawer antes de navegar
-                context.go('/gastos');
+                context.go('/gastos', extra: 'Gastos');
               }
             ),
           ],

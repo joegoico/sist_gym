@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sistema_gym/objetos/disciplina.dart';
 
 class FormEditDisciplina extends StatefulWidget {
-  const FormEditDisciplina({Key? key, required this.disciplina}) : super(key: key);
+  const FormEditDisciplina({super.key, required this.disciplina});
 
   final Disciplina disciplina;
 
@@ -32,8 +32,7 @@ class _FormEditDisciplinaState extends State<FormEditDisciplina>{
       );
       Navigator.pop(context, widget.disciplina); // Cierra el modal después de guardar
     } else {
-      print("no hay nombre");
-      if (widget.disciplina.nombre.isEmpty) {
+      if (widget.disciplina.getNombre().isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Por favor, escriba un nombre para la disciplina")),
         );
@@ -55,14 +54,14 @@ class _FormEditDisciplinaState extends State<FormEditDisciplina>{
             const SizedBox(height: 20),
             // Campo para el nombre de la disciplina
             TextFormField(
-              initialValue: widget.disciplina.nombre,
+              initialValue: widget.disciplina.getNombre(),
               decoration: const InputDecoration(
                 labelText: 'Nombre de la disciplina',
                 border: OutlineInputBorder(),
               ),
               validator: (value) => value == null || value.isEmpty ? 'Por favor, ingrese un nombre' : null,
               onSaved: (value) {
-                widget.disciplina.nombre = value!;
+                widget.disciplina.setNombre(value!);
               },
             ),
             const SizedBox(height: 20),

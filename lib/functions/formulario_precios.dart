@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sistema_gym/objetos/precio.dart';
 
 class NuevoPrecioForm extends StatefulWidget {
-  const NuevoPrecioForm({Key? key}) : super(key: key);
+  const NuevoPrecioForm({super.key});
 
   @override
   _NuevoPrecioFormState createState() => _NuevoPrecioFormState();

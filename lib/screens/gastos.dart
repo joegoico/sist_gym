@@ -72,8 +72,8 @@ class _GastosState extends State<Gastos>   {
                   children: [
                     // Aquí se muestran los datos del alumno
                     ListTile(
-                      title: Text('${gasto.titulo} '),
-                      subtitle: Text('${gasto.monto} ARS'),
+                      title: Text('${gasto.getTitulo()} '),
+                      subtitle: Text('${gasto.getMonto()} ARS'),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,

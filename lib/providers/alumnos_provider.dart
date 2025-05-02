@@ -9,13 +9,12 @@ class AlumnosModel extends ChangeNotifier {
 
   void agregarAlumno(Alumno nuevoAlumno) {
     _alumnos.add(nuevoAlumno);
-    print("Alumno agregado: ${nuevoAlumno.nombre} ${nuevoAlumno.apellido}");
+
     notifyListeners();
   }
 
   void eliminarAlumno(Alumno alumno) {
     _alumnos.remove(alumno);
-    print("Alumno eliminado: ${alumno.nombre} ${alumno.apellido}");
     notifyListeners();
   }
   void editarAlumno(Alumno alumno, Alumno nuevoAlumno) {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sistema_gym/objetos/disciplina.dart';
 
 class NuevaDisciplinaForm extends StatefulWidget {
-  const NuevaDisciplinaForm({Key? key}) : super(key: key);
+  const NuevaDisciplinaForm({super.key});
 
   @override
   _NuevaDisciplinaFormState createState() => _NuevaDisciplinaFormState();
@@ -40,7 +40,6 @@ class _NuevaDisciplinaFormState extends State<NuevaDisciplinaForm> {
       }
       // Aquí puedes limpiar el formulario o navegar hacia atrás
     } else {
-      print("no hay nombre");
       if (_nombreDisciplina == null) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Por favor, escriba un nombre para la disciplina")),
@@ -72,7 +71,6 @@ class _NuevaDisciplinaFormState extends State<NuevaDisciplinaForm> {
                 return null;
               },            
               onSaved: (value) {
-                print("nombre de la disciplina en  form: $_nombreDisciplina");
                 _nombreDisciplina = value!;
               },
             ),

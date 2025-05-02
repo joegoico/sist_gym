@@ -7,7 +7,7 @@ import 'package:sistema_gym/providers/disciplinas_provider.dart';
 import 'package:sistema_gym/objetos/precio.dart';
 
 class NuevoAlumnoForm extends StatefulWidget {
-  const NuevoAlumnoForm({Key? key}) : super(key: key);
+  const NuevoAlumnoForm({super.key});
 
   @override
   _NuevoAlumnoFormState createState() => _NuevoAlumnoFormState();
@@ -135,7 +135,7 @@ class _NuevoAlumnoFormState extends State<NuevoAlumnoForm> {
                       items: disciplinas.map((disciplina) {
                         return DropdownMenuItem<Disciplina>(
                           value: disciplina,
-                          child: Text(disciplina.nombre),
+                          child: Text(disciplina.getNombre()),
                         );
                       }).toList(),
                       onChanged: (Disciplina? newValue) {
@@ -167,7 +167,7 @@ class _NuevoAlumnoFormState extends State<NuevoAlumnoForm> {
                           return DropdownMenuItem<Precio>(
                             value: precio,
                             child: Text(
-                                '${precio.precio.toStringAsFixed(2)} ARS - ${precio.cantDias} días'),
+                                '${precio.getPrecio().toStringAsFixed(2)} ARS - ${precio.getCantDias()} días'),
                           );
                         }).toList(), 
                           onChanged: (Precio? newPrecio){

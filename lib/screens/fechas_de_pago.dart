@@ -16,7 +16,7 @@ class _FechasDePagoState extends State<FechasDePago>  {
     final List<Pago> fechasDePago = widget.alumno.getPagosRealizados();
     return Scaffold(
         appBar: AppBar(
-          title: Text('Pagos de ${widget.alumno.nombre}' + ' ${widget.alumno.apellido}'),
+          title: Text('Pagos de ${widget.alumno.getNombre()}' ' ${widget.alumno.getApellido()}'),
           // El botón de retroceso se genera automáticamente si esta no es la ruta raíz.
         ),
         body: fechasDePago.isEmpty
@@ -36,8 +36,8 @@ class _FechasDePagoState extends State<FechasDePago>  {
                     child: Column(
                       children: [
                         ListTile(
-                          title: Text('${pago.fechaDePago}'),
-                          subtitle: Text('${pago.monto} ARS'),
+                          title: Text('${pago.getFechaDePago()}'),
+                          subtitle: Text('${pago.getMonto()} ARS'),
                         ),
                       ],
                     ),

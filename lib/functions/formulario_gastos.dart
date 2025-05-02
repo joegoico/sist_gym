@@ -3,7 +3,7 @@ import 'package:intl/intl.dart'; // Asegúrate de tener la dependencia intl en p
 import 'package:sistema_gym/objetos/gasto.dart';
 
 class AgregarGastoForm extends StatefulWidget {
-  const AgregarGastoForm({Key? key}) : super(key: key);
+  const AgregarGastoForm({super.key});
 
   @override
   AgregarGastoFormState createState() => AgregarGastoFormState();
