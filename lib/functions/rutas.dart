@@ -16,25 +16,11 @@ final GoRouter router = GoRouter(
         // Usamos state.extra para el título, o un valor por defecto.
         final String title = state.extra as String? ?? 'Le Groupe Gym';
 
-        // Definimos las acciones para el AppBar solo en la ruta `/alumnos`.
-        List<Widget>? appBarActions;
-        if (state.matchedLocation == '/alumnos') {
-          appBarActions = [
-            Padding(padding: const EdgeInsets.only(right: 20),
-            child:ElevatedButton(
-              child: const Text('Nuevo pago'),
-              onPressed: () {
-                // Acción al presionar el botón.
-                // Por ejemplo, navegar a una pantalla para agregar un alumno:
-              },
-            ), ),
-          ];
-        }
+        // Definimos las acciones para el AppBar solo en la ruta `/alumnos`
 
         return BaseScaffold(
           title: title,
           child: child,
-          appBarActions: appBarActions,
         );
       },
       routes: [
