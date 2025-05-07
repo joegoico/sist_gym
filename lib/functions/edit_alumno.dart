@@ -15,40 +15,6 @@ class FormEditAlumnos extends StatefulWidget {
 
 class _FormEditAlumnosState extends State<FormEditAlumnos> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  late TextEditingController _fechaController;
-
-  @override
-  void initState() {
-    super.initState();
-    // Puedes formatear la fecha como prefieras; aquí se muestra en formato dd/MM/yyyy.
-    _fechaController = TextEditingController(
-      text: "${widget.alumno.getFechaUltimoPago().day.toString().padLeft(2, '0')}/${widget.alumno.getFechaUltimoPago().month.toString().padLeft(2, '0')}/${widget.alumno.getFechaUltimoPago().year}"
-    );
-  }
-    
-  @override
-  void dispose() {
-    _fechaController.dispose();
-    super.dispose();
-  }
-  Future<void> _selectDate() async {
-    DateTime? newSelectedDate = await showDatePicker(
-      context: context,
-      initialDate: widget.alumno.getFechaUltimoPago(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
-    );
-    if (newSelectedDate != null) {
-      setState(() {
-        widget.alumno.setFechaUltimoPago(newSelectedDate);
-        // Actualiza el controlador con la nueva fecha formateada
-        _fechaController.text =
-            "${newSelectedDate.day.toString().padLeft(2, '0')}/${newSelectedDate.month.toString().padLeft(2, '0')}/${newSelectedDate.year}";
-      });
-    }
-  }
-
-  
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
@@ -140,52 +106,7 @@ class _FormEditAlumnosState extends State<FormEditAlumnos> {
                 });
               },
             ),                   
-            const SizedBox(height: 20),
-            DropdownButtonFormField<Precio>(
-              decoration: const InputDecoration(
-                labelText: 'Cuota',
-                border: OutlineInputBorder(),
-              ),
-              value: widget.alumno.getCuota(),
-              items: widget.alumno.getDisciplina().getPrecios().map((precio){
-                return DropdownMenuItem<Precio>(
-                  value: precio,
-                  child: Text(
-                      '${precio.getPrecio().toStringAsFixed(2)} ARS - ${precio.getCantDias()} días'));
-              }).toList(), 
-              onChanged: (Precio? newValue){
-                setState(() {
-                  widget.alumno.setCuota(newValue!);
-                });
-              }),
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: _fechaController,
-              decoration: const InputDecoration(
-                labelText: 'Fecha del último pago',
-                border: OutlineInputBorder(),
-              ),
-              readOnly: true, // Esto evita que el usuario escriba manualmente
-              onTap: _selectDate, // Función que usará el date picker
-              validator: (value) =>
-                value == null || value.isEmpty ? 'Por favor, ingrese una fecha' : null,
-              // No necesitas onSaved aquí, ya que actualizas directamente en el objeto.
-            ),
-            const SizedBox(height: 20),
-            Row(
-              children: [
-                Switch(
-                  value: widget.alumno.getDescuento(),
-                  onChanged: (bool? value) {
-                    setState(() {
-                      widget.alumno.setDescuento(value!);
-                    });
-                  },
-                ),
-                const Text('Aplicar Descuento'),
-              ],
-            ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 16),           
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

@@ -34,18 +34,16 @@ class _PreciosPageState extends State<PreciosPage> {
     final precios = widget.disciplina.getPrecios();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Precios de ${widget.disciplina.getNombre()}'),
-        // El botón de retroceso se genera automáticamente si esta no es la ruta raíz.
-      ),
-      body: precios.isEmpty
+      backgroundColor: DefaultSelectionStyle.defaultColor,
+      body: 
+      precios.isEmpty
           ? const Center(
               child: Text(
                 "No hay precios agregados",
                 style: TextStyle(fontSize: 18),
               ),
             )
-          : ListView.builder(
+          : ListView.builder(          
               padding: const EdgeInsets.all(10),
               itemCount: precios.length,
               itemBuilder: (context, index) {

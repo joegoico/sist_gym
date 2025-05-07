@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sistema_gym/functions/formulario_alumnos.dart';
 import 'package:sistema_gym/objetos/alumno.dart';
+import 'package:sistema_gym/objetos/pago.dart';
 import 'package:sistema_gym/providers/alumnos_provider.dart';
 import 'package:sistema_gym/functions/edit_alumno.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sistema_gym/screens/fechas_de_pago.dart';
+import 'package:sistema_gym/functions/form_new_payment.dart';
 
 class Alumnos extends StatefulWidget {
   const Alumnos({super.key, required this.title});
@@ -60,6 +63,31 @@ class _AlumnosState extends State<Alumnos>   {
     }
   }
 
+  Future<void> _showRegistrarPagoForm(BuildContext context) async {
+    final result = await showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (BuildContext context) {
+        // Se espera que NuevoAlumnoForm retorne un objeto Alumno al cerrar
+        return  FormNewPayment();
+      },
+    );
+    if (result != null && result is Pago) {
+      setState(() {
+        // Aquí, dependiendo de cómo manejes los alumnos, 
+        // agrega el nuevo pago al alumno correspondiente.
+        // Por ejemplo, si tienes un objeto Alumno actual, podrías hacer:
+        // alumnoActual.agregarPago(result);
+        // O, si usas un Provider, algo como:
+        // Provider.of<AlumnosModel>(context, listen: false).agregarPagoParaAlumno(alumnoId, result);
+      });
+    }
+    // Si el formulario retorna un alumno, se agrega a la lista y se actualiza la UI
+  }
+
   @override
   Widget build(BuildContext context) {// Llama al método build de la clase padre
     final alumnosProvider = Provider.of<AlumnosModel>(context).alumnos; // Obtiene la lista de alumnos del provider
@@ -92,12 +120,7 @@ class _AlumnosState extends State<Alumnos>   {
                           children: [
                             IconButton(
                               onPressed: (){
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => FechasDePago(alumno: alumno, ),
-                                  ),
-                                );
+                                context.go('/pagos', extra: alumno);
                               }, 
                               icon: const Icon(Icons.calendar_month_rounded),),
                             IconButton(
@@ -127,19 +150,45 @@ class _AlumnosState extends State<Alumnos>   {
         Positioned(
           right: 20,
           bottom: 20,
-          child: RawMaterialButton(
-            onPressed: () {
-              _showNuevoAlumnoForm(context);
-            },
-            elevation: 2.0,
-            fillColor: const Color.fromARGB(255, 146, 181, 209),
-            padding: const EdgeInsets.all(15.0),
-            shape: const CircleBorder(),
-            child: const Icon(
+          child: PopupMenuButton<String>(
+            surfaceTintColor: Colors.yellow,
+            // Definimos el ícono o botón que se mostrará
+            icon: const Icon(
               Icons.add,
               size: 25.0,
               color: Colors.white,
             ),
+            // Opciones del menú: cada valor es una cadena identificativa
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+              PopupMenuItem<String>(
+                value: 'nuevoAlumno',
+                child: Row(
+                  children: const [
+                    Icon(Icons.person_add, color: Colors.black),
+                    SizedBox(width: 8),
+                    Text("Agregar Alumno"),
+                  ],
+                ),
+              ),
+              PopupMenuItem<String>(
+                value: 'registrarPago',
+                child: Row(
+                  children: const [
+                    Icon(Icons.payment, color: Colors.black),
+                    SizedBox(width: 8),
+                    Text("Registrar Pago"),
+                  ],
+                ),
+              ),
+            ],
+            // Al seleccionar una opción se ejecuta este callback
+            onSelected: (String selectedValue) {
+              if (selectedValue == 'nuevoAlumno') {
+                _showNuevoAlumnoForm(context);
+              } else if (selectedValue == 'registrarPago') {
+                _showRegistrarPagoForm(context);
+              }
+            },
           ),
         ),
       ],

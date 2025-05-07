@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:sistema_gym/objetos/alumno.dart';
 import 'package:sistema_gym/objetos/disciplina.dart';
+import 'package:sistema_gym/providers/disciplinas_provider.dart';
 import 'package:sistema_gym/objetos/pago.dart';
 import 'package:sistema_gym/objetos/precio.dart';
 import 'package:sistema_gym/providers/alumnos_provider.dart';
+import 'package:intl/intl.dart';
 import 'package:sistema_gym/providers/disciplinas_provider.dart';
 import 'package:provider/provider.dart';
 
 class FormNewPayment extends StatefulWidget {
-  final Alumno alumno;
-  const FormNewPayment({super.key, required this.alumno}
+  const FormNewPayment({super.key}
 );
 
   @override
@@ -18,78 +19,194 @@ class FormNewPayment extends StatefulWidget {
 
 class _FormNewPaymentState extends State<FormNewPayment> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _montoController = TextEditingController();
   final TextEditingController _fechaController = TextEditingController();
+  DateTime? _fechaPago;
   Disciplina? _selectedDiscipline;
+  Alumno? _selectedAlumno; // Almacena el alumno seleccionado
   Precio? _selectedPrice;
+  bool applyDiscount = false; // Variable para aplicar descuento
+
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime? newSelectedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+    if (newSelectedDate != null) {
+      setState(() {
+        _fechaPago = newSelectedDate;
+      // Formatea la fecha para mostrarla en el TextFormField
+      _fechaController.text =
+          DateFormat('dd/MM/yyyy').format(newSelectedDate);
+
+      });
+    }
+  }
+
+  void _submitForm(){
+    if (_formKey.currentState!.validate() && _fechaPago != null && _selectedAlumno != null) {
+      _formKey.currentState!.save();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.green,
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.check_circle, color: Colors.white),
+              SizedBox(width: 10),
+              Text('Pago registrado con éxito', style: TextStyle(color: Colors.white)),
+            ],
+          ),
+          duration: Duration(seconds: 2),
+        ),
+      ); // Guarda 
+      // Suponiendo que Pago es un objeto que representa el pago
+      Pago nuevoPago = Pago(
+        id: 1, // Genera o asigna el id según corresponda
+        monto: _selectedPrice!.getPrecio(), // Cambia el monto según la lógica de descuento
+        fechaDePago: _fechaPago!,
+        descuento: applyDiscount,
+      );
+      _selectedAlumno!.agregarFechaDePago(nuevoPago);
+      Navigator.pop(context, nuevoPago);
+    }
+  }
+  
+  
+
 
   @override
   Widget build(BuildContext context) {
     final disciplinasProvider = Provider.of<DisciplinasProvider>(context).disciplinas; // Obtiene la lista de disciplinas del provider
-    return SingleChildScrollView(
+    final alumnosProvider = Provider.of<AlumnosModel>(context).alumnos; // Obtiene la lista de alumnos del provider
+    return Padding(
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+        left: 16,
+        right: 16,
+        top: 16,
+      ),
       child: Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            
-            TextFormField(
-              controller: _fechaController,
-              decoration: const InputDecoration(labelText: 'Fecha'),
-              keyboardType: TextInputType.datetime,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Por favor ingrese una fecha';
-                }
-                return null;
-              },
+        child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+                left: 16,
+                right: 16,
+                top: 16,
+              ),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    const Text( 'Nuevo Pago', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                    TextFormField(
+                      controller: _fechaController,
+                      decoration: const InputDecoration(
+                        labelText: 'Fecha de pago',
+                        border: OutlineInputBorder(),
+                        suffixIcon: Icon(Icons.calendar_month_rounded),
+                      ),
+                      readOnly: true, // Esto evita que el usuario escriba manualmente
+                      onTap: (){
+                        _selectDate(context); // Llama a la función para seleccionar la fecha
+                      }, // Función que usará el date picker
+                      validator: (value) =>
+                        value == null || value.isEmpty ? 'Por favor, ingrese una fecha' : null,
+                      // No necesitas onSaved aquí, ya que actualizas directamente en el objeto.
+                    ),
+                    const SizedBox(height: 10),
+                    DropdownButtonFormField<Alumno>(
+                      decoration: const InputDecoration(
+                        labelText: 'Alumno',
+                        border: OutlineInputBorder(),
+                      ),
+                      items: alumnosProvider.map((Alumno alumno) {
+                        return DropdownMenuItem<Alumno>(
+                          value: alumno,
+                          child: Text(alumno.getNombre()),
+                        );
+                      }).toList(),
+                      onChanged: (Alumno? newValue) {
+                        setState(() {
+                          _selectedAlumno = newValue;
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 10),     
+                    DropdownButtonFormField<Disciplina>(
+                      value: _selectedDiscipline, // Asignar el valor de la disciplina del alumno
+                      decoration: const InputDecoration(
+                        labelText: 'Disciplina',
+                        border: OutlineInputBorder()),
+                      items: disciplinasProvider.map((Disciplina disciplina) {
+                        return DropdownMenuItem<Disciplina>(
+                          value: disciplina,
+                          child: Text(disciplina.getNombre()),
+                        );
+                      }).toList(),
+                      onChanged: (Disciplina? newValue) {
+                        setState(() {
+                          _selectedDiscipline = newValue;
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    DropdownButtonFormField<Precio>(
+                      value: _selectedDiscipline?.getPrecios().first, // Asignar el valor del precio del alumno
+                      decoration: const InputDecoration(
+                        labelText: 'Precio',
+                        border: OutlineInputBorder()),
+                      items: _selectedDiscipline?.getPrecios().map((Precio precio) {
+                        return DropdownMenuItem<Precio>(
+                          value: precio,
+                          child: Text(
+                                '${precio.getPrecio().toStringAsFixed(2)} ARS - ${precio.getCantDias()} días'),
+                        );
+                      }).toList(),
+                      onChanged: (Precio? newValue) {
+                        setState(() {
+                          _selectedPrice = newValue;
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Switch(
+                          value: applyDiscount,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              applyDiscount = value ?? false;
+                            });
+                          },
+                        ),
+                        const Text('Aplicar Descuento'),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton(
+                          onPressed: _submitForm,                          
+                          child: const Text('Guardar Pago'),
+                        ),
+                        const SizedBox(width: 10),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context); // Cerrar el formulario sin guardar
+                          },
+                          child: const Text('Cancelar'),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),                   
+                  ],
+                ),
+              ),
             ),
-            DropdownButtonFormField<Disciplina>(
-              value: widget.alumno.getDisciplina(), // Asignar el valor de la disciplina del alumno
-              hint: const Text('Seleccione una disciplina'),
-              items: disciplinasProvider.map((Disciplina disciplina) {
-                return DropdownMenuItem<Disciplina>(
-                  value: disciplina,
-                  child: Text(disciplina.getNombre()),
-                );
-              }).toList(),
-              onChanged: (Disciplina? newValue) {
-                setState(() {
-                  _selectedDiscipline = newValue;
-                });
-              },
-            ),
-            DropdownButtonFormField<Precio>(
-              value: _selectedDiscipline?.getPrecios().first, // Asignar el valor del precio del alumno
-              hint: const Text('Seleccione un precio'),
-              items: _selectedDiscipline?.getPrecios().map((Precio precio) {
-                return DropdownMenuItem<Precio>(
-                  value: precio,
-                  child: Text(precio.getPrecio().toString() + ' ' + precio.getCantDias().toString()),
-                );
-              }).toList(),
-              onChanged: (Precio? newValue) {
-                setState(() {
-                  _selectedPrice = newValue;
-                });
-              },
-            ),
-            ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  // Aquí puedes manejar el envío del formulario
-                  Pago nuevoPago = Pago(
-                    id: 1,
-                    monto: double.parse(_montoController.text),
-                    fechaDePago: DateTime.parse(_fechaController.text),
-                    descuento: widget.alumno.getDescuento(), // Asignar el ID de la disciplina
-                  );
-                  // Guardar el nuevo pago en la base de datos o en el provider
-                  Navigator.pop(context, nuevoPago);
-                }
-              },
-              child: const Text('Guardar Pago'),
-            ),
-          ],
         ),
       ),
     );

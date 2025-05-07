@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sistema_gym/objetos/alumno.dart';
 import 'package:sistema_gym/objetos/pago.dart';
+import 'package:intl/intl.dart';
 
 
 class FechasDePago extends StatefulWidget {
@@ -15,10 +16,6 @@ class _FechasDePagoState extends State<FechasDePago>  {
   Widget build(BuildContext context) {
     final List<Pago> fechasDePago = widget.alumno.getPagosRealizados();
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Pagos de ${widget.alumno.getNombre()}' ' ${widget.alumno.getApellido()}'),
-          // El botón de retroceso se genera automáticamente si esta no es la ruta raíz.
-        ),
         body: fechasDePago.isEmpty
             ? const Center(
                 child: Text(
@@ -36,7 +33,7 @@ class _FechasDePagoState extends State<FechasDePago>  {
                     child: Column(
                       children: [
                         ListTile(
-                          title: Text('${pago.getFechaDePago()}'),
+                          title: Text('${DateFormat('dd/MM/yyyy').format(pago.getFechaDePago())}'),
                           subtitle: Text('${pago.getMonto()} ARS'),
                         ),
                       ],

@@ -7,13 +7,17 @@ class BaseScaffold extends StatelessWidget {
   final Widget child;
   final Widget? navigationBar; // propiedad opcional para la Navigation Bar // propiedad opcional para el FAB
   final List<Widget>? appBarActions; // propiedad opcional para el AppBar
+  final Widget? leading;
+  final bool showDrawer; // propiedad opcional para el Drawer
 
   const BaseScaffold({
     super.key,
     required this.title,
     required this.child,
+    required this.showDrawer,
     this.navigationBar,
     this.appBarActions,
+    this.leading,
   });
 
   @override
@@ -24,11 +28,23 @@ class BaseScaffold extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
         title: Text(title),
+        // Si se inyecta un widget leading, se usa; de lo contrario,
+        // se genera el ícono de menú (drawer) si showDrawer es true.
+        leading: leading ??
+            (showDrawer
+                ? Builder(
+                    builder: (context) => IconButton(
+                      icon: const Icon(Icons.menu),
+                      onPressed: () => Scaffold.of(context).openDrawer(),
+                    ),
+                  )
+                : null),
         actions: appBarActions,
-        centerTitle: false,
       ),
+
       // Drawer común
-      drawer: Drawer(
+      drawer: showDrawer ?  
+        Drawer(
         backgroundColor: const Color.fromARGB(255, 195, 225, 233),
         elevation: 16,
         child: ListView(
@@ -77,7 +93,7 @@ class BaseScaffold extends StatelessWidget {
             ),
           ],
         ),
-      ),
+      ) : null, // Si no se necesita el Drawer, se establece en null
       // Contenido variable
     body: child,
     bottomNavigationBar: 

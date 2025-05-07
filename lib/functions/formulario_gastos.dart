@@ -49,12 +49,6 @@ class AgregarGastoFormState extends State<AgregarGastoForm> {
   void _submitForm() {
     if (_formKey.currentState!.validate() && _fecha != null) {
       _formKey.currentState!.save();
-      // Aquí procesas los datos, por ejemplo:
-      debugPrint("Gasto guardado:");
-      debugPrint("Título: $_titulo");
-      debugPrint("Monto: $_monto");
-      debugPrint("Fecha: ${DateFormat('dd/MM/yyyy').format(_fecha!)}");
-      debugPrint("Descripción: $_descripcion");
 
       ScaffoldMessenger.of(context).showSnackBar(
         const  SnackBar(
