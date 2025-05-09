@@ -1,60 +1,87 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class NavigationBarApp extends StatefulWidget {
-  // Esta clase representa una barra de navegación personalizada.
+class CustomBottomNavigationBar extends StatelessWidget {
+  const CustomBottomNavigationBar({Key? key}) : super(key: key);
 
+  // Definimos las rutas, íconos y etiquetas de la barra.
+  static const List<String> navRoutes = [
+    '/alumnos',
+    '/deudores',
+  ];
 
-  const NavigationBarApp({
-    super.key,
+  static const List<IconData> navIcons = [
+    Icons.people_alt_rounded,
+    Icons.money_off_rounded,
+  ];
 
-  });
+  static const List<String> navLabels = [
+    'Alumnos',
+    'Deudores',
+  ];
 
-  @override
-  State<NavigationBarApp> createState() => _NavigationBarAppState();
-}
-
-class _NavigationBarAppState extends State<NavigationBarApp> {
-  int currentIndex = 0; // Inicializa el índice actual a 0
-  void goToRouteNavigation(int index, BuildContext context) {
-    switch (index) {
-      case 0:
-        context.go('/alumnos', extra: 'Alumnos');
-        break;
-      case 1:
-        context.go('/deudores',extra: 'Deudores');  
-        break;
-      default:
-        context.go('/alumnos',extra: 'Alumnos');
-    }
-  }
   @override
   Widget build(BuildContext context) {
-    // Imprimir el valor actual y el callback (aunque este último solo
-    // mostrará la referencia de la función)
+    // Obtenemos la localización actual
+    final String currentLocation = GoRouter.of(context).location;
 
-    return NavigationBar(
-      height: 60,
-      selectedIndex: currentIndex,
-      indicatorColor: Colors.blue,
-      backgroundColor: Colors.redAccent,
-      onDestinationSelected: (int index) {
-        setState((){
-          currentIndex = index;
-        });
-        goToRouteNavigation(index,context);
-      },
-      destinations: const [
-        NavigationDestination(
-          icon: Icon(Icons.people_alt_rounded),
-          label: 'Alumnos',
-        ),
-        NavigationDestination(
-          icon: Icon(Icons.money_off_rounded),
-          label: 'Deudores',
-          
-        ),
-      ],
+    // Determinamos si la ruta actual está en la lista de la navegación.
+    int? selectedIndex;
+    for (int i = 0; i < navRoutes.length; i++) {
+      if (currentLocation.startsWith(navRoutes[i])) {
+        selectedIndex = i;
+        break;
+      }
+    }
+    
+    // Si la ruta actual no está en navRoutes, isInNavPages será false,
+    // y ninguno de los íconos se resaltará.
+    final bool isInNavPages = selectedIndex != null;
+    
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 4,
+          )
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: List.generate(navRoutes.length, (index) {
+          // Si estamos en alguna de las páginas de la barra, resalta el que esté seleccionado.
+          final bool isSelected =
+              isInNavPages && selectedIndex == index;
+          final iconColor = isSelected ? Colors.blue : Colors.grey;
+
+          return InkWell(
+            onTap: () {
+              // Navega a la ruta correspondiente.
+              context.go(navRoutes[index]);
+            },
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  navIcons[index],
+                  color: iconColor,
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  navLabels[index],
+                  style: TextStyle(
+                    color: iconColor,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          );
+        }),
+      ),
     );
   }
 }

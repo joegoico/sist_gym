@@ -43,6 +43,7 @@ class _FormNewPaymentState extends State<FormNewPayment> {
       });
     }
   }
+  
 
   void _submitForm(){
     if (_formKey.currentState!.validate() && _fechaPago != null && _selectedAlumno != null) {
@@ -153,8 +154,7 @@ class _FormNewPaymentState extends State<FormNewPayment> {
                       },
                     ),
                     const SizedBox(height: 10),
-                    DropdownButtonFormField<Precio>(
-                      value: _selectedDiscipline?.getPrecios().first, // Asignar el valor del precio del alumno
+                    DropdownButtonFormField<Precio>( // Asignar el valor del precio del alumno
                       decoration: const InputDecoration(
                         labelText: 'Precio',
                         border: OutlineInputBorder()),

@@ -5,8 +5,7 @@ import 'screens/custom_navigation_bar.dart';
 class BaseScaffold extends StatelessWidget {
   final String title;
   final Widget child;
-  final Widget? navigationBar; // propiedad opcional para la Navigation Bar // propiedad opcional para el FAB
-  final List<Widget>? appBarActions; // propiedad opcional para el AppBar
+  final Widget? customBottomNavigationBar; // propiedad opcional para la Navigation Bar // propiedad opcional para el FAB
   final Widget? leading;
   final bool showDrawer; // propiedad opcional para el Drawer
 
@@ -15,8 +14,7 @@ class BaseScaffold extends StatelessWidget {
     required this.title,
     required this.child,
     required this.showDrawer,
-    this.navigationBar,
-    this.appBarActions,
+    this.customBottomNavigationBar,
     this.leading,
   });
 
@@ -39,7 +37,6 @@ class BaseScaffold extends StatelessWidget {
                     ),
                   )
                 : null),
-        actions: appBarActions,
       ),
 
       // Drawer común
@@ -97,8 +94,7 @@ class BaseScaffold extends StatelessWidget {
       // Contenido variable
     body: child,
     bottomNavigationBar: 
-      NavigationBarApp(
-        
+      CustomBottomNavigationBar(    
       ),
     );
   }

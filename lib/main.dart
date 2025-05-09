@@ -1,20 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart'; // Importa esto para initializeDateFormatting
 import 'package:provider/provider.dart';
 import 'functions/rutas.dart'; // Tus rutas ya definidas
 import 'package:sistema_gym/providers/alumnos_provider.dart';
 import 'package:sistema_gym/providers/gastos_provider.dart';
-import 'package:sistema_gym/providers/precios_provider.dart'; // El modelo de alumnos que creamos
+import 'package:sistema_gym/providers/precios_provider.dart';
 import 'package:sistema_gym/providers/disciplinas_provider.dart';
 
-void main() {
+Future<void> main() async {
+  // Asegura la inicialización de los bindings de Flutter
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Inicializa los datos de fecha para el locale 'es_ES'
+  await initializeDateFormatting('es_ES', null);
+
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<AlumnosModel>(create: (_) => AlumnosModel(),),
-        ChangeNotifierProvider<GastosProvider>(create: (_) => GastosProvider(),),
-        ChangeNotifierProvider<PreciosProvider>(create: (_) => PreciosProvider(),),
-        ChangeNotifierProvider<DisciplinasProvider>(create: (_) => DisciplinasProvider(),),
-        // Puedes agregar más providers aquí si es necesario
+        ChangeNotifierProvider<AlumnosModel>(
+          create: (_) => AlumnosModel(),
+        ),
+        ChangeNotifierProvider<GastosProvider>(
+          create: (_) => GastosProvider(),
+        ),
+        ChangeNotifierProvider<PreciosProvider>(
+          create: (_) => PreciosProvider(),
+        ),
+        ChangeNotifierProvider<DisciplinasProvider>(
+          create: (_) => DisciplinasProvider(),
+        ),
       ],
       child: const MyApp(),
     ),
@@ -35,7 +49,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Color.fromARGB(255, 34, 111, 121),
         ),
       ),
-      routerConfig: router, // Usamos el widget que integra las pestañas con TabBar/TabBarView
+      routerConfig: router, // Tus rutas definidas
     );
   }
 }

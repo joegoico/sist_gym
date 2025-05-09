@@ -37,7 +37,7 @@ class Alumno {
   }
 
   void agregarFechaDePago(Pago fechaDePago) {
-    _pagosRealizados.add(fechaDePago);
+    insertPagoOrdered(_pagosRealizados, fechaDePago);
   }
 
   String getNombre() {
@@ -58,5 +58,24 @@ class Alumno {
   }
   Disciplina getDisciplina() {
     return _disciplina;
+  }
+
+  void insertPagoOrdered(List<Pago> pagos, Pago newPago) {
+  // Si la lista está vacía, simplemente agrega el nuevo pago.
+    if (pagos.isEmpty) {
+      pagos.add(newPago);
+      return;
+    }
+    
+    // Encuentra el índice en que el nuevo pago debe insertarse.
+    // Compara las fechas y si newPago es anterior a un pago existente, se inserta justo antes.
+    int indexToInsert = pagos.indexWhere((pago) => newPago.getFechaDePago().isBefore(pago.getFechaDePago()));
+    
+    if (indexToInsert == -1) {
+      // Si no se encontró ningún elemento cuyo pago sea posterior a newPago, se agrega al final.
+      pagos.add(newPago);
+    } else {
+      pagos.insert(indexToInsert, newPago);
+    }
   }
 }
