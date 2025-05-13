@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sistema_gym/objetos/alumno.dart';
 import 'package:sistema_gym/objetos/pago.dart';
 import 'package:intl/intl.dart';
+import 'package:sistema_gym/providers/finanzas_provider.dart';
 
 class FechasDePago extends StatefulWidget {
   final Alumno alumno;
@@ -12,6 +14,31 @@ class FechasDePago extends StatefulWidget {
 }
 
 class _FechasDePagoState extends State<FechasDePago> {
+
+  Future<bool?> showDeletePagoDialog(BuildContext context, Pago pago) async{
+    return showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirmar Eliminación'),
+          content: Text(
+            '¿Estás seguro de eliminar el pago de ${pago.getMonto()}?',
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('Eliminar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<Pago> fechasDePago = widget.alumno.getPagosRealizados();
@@ -35,20 +62,51 @@ class _FechasDePagoState extends State<FechasDePago> {
 
                 return Card(
                   margin: const EdgeInsets.only(bottom: 8),
-                  child: ListTile(
-                    title: Text(mes),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Fecha de pago: ${DateFormat('dd/MM/yyyy').format(pago.getFechaDePago())}',
+                  child: Column(
+                    children: [
+                      // Aquí se muestran los datos del pago
+                      ListTile(
+                        title: Text(mes),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Fecha de pago: ${DateFormat('dd/MM/yyyy').format(pago.getFechaDePago())}',
+                            ),
+                            Text(
+                              '${pago.getMonto()} ARS',
+                            ),
+                          ],
                         ),
-                        Text(
-                          '${pago.getMonto() } ARS',
-                        ),
-                      ],
-                    ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.edit),
+                            onPressed: () {
+                              // Aquí puedes agregar la lógica para editar el pago.
+                            },
+                          ),
+                          const SizedBox(width: 8),
+                          IconButton(
+                            icon: const Icon(Icons.delete),
+                            onPressed: () async{
+                              final confirmacion = await showDeletePagoDialog(context, pago);
+                              if (confirmacion!) {
+                                setState(() {
+                                  Provider.of<FinanzasProvider>(context, listen: false).eliminarPago(pago);
+                                  widget.alumno.eliminarFechaDePago(pago);
+                                });
+                              }
+                              // Aquí puedes agregar la lógica para eliminar el pago.
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
+                  
                 );
               },
             ),

@@ -6,8 +6,8 @@ import 'package:sistema_gym/objetos/pago.dart';
 import 'package:sistema_gym/objetos/precio.dart';
 import 'package:sistema_gym/providers/alumnos_provider.dart';
 import 'package:intl/intl.dart';
-import 'package:sistema_gym/providers/disciplinas_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:sistema_gym/providers/finanzas_provider.dart';
 
 class FormNewPayment extends StatefulWidget {
   const FormNewPayment({super.key}
@@ -43,6 +43,7 @@ class _FormNewPaymentState extends State<FormNewPayment> {
       });
     }
   }
+
   
 
   void _submitForm(){
@@ -69,8 +70,10 @@ class _FormNewPaymentState extends State<FormNewPayment> {
         fechaDePago: _fechaPago!,
         descuento: applyDiscount,
       );
-      _selectedAlumno!.agregarFechaDePago(nuevoPago);
-      Navigator.pop(context, nuevoPago);
+            // Si el usuario confirma, agrega el pago
+            _selectedAlumno!.agregarFechaDePago(nuevoPago);
+            Provider.of<FinanzasProvider>(context, listen: false).agregarPago(nuevoPago);
+            Navigator.pop(context, nuevoPago);
     }
   }
   

@@ -6,6 +6,7 @@ import 'package:sistema_gym/providers/alumnos_provider.dart';
 import 'package:sistema_gym/providers/gastos_provider.dart';
 import 'package:sistema_gym/providers/precios_provider.dart';
 import 'package:sistema_gym/providers/disciplinas_provider.dart';
+import 'package:sistema_gym/providers/finanzas_provider.dart';
 
 Future<void> main() async {
   // Asegura la inicialización de los bindings de Flutter
@@ -28,6 +29,9 @@ Future<void> main() async {
         ),
         ChangeNotifierProvider<DisciplinasProvider>(
           create: (_) => DisciplinasProvider(),
+        ),
+        ChangeNotifierProvider<FinanzasProvider>(
+          create: (_) => FinanzasProvider(),
         ),
       ],
       child: const MyApp(),

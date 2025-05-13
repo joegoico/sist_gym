@@ -29,6 +29,30 @@ class _PreciosPageState extends State<PreciosPage> {
     }
   }
 
+    Future<bool?> showDeletePrecioDialog(BuildContext context, Precio precio) {
+    return showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirmar Eliminación'),
+          content: Text(
+            '¿Estás seguro de eliminar el precio?',
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('Eliminar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final precios = widget.disciplina.getPrecios();
@@ -67,10 +91,24 @@ class _PreciosPageState extends State<PreciosPage> {
                           ),
                           IconButton(
                             icon: const Icon(Icons.delete),
-                            onPressed: () {
-                              setState(() {
-                                widget.disciplina.eliminarPrecio(precio);
-                              });
+                            onPressed: () async {
+                              final confirmacion = await showDeletePrecioDialog(context, precio);
+                              if (confirmacion == true) {
+                                setState(() {
+                                  widget.disciplina.eliminarPrecio(precio);
+                                });
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content:Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.check_circle, color: Colors.green),
+                                    SizedBox(width: 8),
+                                    Text('Precio eliminado con éxito'),
+                                  ],
+                                  ) 
+                                ),
+                              );
+                              }
                             },
                           ),
                         ],

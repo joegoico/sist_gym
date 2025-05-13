@@ -4,6 +4,7 @@ import 'package:sistema_gym/functions/formulario_gastos.dart';
 import 'package:sistema_gym/objetos/gasto.dart';
 import 'package:sistema_gym/providers/gastos_provider.dart';
 import 'package:sistema_gym/functions/form_edit_gastos.dart';
+import 'package:intl/intl.dart';
 class Gastos extends StatefulWidget {
   const Gastos({super.key});
 
@@ -46,60 +47,93 @@ class _GastosState extends State<Gastos>   {
       });
     }
   }
+
+  Future<bool?> showDeleteGastoDialog(BuildContext context, Gasto gasto) {
+    return showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirmar Eliminación'),
+          content: Text(
+            '¿Estás seguro de eliminar el gasto "${gasto.getTitulo()}"?',
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('Eliminar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // Obtiene la lista de gastos del provider
-    final gastosProvider = Provider.of<GastosProvider>(context).gastos;
+    final gastosProvider = Provider.of<GastosProvider>(context).gastosPorMes;
+
+    final List<String> mesesOrdenados = gastosProvider.keys.toList()
+      ..sort((a, b) {
+        // Para ordenar, obtenemos el número del mes desde los gastos del map.
+        // Si la lista está vacía, regresamos 0.
+        final int mesA = gastosProvider[a]!.isNotEmpty ? gastosProvider[a]!.first.getFecha().month : 0;
+        final int mesB = gastosProvider[b]!.isNotEmpty ? gastosProvider[b]!.first.getFecha().month : 0;
+        return mesA.compareTo(mesB);
+      });
+
     // Mantiene el estado de la pantalla al cambiar de pestaña
   return Stack(
     children: [
-      // El contenido principal.
-      gastosProvider.isEmpty
-        ? const Center(
-            child: Text(
-              "No hay gastos agregados",
-              style: TextStyle(fontSize: 18),
-            ),
-          )
-        : ListView.builder(
-            padding: const EdgeInsets.all(10),
-            itemCount: gastosProvider.length,
-            itemBuilder: (context, index) {
-              final gasto = gastosProvider[index];
-              return Card(
-                margin: const EdgeInsets.only(bottom: 8),
-                child: Column(
-                  children: [
-                    // Aquí se muestran los datos del alumno
-                    ListTile(
-                      title: Text('${gasto.getTitulo()} '),
-                      subtitle: Text('${gasto.getMonto()} ARS'),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.edit),
-                          onPressed: () {
-                            _showEditGastoForm(context, gasto);
-                          },
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            // Aquí puedes agregar la lógica para eliminar el alumno
-                            setState(() {
-                              Provider.of<GastosProvider>(context, listen: false).eliminarGasto(gasto);
-                            });
-                          },
-                          icon: const Icon(Icons.delete),
-                        ),
-                      ],
-                    )// Aquí se pueden agregar más widgets o información del alumno
-                  ],
+      mesesOrdenados.isEmpty
+      ? const Center(
+          child: Text(
+          "No hay gastos registrados",
+          style: TextStyle(fontSize: 18),
+        ))
+      : ListView.builder(
+          itemCount: mesesOrdenados.length,
+          itemBuilder: (context, index) {
+            final mes = mesesOrdenados[index];
+            final List<Gasto> gastosDelMes = gastosProvider[mes]!;
+            
+            return Card(
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              child: ExpansionTile(
+                title: Text(
+                  mes,
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-              );
-            },
-          ),
+                children: gastosDelMes.map((Gasto gasto) {
+                  String fechaFormateada = DateFormat('dd/MM/yyyy').format(gasto.getFecha());
+                  return ListTile(
+                    leading: IconButton(
+                        onPressed:() => _showEditGastoForm(context, gasto),
+                        icon: const Icon(Icons.edit),
+                      ),
+                    title: Text(gasto.getTitulo()),
+                    subtitle: Text("Fecha: $fechaFormateada • Monto: \$${gasto.getMonto().toStringAsFixed(2)}"),
+                    trailing: 
+                      IconButton(
+                        onPressed:()  => showDeleteGastoDialog(context, gasto).then((value) {
+                          if (value == true) {
+                            setState(() {
+                              Provider.of<GastosProvider>(context,listen: false,).eliminarGasto(gasto);
+                            });
+                          }
+                        }),
+                        icon: const Icon(Icons.delete_forever),
+                      ),
+                    );
+                }).toList(),
+              ),
+            );
+          },
+        ),
       Positioned(
         right: 20,
         bottom: 20,
@@ -119,7 +153,7 @@ class _GastosState extends State<Gastos>   {
             ),
           ),
         ),
-      ],
+      ]
     );
   } // Mantiene el estado de la pantalla al cambiar de pestaña
 }

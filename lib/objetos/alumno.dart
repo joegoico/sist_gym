@@ -1,4 +1,4 @@
-// This file contains the Alumno class, which represents a student in the system.
+
 import 'package:sistema_gym/objetos/disciplina.dart';
 import 'package:sistema_gym/objetos/pago.dart';
 class Alumno {
@@ -38,6 +38,10 @@ class Alumno {
 
   void agregarFechaDePago(Pago fechaDePago) {
     insertPagoOrdered(_pagosRealizados, fechaDePago);
+  }
+
+  void eliminarFechaDePago(Pago fechaDePago) {
+    _pagosRealizados.remove(fechaDePago);
   }
 
   String getNombre() {

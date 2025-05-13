@@ -6,7 +6,6 @@ import 'package:sistema_gym/objetos/pago.dart';
 import 'package:sistema_gym/providers/alumnos_provider.dart';
 import 'package:sistema_gym/functions/edit_alumno.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sistema_gym/screens/fechas_de_pago.dart';
 import 'package:sistema_gym/functions/form_new_payment.dart';
 
 class Alumnos extends StatefulWidget {
@@ -77,16 +76,33 @@ class _AlumnosState extends State<Alumnos>   {
     );
     if (result != null && result is Pago) {
       setState(() {
-        // Aquí, dependiendo de cómo manejes los alumnos, 
-        // agrega el nuevo pago al alumno correspondiente.
-        // Por ejemplo, si tienes un objeto Alumno actual, podrías hacer:
-        // alumnoActual.agregarPago(result);
-        // O, si usas un Provider, algo como:
-        // Provider.of<AlumnosModel>(context, listen: false).agregarPagoParaAlumno(alumnoId, result);
       });
     }
-    // Si el formulario retorna un alumno, se agrega a la lista y se actualiza la UI
   }
+
+Future<bool?> showDeleteAlumnoDialog(BuildContext context, Alumno alumno) {
+  return showDialog<bool>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Confirmar Eliminación'),
+        content: Text(
+          '¿Estás seguro de eliminar al alumno "${alumno.getNombre()} ${alumno.getApellido()}"? Esta acción borrará todos sus datos asociados.',
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Cancelar'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('Eliminar'),
+          ),
+        ],
+      );
+    },
+  );
+}
 
   @override
   Widget build(BuildContext context) {// Llama al método build de la clase padre
@@ -130,13 +146,24 @@ class _AlumnosState extends State<Alumnos>   {
                               icon: const Icon(Icons.edit),
                             ),
                             IconButton(
-                              onPressed: () {
-                                // Aquí puedes agregar la lógica para eliminar el alumno
-                                setState(() {
-                                  Provider.of<AlumnosModel>(context, listen: false)
-                                      .eliminarAlumno(alumno);
-                                });
-                              },
+                                onPressed: () async {
+                                  bool? confirmado = await showDeleteAlumnoDialog(context, alumno);
+                                  if (confirmado == true) {
+                                    if (!mounted) return;
+                                    Provider.of<AlumnosModel>(context, listen: false).eliminarAlumno(alumno);
+                                    if (!mounted) return;
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(content:Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Icon(Icons.check_circle, color: Colors.green),
+                                          SizedBox(width: 8),
+                                          Text('Alumno eliminado con éxito'),
+                                        ],
+                                      ) ),
+                                    );
+                                  }
+                                },                      
                               icon: const Icon(Icons.delete),
                             ),
                           ],

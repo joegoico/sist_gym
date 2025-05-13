@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sistema_gym/objetos/alumno.dart';
-import 'package:sistema_gym/objetos/precio.dart';
 import 'package:sistema_gym/providers/disciplinas_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:sistema_gym/objetos/disciplina.dart';

@@ -5,7 +5,6 @@ import 'package:sistema_gym/objetos/disciplina.dart';
 import 'package:sistema_gym/functions/form_edit_disciplina.dart';
 import 'package:sistema_gym/providers/disciplinas_provider.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sistema_gym/screens/precios.dart';
 
 class DiscplinasPage extends StatefulWidget {
   const DiscplinasPage({super.key, required this.title});
@@ -61,6 +60,30 @@ class _DiscplinasPageState extends State<DiscplinasPage> {
     }
   }
 
+  Future<bool?> showDeleteDisciplinaDialog(BuildContext context, Disciplina disciplina) async {
+    return showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirmar Eliminación'),
+          content: Text(
+            '¿Estás seguro de eliminar la disciplina "${disciplina.getNombre()}"?',
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('Eliminar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final disciplinasProvider = Provider.of<DisciplinasProvider>(context).disciplinas; // Obtiene la lista de disciplinas del provider
@@ -91,9 +114,23 @@ class _DiscplinasPageState extends State<DiscplinasPage> {
                         children: [
                           IconButton(
                             icon: const Icon(Icons.delete),
-                            onPressed: () {
+                            onPressed: () async{
+                              final confirmacion = await showDeleteDisciplinaDialog(context, disciplina);
+                              if (confirmacion!){
+                                Provider.of<DisciplinasProvider>(context, listen: false).eliminarDisciplina(disciplina);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content:Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.check_circle, color: Colors.green),
+                                    SizedBox(width: 8),
+                                    Text('Disciplina eliminada con éxito'),
+                                  ],
+                                  ) 
+                                ),
+                              );
+                              } // Si no se confirma la eliminación, no se hace nada
                               // Elimina la disciplina de la lista
-                              Provider.of<DisciplinasProvider>(context, listen: false).eliminarDisciplina(disciplina);
                             },
                           ),
                           IconButton(
