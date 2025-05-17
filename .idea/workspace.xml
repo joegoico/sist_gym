@@ -5,37 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b11ef80-8358-4741-942e-5e09d911c898" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/screens/plantilla_de_pago.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/BrowsingTopicsState" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/BrowsingTopicsState" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/DIPS" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/DIPS" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/dartpad/web_plugin_registrant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/dartpad/web_plugin_registrant.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/version" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/version" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/android/settings.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/cache.dill.track.dill" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/NOTICES" beforeDir="false" afterPath="$PROJECT_DIR$/build/flutter_assets/NOTICES" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/shaders/ink_sparkle.frag" beforeDir="false" afterPath="$PROJECT_DIR$/build/flutter_assets/shaders/ink_sparkle.frag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/base_scaffold.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/base_scaffold.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/functions/form_agregar_disciplina.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/functions/form_agregar_disciplina.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/functions/formulario_gastos.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/functions/formulario_gastos.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/functions/rutas.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/functions/rutas.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/functions/form_new_payment.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/functions/form_new_payment.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/functions/formulario_alumnos.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/functions/formulario_alumnos.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/alumnos.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/alumnos.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/custom_navigation_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/custom_navigation_bar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/deudores.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/deudores.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/disciplinas.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/disciplinas.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/finanzas.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/finanzas.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/gastos.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/gastos.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/precios.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/precios.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sistema_gym.iml" beforeDir="false" afterPath="$PROJECT_DIR$/sistema_gym.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -21,10 +21,12 @@ class BaseScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
+      backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh,
       // AppBar común
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
+        shadowColor: Theme.of(context).colorScheme.shadow,
+        elevation: 2,
         title: Text(title, style:  TextStyle(color: Theme.of(context).colorScheme.onPrimary) ),
         // Si se inyecta un widget leading, se usa; de lo contrario,
         // se genera el ícono de menú (drawer) si showDrawer es true.
@@ -42,14 +44,14 @@ class BaseScaffold extends StatelessWidget {
       // Drawer común
       drawer: showDrawer ?  
         Drawer(
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 16,
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
+             DrawerHeader(
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 253, 253, 253),
+                color: Theme.of(context).colorScheme.primary,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -58,7 +60,7 @@ class BaseScaffold extends StatelessWidget {
                   SizedBox(height: 10),
                   Text(
                     'Le Groupe Gym',
-                    style: TextStyle(color: Colors.black, fontSize: 24),
+                    style: TextStyle(color: Theme.of(context).colorScheme.onTertiary, fontSize: 24),
                   ),
                 ],
               ),
@@ -91,7 +93,7 @@ class BaseScaffold extends StatelessWidget {
             Divider(height: 5.0,color: Theme.of(context).colorScheme.outlineVariant),
             ListTile(
               leading: const Icon(Icons.payment_outlined),
-              title: const  Text('Suscripcion'),
+              title: const  Text('Pagar suscripcion'),
               onTap: () {
                 Navigator.of(context).pop(); // Cierra el Drawer antes de navegar
                 context.go('/metodoDePago', extra: 'Suscripcion');

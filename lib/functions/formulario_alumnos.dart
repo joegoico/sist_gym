@@ -79,7 +79,7 @@ class _NuevoAlumnoFormState extends State<NuevoAlumnoForm> {
                   children: [
                     const Text(
                       'Nuevo Alumno',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
                     ),
                     const SizedBox(height: 10),
                     TextFormField(
@@ -174,17 +174,23 @@ class _NuevoAlumnoFormState extends State<NuevoAlumnoForm> {
                       children: [
                         Expanded(
                           child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context).colorScheme.primary,
+                            ),
                             onPressed: _submitForm,
-                            child: const Text('Guardar'),
+                            child:  Text('Guardar',style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),),
                           ),
                         ),
                         const SizedBox(width: 16),
                         Expanded(
                           child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+                            ),
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: const Text('Cancelar'),
+                            child:  Text('Cancelar',style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer),),
                           ),
                         ),
                       ],

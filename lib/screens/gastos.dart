@@ -102,7 +102,7 @@ class _GastosState extends State<Gastos>   {
             final List<Gasto> gastosDelMes = gastosProvider[mes]!;
             
             return Card(
-              //color: Theme.of(context).colorScheme.tertiary,
+              color: Theme.of(context).colorScheme.surfaceContainerLow,
               shadowColor: Theme.of(context).colorScheme.shadow,
               margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: ExpansionTile(

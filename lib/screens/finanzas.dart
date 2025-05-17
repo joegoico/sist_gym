@@ -45,7 +45,7 @@ class _FinanzasState extends State<Finanzas> {
           ?.fold(0.0, (sum, gasto) => sum! + (gasto.getMonto() ?? 0.0)) ?? 0.0;
         
         return Card(
-          color: Theme.of(context).colorScheme.surfaceContainerHigh,
+          color: Theme.of(context).colorScheme.surfaceContainerLow,
           shadowColor: Theme.of(context).colorScheme.shadow,
           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: ExpansionTile(

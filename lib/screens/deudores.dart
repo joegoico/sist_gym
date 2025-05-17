@@ -6,10 +6,10 @@ class Deudores extends StatefulWidget {
   @override
   State<Deudores> createState() => _DeudoresState();
 }
-class _DeudoresState extends State<Deudores> with AutomaticKeepAliveClientMixin {
+class _DeudoresState extends State<Deudores>  {
   @override
   Widget build(BuildContext context) {
-    super.build(context); // Llama al método build de la clase padre
+
     return Center(
       child: Center(
         child: Text(
@@ -19,6 +19,5 @@ class _DeudoresState extends State<Deudores> with AutomaticKeepAliveClientMixin 
       ),
     );
   }
-  @override
-  bool get wantKeepAlive => true; // Mantiene el estado de la pestaña
+// Mantiene el estado de la pestaña
 }

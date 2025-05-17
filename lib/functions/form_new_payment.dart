@@ -192,17 +192,19 @@ class _FormNewPaymentState extends State<FormNewPayment> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        ElevatedButton(
+                        Expanded(
+                        child: ElevatedButton(
                           onPressed: _submitForm,                          
                           child: const Text('Guardar Pago'),
-                        ),
-                        const SizedBox(width: 10),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.pop(context); // Cerrar el formulario sin guardar
-                          },
-                          child: const Text('Cancelar'),
-                        ),
+                        )),
+                        const SizedBox(width: 15,),
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.pop(context); // Cerrar el formulario sin guardar
+                            },
+                            child: const Text('Cancelar'),
+                          ),)
                       ],
                     ),
                     const SizedBox(height: 10),                   

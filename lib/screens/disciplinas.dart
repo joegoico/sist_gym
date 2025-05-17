@@ -103,7 +103,7 @@ class _DiscplinasPageState extends State<DiscplinasPage> {
               itemBuilder: (context, index) {
                 final disciplina = disciplinasProvider[index];
                 return Card(
-                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                  color: Theme.of(context).colorScheme.surfaceContainerLow,
                   shadowColor: Theme.of(context).colorScheme.shadow,
                   margin: const EdgeInsets.only(bottom: 8),
                   child: Column(
