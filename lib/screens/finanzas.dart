@@ -45,7 +45,7 @@ class _FinanzasState extends State<Finanzas> {
           ?.fold(0.0, (sum, gasto) => sum! + (gasto.getMonto() ?? 0.0)) ?? 0.0;
         
         return Card(
-          color: Theme.of(context).colorScheme.surfaceContainerLow,
+          color: Theme.of(context).colorScheme.primaryContainer,
           shadowColor: Theme.of(context).colorScheme.shadow,
           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: ExpansionTile(
@@ -60,21 +60,45 @@ class _FinanzasState extends State<Finanzas> {
             ),
             children: [
               ListTile(
-                title: Text("Total Ingresos: \$${montoDelMes.toStringAsFixed(2)}"),
-              ),
-              ListTile(
-                title: Text("Total Gastos: \$${gastosDelMes.toStringAsFixed(2)}"),
-                trailing: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.tertiary,
+              title: Text.rich(
+                TextSpan(
+                  style: const TextStyle(color: Colors.black), // Estilo por defecto
+                  children: [
+                  const TextSpan(text: "Total Ingresos: "),
+                  TextSpan(
+                    text: "\$ ${montoDelMes.toStringAsFixed(2)}",
+                    style: const TextStyle(color: Colors.green), // Solo el monto en verde
                   ),
-                  onPressed: () => context.go('/gastos'), 
-                  child: Text("Ver gastos", style: TextStyle(color: Theme.of(context).colorScheme.onTertiary)) ),
+                  ],
+                ),
               ),
-            ],
-          ),
-
-        );
+            ),
+            ListTile(
+              title: Text.rich(
+                TextSpan(
+                  style: const TextStyle(color: Colors.black), // Estilo por defecto
+                  children: [
+                    const TextSpan(text: "Total Gastos: "),
+                    TextSpan(
+                      text: "\$ ${gastosDelMes.toStringAsFixed(2)}",
+                      style: const TextStyle(color: Colors.red), // Solo el monto en rojo
+                    ),
+                  ],
+                ),
+              ),
+              trailing: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).colorScheme.tertiary,
+              ),
+                onPressed: () => context.go('/gastos'),
+                child: Text(
+                  "Ver gastos",
+                  style: TextStyle(color: Theme.of(context).colorScheme.onTertiary),
+                ),
+              ),
+            ),
+          ],
+        ),);
       },
     );
   }

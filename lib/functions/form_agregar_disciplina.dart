@@ -78,21 +78,26 @@ class _NuevaDisciplinaFormState extends State<NuevaDisciplinaForm> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.tertiary,
-                  ),
-                  onPressed: _submitForm,
-                  child:  Text('Guardar',style: TextStyle(color: Theme.of(context).colorScheme.onTertiary)),
-                ),
-                ElevatedButton(
+                Expanded(
+                  child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
                     ),
-                  onPressed:(){
-                    Navigator.pop(context);
-                  },
-                  child:  Text('Cancelar',style: TextStyle(color: Theme.of(context).colorScheme.onTertiaryContainer)),
+                    onPressed: _submitForm,
+                    child:  Text('Guardar',style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),),
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child:  Text('Cancelar',style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer),),
+                  ),
                 ),
               ],
             ),

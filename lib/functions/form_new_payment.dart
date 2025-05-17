@@ -194,16 +194,22 @@ class _FormNewPaymentState extends State<FormNewPayment> {
                       children: [
                         Expanded(
                         child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Theme.of(context).colorScheme.primary,
+                          ),
                           onPressed: _submitForm,                          
-                          child: const Text('Guardar Pago'),
+                          child:  Text('Guardar Pago',style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),),
                         )),
                         const SizedBox(width: 15,),
                         Expanded(
                           child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+                            ),
                             onPressed: () {
                               Navigator.pop(context); // Cerrar el formulario sin guardar
                             },
-                            child: const Text('Cancelar'),
+                            child:  Text('Cancelar',style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer),),
                           ),)
                       ],
                     ),

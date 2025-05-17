@@ -168,24 +168,29 @@ class AgregarGastoFormState extends State<AgregarGastoForm> {
             const SizedBox(height: 24),
             Row( 
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                ),
-                onPressed: _submitForm,
-                child:  Text("Guardar",style: TextStyle(color: Theme.of(context).colorScheme.onPrimary)),
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-                ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child:  Text('Cancelar',style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer)),
-                ),
-            ],)
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                      ),
+                      onPressed: _submitForm,
+                      child:  Text('Guardar',style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child:  Text('Cancelar',style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer),),
+                    ),
+                  ),
+                ],)
           ],
         ),
       ),

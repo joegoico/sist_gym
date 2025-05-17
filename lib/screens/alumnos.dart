@@ -123,7 +123,7 @@ Future<bool?> showDeleteAlumnoDialog(BuildContext context, Alumno alumno) {
                 itemBuilder: (context, index) {
                   final alumno = alumnosProvider[index];
                   return Card(
-                    color: Theme.of(context).colorScheme.surfaceContainerLow,
+                    color: Theme.of(context).colorScheme.primaryContainer,
                     shadowColor: Theme.of(context).colorScheme.shadow,
                     margin: const EdgeInsets.only(bottom: 8),
                     child: Column(
@@ -136,19 +136,17 @@ Future<bool?> showDeleteAlumnoDialog(BuildContext context, Alumno alumno) {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Theme.of(context).colorScheme.tertiary,
-                                ),
+                            IconButton(
+                                icon:  Icon(Icons.calendar_month_sharp,color: Theme.of(context).colorScheme.secondary),
                                 onPressed: (){
                                   context.go('/pagos', extra: alumno);
                                 },
-                                child: Text('Pagos', style: TextStyle(color: Theme.of(context).colorScheme.onTertiary))),
+                                ),
                             IconButton(
                               onPressed: () {
                                 _showEditAlumnoForm(context, alumno);
                               },
-                              icon:  Icon(Icons.edit,color: Theme.of(context).colorScheme.tertiary),
+                              icon:  Icon(Icons.edit,color: Theme.of(context).colorScheme.secondary),
                             ),
                             IconButton(
                                 onPressed: () async {
@@ -169,7 +167,7 @@ Future<bool?> showDeleteAlumnoDialog(BuildContext context, Alumno alumno) {
                                     );
                                   }
                                 },                      
-                              icon:  Icon(Icons.delete, color: Theme.of(context).colorScheme.tertiary),
+                              icon:  Icon(Icons.delete, color: Theme.of(context).colorScheme.secondary),
                             ),
                           ],
                         )// Aquí se pueden agregar más widgets o información del alumno
