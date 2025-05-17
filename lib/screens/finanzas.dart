@@ -45,15 +45,18 @@ class _FinanzasState extends State<Finanzas> {
           ?.fold(0.0, (sum, gasto) => sum! + (gasto.getMonto() ?? 0.0)) ?? 0.0;
         
         return Card(
+          color: Theme.of(context).colorScheme.surfaceContainerHigh,
+          shadowColor: Theme.of(context).colorScheme.shadow,
           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: ExpansionTile(
+            shape: RoundedRectangleBorder(),
             title: Text(
               mes,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style:  TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Theme.of(context).colorScheme.onSurface),
             ),
             subtitle: Text(
               "Balance del mes de $mes : \$${(montoDelMes - gastosDelMes).toStringAsFixed(2)}",
-              style: const TextStyle(fontSize: 16),
+              style:  TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
             children: [
               ListTile(
@@ -62,8 +65,11 @@ class _FinanzasState extends State<Finanzas> {
               ListTile(
                 title: Text("Total Gastos: \$${gastosDelMes.toStringAsFixed(2)}"),
                 trailing: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.tertiary,
+                  ),
                   onPressed: () => context.go('/gastos'), 
-                  child: Text("Ver gastos") ),
+                  child: Text("Ver gastos", style: TextStyle(color: Theme.of(context).colorScheme.onTertiary)) ),
               ),
             ],
           ),

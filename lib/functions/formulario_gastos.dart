@@ -167,17 +167,23 @@ class AgregarGastoFormState extends State<AgregarGastoForm> {
             ),
             const SizedBox(height: 24),
             Row( 
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                ),
                 onPressed: _submitForm,
-                child: const Text("Guardar"),
+                child:  Text("Guardar",style: TextStyle(color: Theme.of(context).colorScheme.onPrimary)),
               ),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+                ),
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Text('Cancelar'),
+                  child:  Text('Cancelar',style: TextStyle(color: Theme.of(context).colorScheme.onSecondaryContainer)),
                 ),
             ],)
           ],

@@ -41,13 +41,13 @@ class CustomBottomNavigationBar extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: const [
+        color: Theme.of(context).colorScheme.surfaceContainerHigh,
+        boxShadow: [
           BoxShadow(
-            color: Colors.black12,
-            blurRadius: 4,
-          )
-        ],
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 1,
+            blurRadius: 3,)]
+
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -55,12 +55,12 @@ class CustomBottomNavigationBar extends StatelessWidget {
           // Si estamos en alguna de las páginas de la barra, resalta el que esté seleccionado.
           final bool isSelected =
               isInNavPages && selectedIndex == index;
-          final iconColor = isSelected ? Colors.blue : Colors.grey;
+          final iconColor = isSelected ? Theme.of(context).colorScheme.tertiary : Colors.grey;
 
           return InkWell(
             onTap: () {
               // Navega a la ruta correspondiente.
-              context.go(navRoutes[index]);
+              context.go(navRoutes[index], extra: navLabels[index]);
             },
             child: Column(
               mainAxisSize: MainAxisSize.min,

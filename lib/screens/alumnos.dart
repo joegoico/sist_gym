@@ -123,6 +123,8 @@ Future<bool?> showDeleteAlumnoDialog(BuildContext context, Alumno alumno) {
                 itemBuilder: (context, index) {
                   final alumno = alumnosProvider[index];
                   return Card(
+                    color: Theme.of(context).colorScheme.surfaceContainerHigh,
+                    shadowColor: Theme.of(context).colorScheme.shadow,
                     margin: const EdgeInsets.only(bottom: 8),
                     child: Column(
                       children: [
@@ -138,12 +140,12 @@ Future<bool?> showDeleteAlumnoDialog(BuildContext context, Alumno alumno) {
                               onPressed: (){
                                 context.go('/pagos', extra: alumno);
                               }, 
-                              icon: const Icon(Icons.calendar_month_rounded),),
+                              icon:  Icon(Icons.calendar_month_rounded,color: Theme.of(context).colorScheme.tertiary)),
                             IconButton(
                               onPressed: () {
                                 _showEditAlumnoForm(context, alumno);
                               },
-                              icon: const Icon(Icons.edit),
+                              icon:  Icon(Icons.edit,color: Theme.of(context).colorScheme.tertiary),
                             ),
                             IconButton(
                                 onPressed: () async {
@@ -164,7 +166,7 @@ Future<bool?> showDeleteAlumnoDialog(BuildContext context, Alumno alumno) {
                                     );
                                   }
                                 },                      
-                              icon: const Icon(Icons.delete),
+                              icon:  Icon(Icons.delete, color: Theme.of(context).colorScheme.tertiary),
                             ),
                           ],
                         )// Aquí se pueden agregar más widgets o información del alumno
@@ -178,32 +180,32 @@ Future<bool?> showDeleteAlumnoDialog(BuildContext context, Alumno alumno) {
           right: 20,
           bottom: 20,
           child: PopupMenuButton<String>(
-            surfaceTintColor: Colors.yellow,
+            color: Theme.of(context).colorScheme.primaryContainer,
             // Definimos el ícono o botón que se mostrará
-            icon: const Icon(
+            icon:  Icon(
               Icons.add,
               size: 25.0,
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.primary,
             ),
             // Opciones del menú: cada valor es una cadena identificativa
             itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
               PopupMenuItem<String>(
                 value: 'nuevoAlumno',
                 child: Row(
-                  children: const [
-                    Icon(Icons.person_add, color: Colors.black),
+                  children:  [
+                    Icon(Icons.person_add, color: Theme.of(context).colorScheme.onPrimaryContainer),
                     SizedBox(width: 8),
-                    Text("Agregar Alumno"),
+                    Text("Agregar Alumno", style: TextStyle(color: Theme.of(context).colorScheme.onPrimaryContainer)),
                   ],
                 ),
               ),
               PopupMenuItem<String>(
                 value: 'registrarPago',
                 child: Row(
-                  children: const [
-                    Icon(Icons.payment, color: Colors.black),
+                  children:  [
+                    Icon(Icons.payment, color: Theme.of(context).colorScheme.onPrimaryContainer),
                     SizedBox(width: 8),
-                    Text("Registrar Pago"),
+                    Text("Registrar Pago", style: TextStyle(color: Theme.of(context).colorScheme.onPrimaryContainer)),
                   ],
                 ),
               ),

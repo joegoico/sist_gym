@@ -21,18 +21,18 @@ class BaseScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.brown,
+      backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
       // AppBar común
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
-        title: Text(title),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        title: Text(title, style:  TextStyle(color: Theme.of(context).colorScheme.onPrimary) ),
         // Si se inyecta un widget leading, se usa; de lo contrario,
         // se genera el ícono de menú (drawer) si showDrawer es true.
         leading: leading ??
             (showDrawer
                 ? Builder(
                     builder: (context) => IconButton(
-                      icon: const Icon(Icons.menu),
+                      icon:  Icon(Icons.menu, color: Theme.of(context).colorScheme.onPrimary,),
                       onPressed: () => Scaffold.of(context).openDrawer(),
                     ),
                   )
@@ -42,14 +42,14 @@ class BaseScaffold extends StatelessWidget {
       // Drawer común
       drawer: showDrawer ?  
         Drawer(
-        backgroundColor: const Color.fromARGB(255, 195, 225, 233),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         elevation: 16,
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
             const DrawerHeader(
               decoration: BoxDecoration(
-                color: Color.fromARGB(235, 30, 148, 132),
+                color: Color.fromARGB(255, 253, 253, 253),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -58,7 +58,7 @@ class BaseScaffold extends StatelessWidget {
                   SizedBox(height: 10),
                   Text(
                     'Le Groupe Gym',
-                    style: TextStyle(color: Colors.white, fontSize: 24),
+                    style: TextStyle(color: Colors.black, fontSize: 24),
                   ),
                 ],
               ),
@@ -88,6 +88,17 @@ class BaseScaffold extends StatelessWidget {
                 context.go('/gastos', extra: 'Gastos');
               }
             ),
+            Divider(height: 5.0,color: Theme.of(context).colorScheme.outlineVariant),
+            ListTile(
+              leading: const Icon(Icons.payment_outlined),
+              title: const  Text('Suscripcion'),
+              onTap: () {
+                Navigator.of(context).pop(); // Cierra el Drawer antes de navegar
+                context.go('/metodoDePago', extra: 'Suscripcion');
+              }
+
+            ),
+            Divider(height: 5.0,color: Theme.of(context).colorScheme.outlineVariant),
           ],
         ),
       ) : null, // Si no se necesita el Drawer, se establece en null

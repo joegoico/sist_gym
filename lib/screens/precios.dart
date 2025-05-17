@@ -58,7 +58,6 @@ class _PreciosPageState extends State<PreciosPage> {
     final precios = widget.disciplina.getPrecios();
 
     return Scaffold(
-      backgroundColor: DefaultSelectionStyle.defaultColor,
       body: 
       precios.isEmpty
           ? const Center(
@@ -73,6 +72,8 @@ class _PreciosPageState extends State<PreciosPage> {
               itemBuilder: (context, index) {
                 final precio = precios[index];
                 return Card(
+                  color: Theme.of(context).colorScheme.surface,
+                  shadowColor: Theme.of(context).colorScheme.shadow,
                   margin: const EdgeInsets.only(bottom: 8),
                   child: Column(
                     children: [
@@ -119,8 +120,9 @@ class _PreciosPageState extends State<PreciosPage> {
               },
             ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         onPressed: () => _showNuevoPrecioForm(context),
-        child: const Icon(Icons.add),
+        child:  Icon(Icons.add,color: Theme.of(context).colorScheme.onPrimaryContainer,),
       ),
     );
   }

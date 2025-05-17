@@ -102,6 +102,8 @@ class _GastosState extends State<Gastos>   {
             final List<Gasto> gastosDelMes = gastosProvider[mes]!;
             
             return Card(
+              //color: Theme.of(context).colorScheme.tertiary,
+              shadowColor: Theme.of(context).colorScheme.shadow,
               margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: ExpansionTile(
                 title: Text(
@@ -143,13 +145,13 @@ class _GastosState extends State<Gastos>   {
               _showNuevoGastoForm(context);// Acción al presionar.
             },
             elevation: 2.0,
-            fillColor: Colors.blue,
+            fillColor: Theme.of(context).colorScheme.primaryContainer,
             padding: EdgeInsets.all(15.0),
             shape: CircleBorder(),
             child: Icon(
               Icons.add,
               size: 25.0,
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
             ),
           ),
         ),

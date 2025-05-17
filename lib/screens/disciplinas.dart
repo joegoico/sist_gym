@@ -103,6 +103,8 @@ class _DiscplinasPageState extends State<DiscplinasPage> {
               itemBuilder: (context, index) {
                 final disciplina = disciplinasProvider[index];
                 return Card(
+                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                  shadowColor: Theme.of(context).colorScheme.shadow,
                   margin: const EdgeInsets.only(bottom: 8),
                   child: Column(
                     children: [
@@ -158,13 +160,13 @@ class _DiscplinasPageState extends State<DiscplinasPage> {
                   _showNuevaDisciplinaForm(context);
                 },
                 elevation: 2.0,
-                fillColor: const Color.fromARGB(255, 146, 181, 209),
+                fillColor: Theme.of(context).colorScheme.primaryContainer,
                 padding: const EdgeInsets.all(15.0),
                 shape: const CircleBorder(),
-                child: const Icon(
+                child:  Icon(
                   Icons.add,
                   size: 25.0,
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
                 ),
               ),
             ),

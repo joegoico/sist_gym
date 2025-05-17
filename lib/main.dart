@@ -44,13 +44,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Se define el esquema de colores:
+    final ColorScheme colorScheme = ColorScheme.fromSeed(
+      seedColor: Colors.indigo,
+      brightness: Brightness.light,
+    );
+
     return MaterialApp.router(
       title: 'Le Groupe Gym',
       theme: ThemeData(
         useMaterial3: true,
-        colorSchemeSeed: Colors.deepPurple,
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color.fromARGB(255, 34, 111, 121),
+        colorScheme: colorScheme,
+        appBarTheme: AppBarTheme(
+          backgroundColor: colorScheme.primary,
         ),
       ),
       routerConfig: router, // Tus rutas definidas
