@@ -47,4 +47,45 @@ class FinanzasProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  String _getMesKey(Pago pago) {
+    String key = DateFormat('MMMM', 'es_ES').format(pago.getFechaDePago());
+    key = '${key[0].toUpperCase()}${key.substring(1)}';
+    return key;
+  }
+
+  double _calculoDeMontos(Pago oldPay, Pago newPay){
+    // Si el mes no cambió, simplemente actualizamos la diferencia en ese mes.
+    if (_getMesKey(oldPay) == _getMesKey(newPay)) {
+      if (_pagosPorMes.containsKey(_getMesKey(oldPay))) {
+        return  _pagosPorMes[_getMesKey(oldPay)]! - oldPay.getMonto() + newPay.getMonto();
+      }
+    } else {
+      // Si el mes cambió:
+      // Restar el monto del pago original del mes antiguo.
+      if (_pagosPorMes.containsKey(_getMesKey(oldPay))) {
+        _pagosPorMes[_getMesKey(oldPay)]= _pagosPorMes[_getMesKey(oldPay)]! - oldPay.getMonto();
+      }
+
+      // Sumar el monto del nuevo pago al mes nuevo.
+      if (_pagosPorMes.containsKey(_getMesKey(newPay))) {
+        return _pagosPorMes[_getMesKey(newPay)]! + newPay.getMonto();
+      } else {
+        // En caso de que no exista aún la clave para el mes nuevo
+        return newPay.getMonto();
+      }
+    }
+    return 0;
+
+  }
+
+  void editarPago(Pago pago, Pago nuevoPago) {
+    // Obtener la clave del mes del pago original.
+    if(_getMesKey(pago)==_getMesKey(nuevoPago)){
+      _pagosPorMes[_getMesKey(pago)] = _calculoDeMontos(pago, nuevoPago);
+    }else{
+      _pagosPorMes[_getMesKey(nuevoPago)] = _calculoDeMontos(pago, nuevoPago);
+    }
+    notifyListeners();
+  }
 }

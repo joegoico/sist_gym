@@ -16,6 +16,7 @@ class _FinanzasState extends State<Finanzas> {
   Widget build(BuildContext context) {
   final finanzasProvider = Provider.of<FinanzasProvider>(context).pagosPorMes; 
   final gastosProvider = Provider.of<GastosProvider>(context).gastosPorMes;
+  final theme = Theme.of(context);
 
     // Mapa para convertir nombres de meses a números.
     // Esto es útil para ordenar los meses correctamente.
@@ -45,24 +46,24 @@ class _FinanzasState extends State<Finanzas> {
           ?.fold(0.0, (sum, gasto) => sum! + (gasto.getMonto() ?? 0.0)) ?? 0.0;
         
         return Card(
-          color: Theme.of(context).colorScheme.primaryContainer,
-          shadowColor: Theme.of(context).colorScheme.shadow,
+          color: theme.colorScheme.primaryContainer,
+          shadowColor: theme.colorScheme.shadow,
           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: ExpansionTile(
             shape: RoundedRectangleBorder(),
             title: Text(
               mes,
-              style:  TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Theme.of(context).colorScheme.onSurface),
+              style:  TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: theme.colorScheme.onSurface),
             ),
             subtitle: Text(
               "Balance del mes de $mes : \$${(montoDelMes - gastosDelMes).toStringAsFixed(2)}",
-              style:  TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.onSurfaceVariant),
+              style:  TextStyle(fontSize: 16, color: theme.colorScheme.onSurfaceVariant),
             ),
             children: [
               ListTile(
               title: Text.rich(
                 TextSpan(
-                  style: const TextStyle(color: Colors.black), // Estilo por defecto
+                  style:  TextStyle(color: theme.colorScheme.onSurface), // Estilo por defecto
                   children: [
                   const TextSpan(text: "Total Ingresos: "),
                   TextSpan(
@@ -76,7 +77,7 @@ class _FinanzasState extends State<Finanzas> {
             ListTile(
               title: Text.rich(
                 TextSpan(
-                  style: const TextStyle(color: Colors.black), // Estilo por defecto
+                  style:  TextStyle(color: theme.colorScheme.onSurface), // Estilo por defecto
                   children: [
                     const TextSpan(text: "Total Gastos: "),
                     TextSpan(
@@ -88,12 +89,12 @@ class _FinanzasState extends State<Finanzas> {
               ),
               trailing: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.tertiary,
+                backgroundColor: theme.colorScheme.tertiary,
               ),
                 onPressed: () => context.go('/gastos'),
                 child: Text(
                   "Ver gastos",
-                  style: TextStyle(color: Theme.of(context).colorScheme.onTertiary),
+                  style: TextStyle(color: theme.colorScheme.onTertiary),
                 ),
               ),
             ),

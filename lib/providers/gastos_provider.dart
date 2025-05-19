@@ -26,11 +26,11 @@ class GastosProvider extends ChangeNotifier {
   }
 
   void eliminarGasto(Gasto gasto) {
-    String mesKey = DateFormat('MMMM', 'es_ES').format(gasto.getFecha());
-    mesKey = '${mesKey[0].toUpperCase()}${mesKey.substring(1)}';
+    String mesKey = _getMesKey(gasto);
     if (_gastosPorMes.containsKey(mesKey)) {
-      _gastosPorMes[mesKey]!.remove(gasto);
-      // Si la lista queda vacía, puedes eliminar la clave.
+      // Se elimina buscando el gasto cuyo id coincida con el del gasto a eliminar.
+      _gastosPorMes[mesKey]!.removeWhere((g) => g.getId() == gasto.getId());
+      // Si la lista queda vacía, se elimina la clave.
       if (_gastosPorMes[mesKey]!.isEmpty) {
         _gastosPorMes.remove(mesKey);
       }
@@ -38,11 +38,34 @@ class GastosProvider extends ChangeNotifier {
     }
   }
 
-  void editarGasto(Gasto gasto, Gasto nuevoGasto) {
-    // Este método puede implicar eliminar el gasto antiguo y agregar el nuevo,
-    // en caso de que cambie la fecha (y por ende, el mes).
-    eliminarGasto(gasto);
-    agregarGasto(nuevoGasto);
+  String _getMesKey(Gasto gasto) {
+    String key = DateFormat('MMMM', 'es_ES').format(gasto.getFecha());
+    key = '${key[0].toUpperCase()}${key.substring(1)}';
+    return key;
+  }
+
+  void editarGasto(Gasto oldGasto, Gasto newGasto) {
+    if(_getMesKey(oldGasto)==_getMesKey(newGasto)){
+      int index = _gastosPorMes[_getMesKey(oldGasto)]!.indexWhere(
+            (gasto) => gasto.getId() == oldGasto.getId(),
+      );
+      if (index != -1) {
+        // Se actualiza el total restando el monto antiguo y sumando el nuevo,
+        // usando el gasto que se encuentra en ese índice.
+         _gastosPorMes[_getMesKey(oldGasto)]![index]=newGasto;
+      }
+    }else{
+      if(_gastosPorMes.containsKey(_getMesKey(oldGasto))) {
+        eliminarGasto(oldGasto);
+      }
+      if(_gastosPorMes.containsKey(_getMesKey(newGasto))){
+        agregarGasto(newGasto);
+      }
+      else{
+        agregarGasto(newGasto);
+      }
+    }
+    notifyListeners();
   }
   void insertGastoOrdered( Gasto newGasto, String mesKey) {
     // Si la lista está vacía, simplemente agrega el nuevo gasto.

@@ -3,7 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:sistema_gym/objetos/alumno.dart';
 import 'package:sistema_gym/objetos/pago.dart';
 import 'package:intl/intl.dart';
+import 'package:sistema_gym/providers/alumnos_provider.dart';
 import 'package:sistema_gym/providers/finanzas_provider.dart';
+import 'package:sistema_gym/functions/form_edit_pago.dart';
 
 class FechasDePago extends StatefulWidget {
   final Alumno alumno;
@@ -37,6 +39,31 @@ class _FechasDePagoState extends State<FechasDePago> {
         );
       },
     );
+  }
+
+  void _showEditPagoForm(BuildContext context, Pago pago) async{
+    final pagoOriginal = pago.copy();
+    final result = await showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        builder: (BuildContext context) {
+          return FormEditPago(pago: pago.copy(), precios: widget.alumno.getDisciplina().getPrecios());
+        }
+        );
+    if (result != null && result is Pago) {
+      setState(() {
+        final  List<Pago> pagosActualizados = widget.alumno.getPagosRealizados();
+        final int index = pagosActualizados.indexWhere((p) => p.getId() == pago.getId());
+        if (index != -1) {
+          pagosActualizados[index] = result; // Reemplaza el pago editado
+        }
+        Provider.of<FinanzasProvider>(context,listen: false,).editarPago(pagoOriginal,result);
+        Provider.of<AlumnosModel>(context,listen: false,).updatePago(widget.alumno,pagosActualizados);
+      });
+    }
   }
 
   @override
@@ -83,14 +110,14 @@ class _FechasDePagoState extends State<FechasDePago> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           IconButton(
-                            icon: const Icon(Icons.edit),
+                            icon:  Icon(Icons.edit,color: Theme.of(context).colorScheme.scrim),
                             onPressed: () {
-                              // Aquí puedes agregar la lógica para editar el pago.
+                              _showEditPagoForm(context, pago);
                             },
                           ),
                           const SizedBox(width: 8),
                           IconButton(
-                            icon: const Icon(Icons.delete),
+                            icon:  Icon(Icons.delete,color: Theme.of(context).colorScheme.scrim),
                             onPressed: () async{
                               final confirmacion = await showDeletePagoDialog(context, pago);
                               if (confirmacion!) {

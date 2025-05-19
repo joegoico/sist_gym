@@ -1,6 +1,7 @@
 // modelo_alumnos.dart
 import 'package:flutter/foundation.dart';
 import 'package:sistema_gym/objetos/disciplina.dart'; // Tu modelo Alumno
+import 'package:sistema_gym/objetos/precio.dart';
 
 class DisciplinasProvider extends ChangeNotifier {
   final List<Disciplina> disciplina = [];
@@ -21,6 +22,13 @@ class DisciplinasProvider extends ChangeNotifier {
     if (index != -1) {
       disciplina[index] = disci;
 
+      notifyListeners();
+    }
+  }
+  void updatePrecio(Disciplina d, int indexPrecio, Precio nuevoPrecio) {
+    int indexDisciplina = disciplina.indexOf(d);
+    if (indexDisciplina != -1) {
+      disciplina[indexDisciplina].updatePrecio(indexPrecio, nuevoPrecio);
       notifyListeners();
     }
   }

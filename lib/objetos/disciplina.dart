@@ -37,4 +37,8 @@ class Disciplina {
   void setId(int id) {
     _id = id;
   }
+
+  void updatePrecio(int index, Precio precio) {
+    _precios[index] = precio;
+  }
 }

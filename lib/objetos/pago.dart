@@ -34,5 +34,7 @@ class Pago{
   bool getDescuento() {
     return _descuento;
   }
-  
+  Pago copy(){
+    return Pago(id: _id, fechaDePago: _fechaDePago, monto: _monto, descuento: _descuento);
+  }
 }

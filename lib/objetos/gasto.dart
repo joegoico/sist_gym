@@ -1,4 +1,5 @@
 class Gasto {
+  int _id;
   String _titulo;
   double _monto;
   DateTime _fecha;
@@ -8,8 +9,10 @@ class Gasto {
     required String titulo,
     required double monto,
     required DateTime fecha,
+    required int id,
     String? descripcion,
-  })  : _titulo = titulo,
+  })  : _id = id,
+        _titulo = titulo,
         _monto = monto,
         _fecha = fecha,
         _descripcion = descripcion;
@@ -27,6 +30,8 @@ class Gasto {
       titulo: json['titulo'],
       monto: json['monto'],
       fecha: DateTime.parse(json['fecha']),
+      id: json['id'],
+      descripcion: json['descripcion'],
     );
   }
   void setTitulo(String titulo) {
@@ -37,6 +42,9 @@ class Gasto {
   }
   void setFecha(DateTime fecha) {
     _fecha = fecha;
+  }
+  void setId(int id) {
+    _id = id;
   }
   void setDescripcion(String descripcion) {
     _descripcion = descripcion;
@@ -52,5 +60,17 @@ class Gasto {
   }
   DateTime getFecha() {
     return _fecha;
+  }
+  int getId() {
+    return _id;
+  }
+
+  Gasto copy(){
+    return Gasto(
+      titulo: _titulo,
+      monto: _monto,
+      fecha: _fecha,
+      id: _id,
+      descripcion: _descripcion,);
   }
 }

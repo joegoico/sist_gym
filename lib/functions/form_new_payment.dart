@@ -193,12 +193,12 @@ class _FormNewPaymentState extends State<FormNewPayment> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Expanded(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).colorScheme.primary,
-                          ),
-                          onPressed: _submitForm,                          
-                          child:  Text('Guardar Pago',style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context).colorScheme.primary,
+                            ),
+                            onPressed: _submitForm,
+                            child:  Text('Guardar Pago',style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),),
                         )),
                         const SizedBox(width: 15,),
                         Expanded(

@@ -1,6 +1,7 @@
 // modelo_alumnos.dart
 import 'package:flutter/foundation.dart';
-import 'package:sistema_gym/objetos/alumno.dart'; // Tu modelo Alumno
+import 'package:sistema_gym/objetos/alumno.dart';
+import 'package:sistema_gym/objetos/pago.dart';// Tu modelo Alumno
 
 class AlumnosModel extends ChangeNotifier {
   final List<Alumno> _alumnos = [];
@@ -25,5 +26,14 @@ class AlumnosModel extends ChangeNotifier {
     }
   }
 
-  // Agrega otros métodos, como eliminar o editar, si los necesitas
+  void updatePago (Alumno alumno, List<Pago> pagosActualizados){
+    int index = _alumnos.indexOf(alumno);
+    if (index != -1) {
+      _alumnos[index].actualizarPagos(pagosActualizados);
+      notifyListeners();
+    }
+  }
+
+
+// Agrega otros métodos, como eliminar o editar, si los necesitas
 }

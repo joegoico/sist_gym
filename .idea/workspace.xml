@@ -5,25 +5,41 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b11ef80-8358-4741-942e-5e09d911c898" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/functions/form_edit_pago.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/functions/form_edit_precio.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/providers/theme_provider.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/flutter_assets/NOTICES" beforeDir="false" afterPath="$PROJECT_DIR$/build/flutter_assets/NOTICES" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/shaders/ink_sparkle.frag" beforeDir="false" afterPath="$PROJECT_DIR$/build/flutter_assets/shaders/ink_sparkle.frag" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/functions/form_agregar_disciplina.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/functions/form_agregar_disciplina.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/base_scaffold.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/base_scaffold.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/functions/edit_alumno.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/functions/form_edit_alumno.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/functions/form_agregar_disciplina.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/functions/form_new_disciplina.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/functions/form_new_payment.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/functions/form_new_payment.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/functions/formulario_gastos.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/functions/formulario_gastos.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/functions/formulario_alumnos.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/functions/form_new_alumno.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/functions/formulario_gastos.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/functions/form_new_gasto.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/functions/formulario_precios.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/functions/form_new_precio.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/objetos/alumno.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/objetos/alumno.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/objetos/disciplina.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/objetos/disciplina.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/objetos/gasto.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/objetos/gasto.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/objetos/pago.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/objetos/pago.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/providers/alumnos_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/providers/alumnos_provider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/providers/disciplinas_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/providers/disciplinas_provider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/providers/finanzas_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/providers/finanzas_provider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/providers/gastos_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/providers/gastos_provider.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/alumnos.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/alumnos.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/disciplinas.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/disciplinas.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/fechas_de_pago.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/fechas_de_pago.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/finanzas.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/finanzas.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/gastos.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/gastos.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/precios.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/precios.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +106,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Flutter.main.dart.executor": "Run",
+    "Flutter.main.dart.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -102,7 +118,7 @@
     "git-widget-placeholder": "main",
     "io.flutter.reload.alreadyRun": "true",
     "kotlin-language-version-configured": "true",
-    "settings.editor.selected.configurable": "flutter.settings",
+    "settings.editor.selected.configurable": "dart.settings",
     "show.migrate.to.gradle.popup": "false"
   }
 }]]></component>
@@ -133,5 +149,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/screens/gastos.dart</url>
+          <line>29</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

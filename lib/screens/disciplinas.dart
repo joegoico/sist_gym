@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sistema_gym/functions/form_agregar_disciplina.dart';
+import 'package:sistema_gym/functions/form_new_disciplina.dart';
 import 'package:sistema_gym/objetos/disciplina.dart';
 import 'package:sistema_gym/functions/form_edit_disciplina.dart';
 import 'package:sistema_gym/providers/disciplinas_provider.dart';
@@ -115,7 +115,7 @@ class _DiscplinasPageState extends State<DiscplinasPage> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           IconButton(
-                            icon: const Icon(Icons.delete),
+                            icon:  Icon(Icons.delete,color: Theme.of(context).colorScheme.scrim),
                             onPressed: () async{
                               final confirmacion = await showDeleteDisciplinaDialog(context, disciplina);
                               if (confirmacion!){
@@ -136,12 +136,12 @@ class _DiscplinasPageState extends State<DiscplinasPage> {
                             },
                           ),
                           IconButton(
-                            icon: const Icon(Icons.edit),
+                            icon:  Icon(Icons.edit,color: Theme.of(context).colorScheme.scrim),
                             onPressed: () {
                               _showEditDisciplinaForm(context, disciplina);
                             },
                           ),
-                          IconButton(icon: const Icon(Icons.monetization_on),
+                          IconButton(icon:  Icon(Icons.monetization_on,color: Theme.of(context).colorScheme.scrim),
                             onPressed: (){
                               context.go('/precios', extra: disciplina);//dirige a la lista de precios para esa disciplina
                             },)

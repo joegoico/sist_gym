@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sistema_gym/objetos/precio.dart';
 import 'package:sistema_gym/objetos/disciplina.dart';
-import 'package:sistema_gym/functions/formulario_precios.dart';
+import 'package:sistema_gym/functions/form_new_precio.dart';
+import 'package:sistema_gym/functions/form_edit_precio.dart';
+import 'package:sistema_gym/providers/disciplinas_provider.dart';
+
 class PreciosPage extends StatefulWidget {
   final Disciplina disciplina;
   const PreciosPage({super.key, required this.disciplina});
@@ -26,6 +30,22 @@ class _PreciosPageState extends State<PreciosPage> {
       setState(() {
         widget.disciplina.agregarPrecio(nuevoPrecio);
       });
+    }
+  }
+
+  void _showEditForm(BuildContext context, Precio precio, int indexPrecio) async{
+    final result = await showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        builder: (BuildContext context) {
+          return FormEditPrecio(precio: precio);
+
+        });
+    if (result != null && result is Precio) {
+      Provider.of<DisciplinasProvider>(context, listen: false).updatePrecio(widget.disciplina, indexPrecio, result);
     }
   }
 
@@ -58,72 +78,77 @@ class _PreciosPageState extends State<PreciosPage> {
     final precios = widget.disciplina.getPrecios();
 
     return Scaffold(
-      body: 
-      precios.isEmpty
-          ? const Center(
-              child: Text(
-                "No hay precios agregados",
-                style: TextStyle(fontSize: 18),
-              ),
-            )
-          : ListView.builder(          
-              padding: const EdgeInsets.all(10),
-              itemCount: precios.length,
-              itemBuilder: (context, index) {
-                final precio = precios[index];
-                return Card(
-                  color: Theme.of(context).colorScheme.surface,
-                  shadowColor: Theme.of(context).colorScheme.shadow,
-                  margin: const EdgeInsets.only(bottom: 8),
-                  child: Column(
-                    children: [
-                      ListTile(
-                        title: Text('${precio.getCantDias()} días'),
-                        subtitle: Text('${precio.getPrecio()} ARS'),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+        body: Consumer<DisciplinasProvider>(
+            builder: (context, disciplinasProvider, child){
+              if (precios.isEmpty) {
+                return const Center(
+                  child: Text(
+                    "No hay precios agregados",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                );
+              }
+              return ListView.builder(
+                  padding: const EdgeInsets.all(10),
+                  itemCount: precios.length,
+                  itemBuilder: (context, index) {
+                    final precio = precios[index];
+                    return Card(
+                      color: Theme.of(context).colorScheme.surface,
+                      shadowColor: Theme.of(context).colorScheme.shadow,
+                      margin: const EdgeInsets.only(bottom: 8),
+                      child: Column(
                         children: [
-                          IconButton(
-                            icon: const Icon(Icons.edit),
-                            onPressed: () {
-                              // Aquí podrías llamar al formulario para editar el precio.
-                            },
+                          ListTile(
+                            title: Text('${precio.getCantDias()} días'),
+                            subtitle: Text('${precio.getPrecio()} ARS'),
                           ),
-                          IconButton(
-                            icon: const Icon(Icons.delete),
-                            onPressed: () async {
-                              final confirmacion = await showDeletePrecioDialog(context, precio);
-                              if (confirmacion == true) {
-                                setState(() {
-                                  widget.disciplina.eliminarPrecio(precio);
-                                });
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content:Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(Icons.check_circle, color: Colors.green),
-                                    SizedBox(width: 8),
-                                    Text('Precio eliminado con éxito'),
-                                  ],
-                                  ) 
-                                ),
-                              );
-                              }
-                            },
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              IconButton(
+                                icon:  Icon(Icons.edit,color: Theme.of(context).colorScheme.scrim),
+                                onPressed: () {
+                                  _showEditForm(context, precio, index);
+                                },
+                              ),
+                              IconButton(
+                                icon:  Icon(Icons.delete,color: Theme.of(context).colorScheme.scrim),
+                                onPressed: () async {
+                                  final confirmacion = await showDeletePrecioDialog(context, precio);
+                                  if (confirmacion == true) {
+                                    setState(() {
+                                      widget.disciplina.eliminarPrecio(precio);
+                                    });
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(content:Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Icon(Icons.check_circle, color: Colors.green),
+                                          SizedBox(width: 8),
+                                          Text('Precio eliminado con éxito'),
+                                        ],
+                                      )
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                );
-              },
-            ),
-      floatingActionButton: FloatingActionButton(
+                    );
+                  },
+              );
+
+            }
+        ),
+        floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         onPressed: () => _showNuevoPrecioForm(context),
         child:  Icon(Icons.add,color: Theme.of(context).colorScheme.onPrimaryContainer,),
-      ),
+        ),
     );
   }
 }

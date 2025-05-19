@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sistema_gym/functions/formulario_gastos.dart';
+import 'package:sistema_gym/functions/form_new_gasto.dart';
 import 'package:sistema_gym/objetos/gasto.dart';
 import 'package:sistema_gym/providers/gastos_provider.dart';
 import 'package:sistema_gym/functions/form_edit_gastos.dart';
@@ -14,6 +14,7 @@ class Gastos extends StatefulWidget {
 class _GastosState extends State<Gastos>   {
 
   void _showEditGastoForm(BuildContext context, Gasto gasto) async {
+    final gastoOriginal = gasto.copy();
     final result = await showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -21,12 +22,12 @@ class _GastosState extends State<Gastos>   {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (BuildContext context) {
-        return FormEditGastos(gasto: gasto);
+        return FormEditGastos(gasto: gasto.copy());
       },
     );
     if (result != null && result is Gasto) {
       setState(() {
-        Provider.of<GastosProvider>(context,listen: false,).editarGasto(gasto,result); // Agrega el nuevo gasto a la lista
+        Provider.of<GastosProvider>(context,listen: false,).editarGasto(gastoOriginal,result); // Agrega el nuevo gasto a la lista
       });
     }
   }

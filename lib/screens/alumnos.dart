@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sistema_gym/functions/formulario_alumnos.dart';
+import 'package:sistema_gym/functions/form_new_alumno.dart';
 import 'package:sistema_gym/objetos/alumno.dart';
 import 'package:sistema_gym/objetos/pago.dart';
 import 'package:sistema_gym/providers/alumnos_provider.dart';
-import 'package:sistema_gym/functions/edit_alumno.dart';
+import 'package:sistema_gym/functions/form_edit_alumno.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sistema_gym/functions/form_new_payment.dart';
 
@@ -137,7 +137,7 @@ Future<bool?> showDeleteAlumnoDialog(BuildContext context, Alumno alumno) {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             IconButton(
-                                icon:  Icon(Icons.calendar_month_sharp,color: Theme.of(context).colorScheme.secondary),
+                                icon:  Icon(Icons.calendar_month_sharp,color: Theme.of(context).colorScheme.scrim),
                                 onPressed: (){
                                   context.go('/pagos', extra: alumno);
                                 },
@@ -146,7 +146,7 @@ Future<bool?> showDeleteAlumnoDialog(BuildContext context, Alumno alumno) {
                               onPressed: () {
                                 _showEditAlumnoForm(context, alumno);
                               },
-                              icon:  Icon(Icons.edit,color: Theme.of(context).colorScheme.secondary),
+                              icon:  Icon(Icons.edit,color: Theme.of(context).colorScheme.scrim),
                             ),
                             IconButton(
                                 onPressed: () async {
@@ -167,7 +167,7 @@ Future<bool?> showDeleteAlumnoDialog(BuildContext context, Alumno alumno) {
                                     );
                                   }
                                 },                      
-                              icon:  Icon(Icons.delete, color: Theme.of(context).colorScheme.secondary),
+                              icon:  Icon(Icons.delete, color: Theme.of(context).colorScheme.scrim),
                             ),
                           ],
                         )// Aquí se pueden agregar más widgets o información del alumno

@@ -35,6 +35,9 @@ class Alumno {
   void setCorreoElectronico(String correoElectronico) {
     _correoElectronico = correoElectronico;
   }
+  void actualizarPagos(List<Pago> pagos) {
+    _pagosRealizados = pagos;
+  }
 
   void agregarFechaDePago(Pago fechaDePago) {
     insertPagoOrdered(_pagosRealizados, fechaDePago);
