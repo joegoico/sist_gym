@@ -5,6 +5,7 @@ import 'package:sistema_gym/objetos/disciplina.dart';
 import 'package:sistema_gym/functions/form_edit_disciplina.dart';
 import 'package:sistema_gym/providers/disciplinas_provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sistema_gym/custom_widgets/custom_floating_button.dart';
 
 class DiscplinasPage extends StatefulWidget {
   const DiscplinasPage({super.key, required this.title});
@@ -155,20 +156,7 @@ class _DiscplinasPageState extends State<DiscplinasPage> {
             Positioned(
               right: 20,
               bottom: 20,
-              child: RawMaterialButton(
-                onPressed: () {
-                  _showNuevaDisciplinaForm(context);
-                },
-                elevation: 2.0,
-                fillColor: Theme.of(context).colorScheme.primaryContainer,
-                padding: const EdgeInsets.all(15.0),
-                shape: const CircleBorder(),
-                child:  Icon(
-                  Icons.add,
-                  size: 25.0,
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
-                ),
-              ),
+              child: FloatingCircleButton(onPressed: () => _showNuevaDisciplinaForm(context))
             ),
       ],
     );

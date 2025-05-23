@@ -5,6 +5,7 @@ import 'package:sistema_gym/objetos/disciplina.dart';
 import 'package:sistema_gym/functions/form_new_precio.dart';
 import 'package:sistema_gym/functions/form_edit_precio.dart';
 import 'package:sistema_gym/providers/disciplinas_provider.dart';
+import 'package:sistema_gym/custom_widgets/custom_floating_button.dart';
 
 class PreciosPage extends StatefulWidget {
   final Disciplina disciplina;
@@ -144,11 +145,7 @@ class _PreciosPageState extends State<PreciosPage> {
 
             }
         ),
-        floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-        onPressed: () => _showNuevoPrecioForm(context),
-        child:  Icon(Icons.add,color: Theme.of(context).colorScheme.onPrimaryContainer,),
-        ),
+        floatingActionButton: FloatingCircleButton(onPressed: () => _showNuevoPrecioForm(context)),
     );
   }
 }

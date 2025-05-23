@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
-import 'functions/rutas.dart'; // Tus rutas definidas
+import 'rutas.dart'; // Tus rutas definidas
 import 'package:sistema_gym/providers/alumnos_provider.dart';
 import 'package:sistema_gym/providers/gastos_provider.dart';
 import 'package:sistema_gym/providers/precios_provider.dart';

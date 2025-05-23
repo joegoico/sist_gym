@@ -5,41 +5,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b11ef80-8358-4741-942e-5e09d911c898" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/functions/form_edit_pago.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/functions/form_edit_precio.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/providers/theme_provider.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/custom_widgets/custom_app_bar.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/custom_widgets/custom_drawer.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/custom_widgets/custom_floating_button.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/custom_widgets/custom_search_bar.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/custom_widgets/custom_shell_route.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/objetos/deudor.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/providers/deudores_provider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/BrowsingTopicsSiteData" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/BrowsingTopicsSiteData" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/BrowsingTopicsState" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/BrowsingTopicsState" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/DIPS" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/DIPS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Extension State/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Extension State/LOG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Extension State/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Extension State/LOG.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Favicons" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Favicons" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/GCM Store/Encryption/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/GCM Store/Encryption/LOG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/GCM Store/Encryption/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/GCM Store/Encryption/LOG.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/History" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/History" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Local Storage/leveldb/000003.log" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Local Storage/leveldb/000003.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Local Storage/leveldb/CURRENT" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Local Storage/leveldb/CURRENT" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Local Storage/leveldb/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Local Storage/leveldb/LOG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Login Data For Account" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/chrome-device/Default/Login Data For Account" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/NOTICES" beforeDir="false" afterPath="$PROJECT_DIR$/build/flutter_assets/NOTICES" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/base_scaffold.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/base_scaffold.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/functions/edit_alumno.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/functions/form_edit_alumno.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/functions/form_agregar_disciplina.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/functions/form_new_disciplina.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/functions/form_new_payment.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/functions/form_new_payment.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/functions/formulario_alumnos.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/functions/form_new_alumno.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/functions/formulario_gastos.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/functions/form_new_gasto.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/functions/formulario_precios.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/functions/form_new_precio.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/functions/rutas.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/rutas.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/objetos/alumno.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/objetos/alumno.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/objetos/disciplina.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/objetos/disciplina.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/objetos/gasto.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/objetos/gasto.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/objetos/pago.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/objetos/pago.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/providers/alumnos_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/providers/alumnos_provider.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/providers/disciplinas_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/providers/disciplinas_provider.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/providers/finanzas_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/providers/finanzas_provider.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/providers/gastos_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/providers/gastos_provider.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/alumnos.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/alumnos.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/custom_navigation_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/custom_widgets/custom_navigation_bar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/deudores.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/deudores.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/disciplinas.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/disciplinas.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/fechas_de_pago.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/fechas_de_pago.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/finanzas.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/finanzas.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/gastos.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/gastos.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/precios.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/precios.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,24 +102,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Flutter.main.dart.executor": "Debug",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "com.google.services.firebase.aqiPopupShown": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "main",
-    "io.flutter.reload.alreadyRun": "true",
-    "kotlin-language-version-configured": "true",
-    "settings.editor.selected.configurable": "dart.settings",
-    "show.migrate.to.gradle.popup": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Flutter.main.dart.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.android.studio.ml.bot.mainConfigurable&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\AndroidProjects\lib\custom_widgets" />
+      <recent name="E:\AndroidProjects\lib" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -149,16 +153,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/screens/gastos.dart</url>
-          <line>29</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

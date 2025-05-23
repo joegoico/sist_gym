@@ -7,6 +7,7 @@ import 'package:sistema_gym/providers/alumnos_provider.dart';
 import 'package:sistema_gym/functions/form_edit_alumno.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sistema_gym/functions/form_new_payment.dart';
+import 'package:sistema_gym/custom_widgets/custom_search_bar.dart';
 
 class Alumnos extends StatefulWidget {
   const Alumnos({super.key, required this.title});
@@ -17,6 +18,7 @@ class Alumnos extends StatefulWidget {
 }
 
 class _AlumnosState extends State<Alumnos>   {
+  String query = ""; // Almacena el query actual"
   // Lista que almacena todos los alumnos creados
 
   // Muestra el formulario y espera que retorne los datos del alumno nuevo
@@ -104,79 +106,87 @@ Future<bool?> showDeleteAlumnoDialog(BuildContext context, Alumno alumno) {
   );
 }
 
+
+
   @override
   Widget build(BuildContext context) {// Llama al método build de la clase padre
     final alumnosProvider = Provider.of<AlumnosModel>(context).alumnos; // Obtiene la lista de alumnos del provider
+
+
     return Stack(
       children: [
-        // Si no hay alumnos, se muestra un mensaje. Caso contrario, se muestra un ListView de Cards.
+        Padding(padding: const EdgeInsets.all(5),
+          child: AlumnosSearchBar(allAlumnos: alumnosProvider)),
+
+      // Si no hay alumnos, se muestra un mensaje. Caso contrario, se muestra un ListView de Cards.
         alumnosProvider.isEmpty
-            ? const Center(
-                child: Text(
-                  "No hay alumnos agregados",
-                  style: TextStyle(fontSize: 18),
-                ),
-              )
-            : ListView.builder(
-                padding: const EdgeInsets.all(10),
-                itemCount: alumnosProvider.length,
-                itemBuilder: (context, index) {
-                  final alumno = alumnosProvider[index];
-                  return Card(
-                    color: Theme.of(context).colorScheme.primaryContainer,
-                    shadowColor: Theme.of(context).colorScheme.shadow,
-                    margin: const EdgeInsets.only(bottom: 8),
-                    child: Column(
-                      children: [
-                        // Aquí se muestran los datos del alumno
-                        ListTile(
-                          title: Text('${alumno.getNombre()} '),
-                          subtitle: Text(alumno.getApellido()),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            IconButton(
-                                icon:  Icon(Icons.calendar_month_sharp,color: Theme.of(context).colorScheme.scrim),
-                                onPressed: (){
-                                  context.go('/pagos', extra: alumno);
-                                },
-                                ),
-                            IconButton(
-                              onPressed: () {
-                                _showEditAlumnoForm(context, alumno);
-                              },
-                              icon:  Icon(Icons.edit,color: Theme.of(context).colorScheme.scrim),
-                            ),
-                            IconButton(
-                                onPressed: () async {
-                                  bool? confirmado = await showDeleteAlumnoDialog(context, alumno);
-                                  if (confirmado == true) {
-                                    if (!mounted) return;
-                                    Provider.of<AlumnosModel>(context, listen: false).eliminarAlumno(alumno);
-                                    if (!mounted) return;
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(content:Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Icon(Icons.check_circle, color: Colors.green),
-                                          SizedBox(width: 8),
-                                          Text('Alumno eliminado con éxito'),
-                                        ],
-                                      ) ),
-                                    );
-                                  }
-                                },                      
-                              icon:  Icon(Icons.delete, color: Theme.of(context).colorScheme.scrim),
-                            ),
-                          ],
-                        )// Aquí se pueden agregar más widgets o información del alumno
-                      ],
-                    ),
-                  );
-                },
+          ? const Center(
+              child: Text(
+                "No hay alumnos agregados",
+                style: TextStyle(fontSize: 18),
               ),
-        // Botón flotante para abrir el formulario y agregar un nuevo alumno
+            )
+        : ListView.builder(
+          padding: const EdgeInsets.all(10),
+          itemCount: alumnosProvider.length,
+          itemBuilder: (context, index) {
+            final alumno = alumnosProvider[index];
+            return Card(
+              color: Theme.of(context).colorScheme.primaryContainer,
+              shadowColor: Theme.of(context).colorScheme.shadow,
+              margin: const EdgeInsets.only(bottom: 8),
+              child: Column(
+                children: [
+                  // Aquí se muestran los datos del alumno
+                  ListTile(
+                    title: Text('${alumno.getNombre()} '),
+                    subtitle: Text(alumno.getApellido()),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      IconButton(
+                        icon:  Icon(Icons.calendar_month_sharp,color: Theme.of(context).colorScheme.scrim),
+                        onPressed: (){
+                          context.go('/pagos', extra: alumno);
+                        },
+                        ),
+                      IconButton(
+                        onPressed: () {
+                          _showEditAlumnoForm(context, alumno);
+                        },
+                        icon:  Icon(Icons.edit,color: Theme.of(context).colorScheme.scrim),
+                      ),
+                      IconButton(
+                        onPressed: () async {
+                          bool? confirmado = await showDeleteAlumnoDialog(context, alumno);
+                          if (confirmado == true) {
+                            if (!mounted) return;
+                            Provider.of<AlumnosModel>(context, listen: false).eliminarAlumno(alumno);
+                            if (!mounted) return;
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content:Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.check_circle, color: Colors.green),
+                                    SizedBox(width: 8),
+                                    Text('Alumno eliminado con éxito'),
+                                  ],
+                                )
+                              ),
+                            );
+                          }
+                        },
+                        icon:  Icon(Icons.delete, color: Theme.of(context).colorScheme.scrim),
+                      ),
+                    ],
+                  )// Aquí se pueden agregar más widgets o información del alumno
+                ],
+              ),
+            );
+          },
+        ),
+      // Botón flotante para abrir el formulario y agregar un nuevo alumno
         Positioned(
           right: 20,
           bottom: 20,

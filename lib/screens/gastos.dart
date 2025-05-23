@@ -5,6 +5,8 @@ import 'package:sistema_gym/objetos/gasto.dart';
 import 'package:sistema_gym/providers/gastos_provider.dart';
 import 'package:sistema_gym/functions/form_edit_gastos.dart';
 import 'package:intl/intl.dart';
+import 'package:sistema_gym/custom_widgets/custom_floating_button.dart';
+
 class Gastos extends StatefulWidget {
   const Gastos({super.key});
 
@@ -87,9 +89,12 @@ class _GastosState extends State<Gastos>   {
         return mesA.compareTo(mesB);
       });
 
+
+
     // Mantiene el estado de la pantalla al cambiar de pestaña
   return Stack(
     children: [
+
       mesesOrdenados.isEmpty
       ? const Center(
           child: Text(
@@ -101,7 +106,7 @@ class _GastosState extends State<Gastos>   {
           itemBuilder: (context, index) {
             final mes = mesesOrdenados[index];
             final List<Gasto> gastosDelMes = gastosProvider[mes]!;
-            
+
             return Card(
               color: Theme.of(context).colorScheme.surfaceContainerLow,
               shadowColor: Theme.of(context).colorScheme.shadow,
@@ -120,7 +125,7 @@ class _GastosState extends State<Gastos>   {
                       ),
                     title: Text(gasto.getTitulo()),
                     subtitle: Text("Fecha: $fechaFormateada • Monto: \$${gasto.getMonto().toStringAsFixed(2)}"),
-                    trailing: 
+                    trailing:
                       IconButton(
                         onPressed:()  => showDeleteGastoDialog(context, gasto).then((value) {
                           if (value == true) {
@@ -140,21 +145,7 @@ class _GastosState extends State<Gastos>   {
       Positioned(
         right: 20,
         bottom: 20,
-        child: 
-          RawMaterialButton(
-            onPressed: () {
-              _showNuevoGastoForm(context);// Acción al presionar.
-            },
-            elevation: 2.0,
-            fillColor: Theme.of(context).colorScheme.primaryContainer,
-            padding: EdgeInsets.all(15.0),
-            shape: CircleBorder(),
-            child: Icon(
-              Icons.add,
-              size: 25.0,
-              color: Theme.of(context).colorScheme.onPrimaryContainer,
-            ),
-          ),
+        child: FloatingCircleButton(onPressed: () => _showNuevoGastoForm(context))
         ),
       ]
     );
