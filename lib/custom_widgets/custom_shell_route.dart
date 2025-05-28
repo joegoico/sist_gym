@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sistema_gym/providers/theme_provider.dart';
 import 'package:sistema_gym/base_scaffold.dart';
 
 class ShellScaffoldWrapper extends StatelessWidget {

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sistema_gym/custom_widgets/custom_search_bar.dart';
 import 'package:sistema_gym/providers/deudores_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:sistema_gym/providers/theme_provider.dart';
 
 class Deudores extends StatefulWidget {
   const Deudores({super.key});
