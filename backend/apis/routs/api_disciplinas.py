@@ -1,5 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from backend.apis.basic_models import Disciplina
+from backend.apis.routs.api_gimnasios import gimnasios  # Assuming Gimnasio is defined in api_gimnasios.py
+from typing import List, Optional
 
 router = APIRouter()
 
@@ -27,25 +29,26 @@ disciplinas = [
 ]
 
 
-@router.get("/disciplinas/{gym_id}")
+@router.get("/disciplinas/{gym_id}", response_model=List[Disciplina])
 async def get_disciplinas(gym_id: int):
     """Obtiene todas las disciplinas de un gimnasio específico por gym_id."""
-    disciplinas_filtradas = list(filter(lambda d: d.GIMNASIO_id_gimnasio == gym_id, disciplinas))
-    if not disciplinas_filtradas:
-        raise HTTPException(status_code=404, detail="No se encontraron disciplinas para este gimnasio")
-    return disciplinas_filtradas
-
-@router.get("/disciplinas/{id}")
-async def get_disciplina(id: int):
-    for disciplina in disciplinas:
-        if disciplina.id_disciplina == id:
-            return disciplina
-    raise HTTPException(status_code=404, detail="Disciplina not found")
+    existe = any(gimnasio.id_gimnasio == gym_id for gimnasio in gimnasios) 
+    if not existe:
+        raise HTTPException(status_code=404, detail="Gimnasio not found")
+    else:
+        if gym_id is not None:
+            disciplinas_filtradas = list(filter(lambda d: d.GIMNASIO_id_gimnasio == gym_id, disciplinas))
+            if not disciplinas_filtradas:
+                raise HTTPException(status_code=404, detail="No se encontraron disciplinas para este gimnasio")
+            return disciplinas_filtradas
 
 @router.post("/disciplinas/")
-async def create_disciplina(disciplina: Disciplina, gym_id: int):
-    disciplina.GIMNASIO_id_gimnasio = gym_id
-    disciplinas.append(disciplina)
+async def create_disciplina(disciplina: Disciplina):
+    existe = any(gimnasio.id_gimnasio == disciplina.GIMNASIO_id_gimnasio for gimnasio in gimnasios) 
+    if not existe:
+        raise HTTPException(status_code=404, detail="Gimnasio not found")
+    else:
+        disciplinas.append(disciplina)
     return disciplina
 
 @router.put("/disciplinas/{id}")

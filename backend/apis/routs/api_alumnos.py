@@ -1,6 +1,7 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from backend.apis.basic_models import Alumno,Disciplina,Pago
-from typing import List
+from typing import List, Optional
+from backend.apis.routs.api_gimnasios import gimnasios  # Assuming Gimnasio is defined in api_gimnasios.py
 
 router = APIRouter()
 
@@ -69,24 +70,24 @@ alumnos = [
 
 @router.get("/alumnos/{gym_id}", response_model=List[Alumno])
 async def get_alumnos(gym_id: int):
-    """Obtiene todos los alumnos de un gimnasio específico por gym_id."""
-    alumnos_filtrados = list(filter(lambda a: a.GIMNASIO_id_gimnasio == gym_id, alumnos))
+    """Obtiene alumnos según gym_id o id_alumno."""
 
-    if not alumnos_filtrados:
-        raise HTTPException(status_code=404, detail="No se encontraron alumnos para este gimnasio")
+    # Si se proporciona gym_id, filtrar por gimnasio
+    if gym_id is not None:
+        alumnos_filtrados = list(filter(lambda a: a.GIMNASIO_id_gimnasio == gym_id, alumnos))
+        if not alumnos_filtrados:
+            raise HTTPException(status_code=404, detail="No se encontraron alumnos para este gimnasio")
+        return alumnos_filtrados
 
-    return alumnos_filtrados
-
-@router.get("/alumnos/{id}")
-async def get_alumno(id: int):
-    for alumno in alumnos:
-        if alumno.id_alumno == id:
-            return alumno
-    raise HTTPException(status_code=404, detail="Alumno not found")
+    # Si no se proporciona ningún parámetro, retornar todos los alumnos
+    return alumnos
 
 @router.post("/alumnos/")
-async def create_alumno(alumno: Alumno, gym_id: int):
-    alumno.GIMNASIO_id_gimnasio = gym_id
+async def create_alumno(alumno: Alumno):
+    """Crea un nuevo alumno."""
+    existe = any(gimnasio.id_gimnasio == alumno.GIMNASIO_id_gimnasio for gimnasio in gimnasios)
+    if not existe:
+        raise HTTPException(status_code=404, detail="Gimnasio not found")
     alumnos.append(alumno)
     return alumno
 

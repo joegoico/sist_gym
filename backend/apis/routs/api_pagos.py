@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from typing import List, Optional
 from backend.apis.basic_models import Pago  # Assuming Precio is defined in basic_models.py
+from backend.apis.routs.api_alumnos import alumnos  # Assuming Alumno is defined in api_alumnos.py
 
 router = APIRouter()
 
@@ -207,26 +208,28 @@ pagos: List[Pago] = [
 ]
 
 
-@router.get("/pagos/{id_alumno}")
-async def get_pagos(id_alumno: int):
+@router.get("/pagos/{id_alumno}", response_model=List[Pago])
+async def get_pagos(id_alumno: int ):
     """Obtiene todos los pagos de un alumno específico por id_alumno."""
-    pagos_filtrados = list(filter(lambda p: p.ALUMNO_id_alumno == id_alumno, pagos))
-    if not pagos_filtrados:
-        raise HTTPException(status_code=404, detail="No se encontraron pagos para este alumno")
-    return pagos_filtrados
+    existe = any(alumno.id_alumno == id_alumno for alumno in alumnos)
+    if not existe:
+        raise HTTPException(status_code=404, detail="Alumno not found")
+    else:
+        pagos_filtrados = list(filter(lambda p: p.ALUMNO_id_alumno == id_alumno, pagos))
+        if not pagos_filtrados:
+            raise HTTPException(status_code=404, detail="No se encontraron pagos para este alumno")
+        return pagos_filtrados
 
-@router.get("/pagos/{id}")
-async def get_pago(id: int):
-    for pago in pagos:
-        if pago.id_pago == id:
-            return pago
-    raise HTTPException(status_code=404, detail="Pago not found")
+    raise HTTPException(status_code=404, detail="Alumno not found")
+
 
 @router.post("/pagos/")
-async def create_pago(pago: Pago, id_alumno: int):
-    # Check if the gym_id matches the gym_id in the pago object
-    pago.ALUMNO_id_alumno = id_alumno
-    pagos.append(pago)
+async def create_pago(pago: Pago):
+    existe = any(alumno.id_alumno == pago.ALUMNO_id_alumno for alumno in alumnos)
+    if not existe:
+        raise HTTPException(status_code=404, detail="Alumno not found")
+    else:
+        pagos.append(pago)
     return pago
 
 @router.put("/pagos/{id}")

@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from typing import List, Optional
 from backend.apis.basic_models import Cuota  # Assuming Precio is defined in basic_models.py
+from backend.apis.routs.api_disciplinas import disciplinas  # Assuming Disciplina is defined in api_disciplinas.py
 
 router = APIRouter()
 
@@ -67,24 +68,22 @@ cuotas: List[Cuota] = [
 ]
 
 
-@router.get("/precios/{gym_id}")
-async def get_precios(gym_id: int):
-    """Obtiene todos los precios de un gimnasio específico por gym_id."""
-    precios_filtrados = list(filter(lambda p: p.DISCIPLINA_id_disciplina == gym_id, cuotas))
+@router.get("/precios/{disciplina_id}", response_model=List[Cuota])
+async def get_precios(disciplina_id: int):
+    """Obtiene todos los precios de una disciplina específica por disciplina_id."""
+    precios_filtrados = list(filter(lambda p: p.DISCIPLINA_id_disciplina == disciplina_id, cuotas))
     if not precios_filtrados:
-        raise HTTPException(status_code=404, detail="No se encontraron precios para este gimnasio")
+        raise HTTPException(status_code=404, detail="No se encontraron precios para esta disciplina")
     return precios_filtrados
 
-@router.get("/precios/{id}")
-async def get_precio(id: int):
-    for precio in cuotas:
-        if precio.id_cuota == id:
-            return precio
-    raise HTTPException(status_code=404, detail="Precio not found")
 
 @router.post("/precios/")
 async def create_precio(precio: Cuota):
-    cuotas.append(precio)
+    existe = any(disciplina.id_disciplina == precio.DISCIPLINA_id_disciplina for disciplina in disciplinas)
+    if not existe:
+        raise HTTPException(status_code=400, detail="Disciplina not found")
+    else:
+        cuotas.append(precio)
     return precio
 
 @router.put("/precios/{id}")
