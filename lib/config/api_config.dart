@@ -1,8 +1,9 @@
 class ApiConfig {
-  static const String baseUrl = 'http://localhost:8000';  // URL de tu backend
+  // En Android emulador usa 10.0.2.2, en iOS usa localhost
+  static const String baseUrl = 'http://127.0.0.1:8000';  // URL de tu backend
   
   // Endpoints
-  static const String disciplinas = '/disciplinas';
+  static const String disciplina = '/disciplina';
   static const String precios = '/precios';
   static const String gastos = '/gastos';
   static const String gimnasios = '/gimnasios';

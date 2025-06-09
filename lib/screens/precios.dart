@@ -6,6 +6,7 @@ import 'package:sistema_gym/functions/form_new_precio.dart';
 import 'package:sistema_gym/functions/form_edit_precio.dart';
 import 'package:sistema_gym/providers/disciplinas_provider.dart';
 import 'package:sistema_gym/custom_widgets/custom_floating_button.dart';
+import 'package:sistema_gym/services/precios_service.dart';
 
 class PreciosPage extends StatefulWidget {
   final Disciplina disciplina;
@@ -16,6 +17,20 @@ class PreciosPage extends StatefulWidget {
 }
 
 class _PreciosPageState extends State<PreciosPage> {
+  final preciosService = PreciosService();
+  
+  List<Precio> precios = [];
+  
+  @override
+  void initState() {
+    super.initState();
+    preciosService.getPreciosByDisciplinaId(widget.disciplina.getId()).then((precios) {
+      setState(() {
+        this.precios = precios;
+      });
+    });
+  }
+      
   void _showNuevoPrecioForm(BuildContext context) async {
     final nuevoPrecio = await showModalBottomSheet<Precio>(
       context: context,
@@ -24,7 +39,7 @@ class _PreciosPageState extends State<PreciosPage> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (BuildContext context) {
-        return const NuevoPrecioForm();
+        return NuevoPrecioForm(disciplinaId: widget.disciplina.getId());
       },
     );
     if (nuevoPrecio != null) {
@@ -34,7 +49,7 @@ class _PreciosPageState extends State<PreciosPage> {
     }
   }
 
-  void _showEditForm(BuildContext context, Precio precio, int indexPrecio) async{
+  void _showEditForm(BuildContext context, Precio precio) async{
     final result = await showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -46,7 +61,7 @@ class _PreciosPageState extends State<PreciosPage> {
 
         });
     if (result != null && result is Precio) {
-      Provider.of<DisciplinasProvider>(context, listen: false).updatePrecio(widget.disciplina, indexPrecio, result);
+      Provider.of<DisciplinasProvider>(context, listen: false).updatePrecio(widget.disciplina, result);
     }
   }
 
@@ -76,7 +91,7 @@ class _PreciosPageState extends State<PreciosPage> {
 
   @override
   Widget build(BuildContext context) {
-    final precios = widget.disciplina.getPrecios();
+    
 
     return Scaffold(
         body: Consumer<DisciplinasProvider>(
@@ -110,7 +125,7 @@ class _PreciosPageState extends State<PreciosPage> {
                               IconButton(
                                 icon:  Icon(Icons.edit,color: Theme.of(context).colorScheme.scrim),
                                 onPressed: () {
-                                  _showEditForm(context, precio, index);
+                                  _showEditForm(context, precio);
                                 },
                               ),
                               IconButton(

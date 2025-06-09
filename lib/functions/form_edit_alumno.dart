@@ -14,6 +14,20 @@ class FormEditAlumnos extends StatefulWidget {
 
 class _FormEditAlumnosState extends State<FormEditAlumnos> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  Disciplina? _selectedDisciplina;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadDisciplina();
+  }
+
+  Future<void> _loadDisciplina() async {
+    final disciplina = await widget.alumno.getDisciplina();
+    setState(() {
+      _selectedDisciplina = disciplina;
+    });
+  }
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
@@ -92,7 +106,7 @@ class _FormEditAlumnosState extends State<FormEditAlumnos> {
                 labelText: 'Disciplina',
                 border: OutlineInputBorder(),
               ),
-              value: widget.alumno.getDisciplina(),
+              value: _selectedDisciplina,
               items: disciplinas.map((disciplina) {
                 return DropdownMenuItem<Disciplina>(
                   value: disciplina,
@@ -101,7 +115,10 @@ class _FormEditAlumnosState extends State<FormEditAlumnos> {
               }).toList(),
               onChanged: (Disciplina? newValue) {
                 setState(() {
-                  widget.alumno.setDisciplina(newValue!);
+                  _selectedDisciplina = newValue;
+                  if (newValue != null) {
+                    widget.alumno.setDisciplina(newValue.getId());
+                  }
                 });
               },
             ),                   

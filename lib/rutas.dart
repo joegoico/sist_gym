@@ -11,7 +11,6 @@ import 'package:sistema_gym/screens/fechas_de_pago.dart';
 import 'package:sistema_gym/screens/disciplinas.dart';
 import 'package:sistema_gym/custom_widgets/custom_shell_route.dart';
 import 'package:sistema_gym/objetos/disciplina.dart';
-import 'package:sistema_gym/screens/plantilla_de_pago.dart';
 
 final GoRouter router = GoRouter(
   initialLocation: '/alumnos',
@@ -40,9 +39,6 @@ final GoRouter router = GoRouter(
         GoRoute(
           path: '/disciplinas',
           builder: (context, state) => const DiscplinasPage(title: 'Disciplinas'),
-        ),
-        GoRoute(path: '/metodoDePago',
-          builder: (context, state) => const PaymentScreen(hasDebt: true),
         ),
         GoRoute(
           path: '/pagos',

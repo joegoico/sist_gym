@@ -1,0 +1,33 @@
+from backend.database.supabase_client import get_supabase_client
+from backend.models.alumno_model import AlumnoCreate, AlumnoUpdate
+
+class AlumnoRepository:
+    def __init__(self):
+        self.supabase = get_supabase_client()
+        self.table = 'alumno'
+
+    def get_all(self):
+        res = self.supabase.table(self.table).select("*").execute()
+        return res.data
+
+    def get_by_id(self, alumno_id: int):
+        res = (self.supabase.table(self.table).select("*").eq("id_alumno", alumno_id).single().execute())
+        return res.data
+
+    def get_by_institucion(self, institucion_id: int):
+        res = (self.supabase.table(self.table).select("*").eq("INSTITUCION_id_institucion", institucion_id).execute())
+        return res.data
+
+    def create(self, alumno: AlumnoCreate):
+        payload = alumno.model_dump(by_alias=True)
+        res = self.supabase.table(self.table).insert(payload).execute()
+        return res.data
+
+    def update(self, alumno_id: int, alumno: AlumnoUpdate):
+        payload = alumno.model_dump(by_alias=True)
+        res = (self.supabase.table(self.table).update(payload).eq("id_alumno", alumno_id).execute())
+        return res.data
+
+    def delete(self, alumno_id: int):
+        res = (self.supabase.table(self.table).delete().eq("id_alumno", alumno_id).execute())
+        return res.data

@@ -34,7 +34,6 @@ class _NuevaDisciplinaFormState extends State<NuevaDisciplinaForm> {
         );
         final Disciplina nuevaDisciplina = Disciplina(
           nombre: _nombreDisciplina!,
-          id: 1,
         );
         Navigator.pop(context,nuevaDisciplina); // Cierra el modal después de guardar
       }

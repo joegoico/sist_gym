@@ -43,6 +43,7 @@ class _FechasDePagoState extends State<FechasDePago> {
 
   void _showEditPagoForm(BuildContext context, Pago pago) async{
     final pagoOriginal = pago.copy();
+    final disciplina = await widget.alumno.getDisciplina();
     final result = await showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -50,18 +51,13 @@ class _FechasDePagoState extends State<FechasDePago> {
           borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
         ),
         builder: (BuildContext context) {
-          return FormEditPago(pago: pago.copy(), precios: widget.alumno.getDisciplina().getPrecios());
+          return FormEditPago(pago: pago.copy(), precios: disciplina.getPrecios());
         }
         );
     if (result != null && result is Pago) {
       setState(() {
-        final  List<Pago> pagosActualizados = widget.alumno.getPagosRealizados();
-        final int index = pagosActualizados.indexWhere((p) => p.getId() == pago.getId());
-        if (index != -1) {
-          pagosActualizados[index] = result; // Reemplaza el pago editado
-        }
         Provider.of<FinanzasProvider>(context,listen: false,).editarPago(pagoOriginal,result);
-        Provider.of<AlumnosModel>(context,listen: false,).updatePago(widget.alumno,pagosActualizados);
+        Provider.of<AlumnosModel>(context,listen: false,).updatePago(widget.alumno,result);
       });
     }
   }

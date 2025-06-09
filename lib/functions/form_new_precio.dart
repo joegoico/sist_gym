@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sistema_gym/objetos/precio.dart';
 
 class NuevoPrecioForm extends StatefulWidget {
-  const NuevoPrecioForm({super.key});
+  final int disciplinaId;
+  const NuevoPrecioForm({super.key, required this.disciplinaId});
 
   @override
   _NuevoPrecioFormState createState() => _NuevoPrecioFormState();
@@ -34,7 +35,7 @@ class _NuevoPrecioFormState extends State<NuevoPrecioForm> {
           duration: Duration(seconds: 2),
         ),
       );
-      final nuevoPrecio = Precio(cantDias: _selectedDays!, precio: _monto!);
+      final nuevoPrecio = Precio(cantDias: _selectedDays!, precio: _monto!, disciplinaId: widget.disciplinaId);
       Navigator.pop(context,nuevoPrecio); // Cierra el modal después de guardar
     }
   }

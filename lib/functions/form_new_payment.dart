@@ -65,15 +65,14 @@ class _FormNewPaymentState extends State<FormNewPayment> {
       ); // Guarda 
       // Suponiendo que Pago es un objeto que representa el pago
       Pago nuevoPago = Pago(
-        id: 1, // Genera o asigna el id según corresponda
         monto: _selectedPrice!.getPrecio(), // Cambia el monto según la lógica de descuento
         fechaDePago: _fechaPago!,
         descuento: applyDiscount,
       );
-            // Si el usuario confirma, agrega el pago
-            _selectedAlumno!.agregarFechaDePago(nuevoPago);
-            Provider.of<FinanzasProvider>(context, listen: false).agregarPago(nuevoPago);
-            Navigator.pop(context, nuevoPago);
+        // Si el usuario confirma, agrega el pago
+        _selectedAlumno!.agregarFechaDePago(nuevoPago);
+        Provider.of<FinanzasProvider>(context, listen: false).agregarPago(nuevoPago);
+        Navigator.pop(context, nuevoPago);
     }
   }
   

@@ -21,12 +21,14 @@ class _AlumnosState extends State<Alumnos> {
   String query = "";
 
   @override
-void initState() {
-  super.initState();
-  final alumnosModel = Provider.of<AlumnosModel>(context, listen: false);
-  if (alumnosModel.alumnos.isEmpty) {
-      alumnosModel.cargarAlumnos(); // Solo carga si la lista está vacía
-    }
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final alumnosModel = Provider.of<AlumnosModel>(context, listen: false);
+      if (alumnosModel.alumnos.isEmpty) {
+        alumnosModel.cargarAlumnos(1); // Solo carga si la lista está vacía
+      }
+    });
   }
 
   Future<void> _showNuevoAlumnoForm(BuildContext context) async {

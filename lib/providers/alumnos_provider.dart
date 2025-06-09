@@ -3,26 +3,28 @@ import 'package:flutter/foundation.dart';
 import 'package:sistema_gym/objetos/alumno.dart';
 import 'package:sistema_gym/objetos/pago.dart';
 import 'package:sistema_gym/services/alumnos_service.dart';
+import 'package:logging/logging.dart';
 
 class AlumnosModel extends ChangeNotifier {
   final List<Alumno> _alumnos = [];
   final AlumnosService _alumnosService = AlumnosService();
   bool _isLoading = false;
+  final _logger = Logger('AlumnosModel');
 
   List<Alumno> get alumnos => List.unmodifiable(_alumnos);
   bool get isLoading => _isLoading;
 
   // Cargar alumnos desde el backend
-  Future<void> cargarAlumnos() async {
+  Future<void> cargarAlumnos(int institucionId) async {
     _isLoading = true;
     notifyListeners();
 
     try {
-      final alumnosFromServer = await _alumnosService.getAlumnosByGymId(1);
+      final alumnosFromServer = await _alumnosService.getAlumnosByInstitucionId(institucionId);
       _alumnos.clear();
       _alumnos.addAll(alumnosFromServer);
     } catch (e) {
-      print('Error al cargar alumnos: $e');
+      _logger.warning('Error al cargar alumnos: $e');
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -35,7 +37,7 @@ class AlumnosModel extends ChangeNotifier {
       _alumnos.add(alumnoCreado);
       notifyListeners();
     } catch (e) {
-      print('Error al agregar alumno: $e');
+      _logger.warning('Error al agregar alumno: $e');
       rethrow;
     }
   }
@@ -46,7 +48,7 @@ class AlumnosModel extends ChangeNotifier {
       _alumnos.remove(alumno);
       notifyListeners();
     } catch (e) {
-      print('Error al eliminar alumno: $e');
+      _logger.warning('Error al eliminar alumno: $e');
       rethrow;
     }
   }
@@ -54,21 +56,21 @@ class AlumnosModel extends ChangeNotifier {
   Future<void> editarAlumno(Alumno alumno, Alumno nuevoAlumno) async {
     try {
       final alumnoActualizado = await _alumnosService.actualizarAlumno(nuevoAlumno);
-      int index = _alumnos.indexOf(alumno);
+      final index = _alumnos.indexWhere((a) => a.getId() == nuevoAlumno.getId());
       if (index != -1) {
         _alumnos[index] = alumnoActualizado;
         notifyListeners();
       }
     } catch (e) {
-      print('Error al editar alumno: $e');
+      _logger.warning('Error al editar alumno: $e');
       rethrow;
     }
   }
 
-  void updatePago(Alumno alumno, List<Pago> pagosActualizados) {
-    int index = _alumnos.indexOf(alumno);
+  void updatePago(Alumno alumno, Pago pagoActualizado) {
+    final index = _alumnos.indexWhere((a) => a.getId() == alumno.getId());
     if (index != -1) {
-      _alumnos[index].actualizarPagos(pagosActualizados);
+      _alumnos[index].actualizarPagos(pagoActualizado);
       notifyListeners();
     }
   }

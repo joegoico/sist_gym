@@ -4,14 +4,24 @@ import 'package:provider/provider.dart';
 import 'rutas.dart'; // Tus rutas definidas
 import 'package:sistema_gym/providers/alumnos_provider.dart';
 import 'package:sistema_gym/providers/gastos_provider.dart';
-import 'package:sistema_gym/providers/precios_provider.dart';
 import 'package:sistema_gym/providers/disciplinas_provider.dart';
 import 'package:sistema_gym/providers/finanzas_provider.dart';
 import 'package:sistema_gym/providers/theme_provider.dart'; // Importa tu notifier
+import 'package:logging/logging.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting('es_ES', null);
+
+  // Configurar logging
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((record) {
+    print('${record.level.name}: ${record.time}: ${record.message}');
+    if (record.error != null) {
+      print('Error: ${record.error}');
+      print('Stack trace: ${record.stackTrace}');
+    }
+  });
 
   runApp(
     MultiProvider(
@@ -21,9 +31,6 @@ Future<void> main() async {
         ),
         ChangeNotifierProvider<GastosProvider>(
           create: (_) => GastosProvider(),
-        ),
-        ChangeNotifierProvider<PreciosProvider>(
-          create: (_) => PreciosProvider(),
         ),
         ChangeNotifierProvider<DisciplinasProvider>(
           create: (_) => DisciplinasProvider(),

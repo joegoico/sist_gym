@@ -1,56 +1,123 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../config/api_config.dart';
+import 'package:logging/logging.dart';
 
 class ApiService {
   final String endpoint;
+  final _logger = Logger('ApiService');
   
   ApiService(this.endpoint);
   
   Future<dynamic> getAll() async {
-    final response = await http.get(Uri.parse('${ApiConfig.baseUrl}$endpoint'));
-    if (response.statusCode == 200) {
-      return json.decode(response.body);
+    try {
+      final url = Uri.parse('${ApiConfig.baseUrl}$endpoint');
+      _logger.info('GET request to: $url');
+      
+      final response = await http.get(url);
+      _logger.info('Response status: ${response.statusCode}');
+      
+      if (response.statusCode == 200) {
+        return json.decode(response.body);
+      }
+      throw Exception('Error ${response.statusCode}: ${response.body}');
+    } catch (e) {
+      _logger.severe('Error en getAll: $e');
+      rethrow;
     }
-    throw Exception('Error al obtener datos');
+  }
+
+  Future<dynamic> getByInstitucionId(String institucionId) async {
+    try {
+      final url = Uri.parse('${ApiConfig.baseUrl}$endpoint/institucion/$institucionId');
+      //_logger.info('GET request to: $url');
+      
+      return http
+      .get(url)
+      .timeout(const Duration(seconds: 5), onTimeout: () => throw Exception('Timeout: $url'));
+      //_logger.info('Response status: ${response.statusCode}');
+    } catch (e) {
+      _logger.severe('Error en getByInstitucionId: $e');
+      rethrow;
+    }
   }
 
   Future<dynamic> getById(String id) async {
-    final response = await http.get(Uri.parse('${ApiConfig.baseUrl}$endpoint/$id'));
-    if (response.statusCode == 200) {
-      return json.decode(response.body);
+    try {
+      final url = Uri.parse('${ApiConfig.baseUrl}$endpoint/$id');
+      _logger.info('GET request to: $url');
+      
+      final response = await http.get(url);
+      _logger.info('Response status: ${response.statusCode}');
+      
+      if (response.statusCode == 200) {
+        return json.decode(response.body);
+      }
+      throw Exception('Error ${response.statusCode}: ${response.body}');
+    } catch (e) {
+      _logger.severe('Error en getById: $e');
+      rethrow;
     }
-    throw Exception('Error al obtener el elemento');
   }
 
   Future<dynamic> create(Map<String, dynamic> data) async {
-    final response = await http.post(
-      Uri.parse('${ApiConfig.baseUrl}$endpoint'),
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode(data),
-    );
-    if (response.statusCode == 201) {
-      return json.decode(response.body);
+    try {
+      final url = Uri.parse('${ApiConfig.baseUrl}$endpoint');
+      _logger.info('POST request to: $url');
+      
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(data),
+      );
+      _logger.info('Response status: ${response.statusCode}');
+      
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return json.decode(response.body);
+      }
+      throw Exception('Error ${response.statusCode}: ${response.body}');
+    } catch (e) {
+      _logger.severe('Error en create: $e');
+      rethrow;
     }
-    throw Exception('Error al crear el elemento');
   }
 
   Future<dynamic> update(String id, Map<String, dynamic> data) async {
-    final response = await http.put(
-      Uri.parse('${ApiConfig.baseUrl}$endpoint/$id'),
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode(data),
-    );
-    if (response.statusCode == 200) {
-      return json.decode(response.body);
+    try {
+      final url = Uri.parse('${ApiConfig.baseUrl}$endpoint/$id');
+      _logger.info('PUT request to: $url');
+      
+      final response = await http.put(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(data),
+      );
+      _logger.info('Response status: ${response.statusCode}');
+      
+      if (response.statusCode == 200) {
+        return json.decode(response.body);
+      }
+      throw Exception('Error ${response.statusCode}: ${response.body}');
+    } catch (e) {
+      _logger.severe('Error en update: $e');
+      rethrow;
     }
-    throw Exception('Error al actualizar el elemento');
   }
 
   Future<void> delete(String id) async {
-    final response = await http.delete(Uri.parse('${ApiConfig.baseUrl}$endpoint/$id'));
-    if (response.statusCode != 204) {
-      throw Exception('Error al eliminar el elemento');
+    try {
+      final url = Uri.parse('${ApiConfig.baseUrl}$endpoint/$id');
+      _logger.info('DELETE request to: $url');
+      
+      final response = await http.delete(url);
+      _logger.info('Response status: ${response.statusCode}');
+      
+      if (response.statusCode != 204) {
+        throw Exception('Error ${response.statusCode}: ${response.body}');
+      }
+    } catch (e) {
+      _logger.severe('Error en delete: $e');
+      rethrow;
     }
   }
 } 

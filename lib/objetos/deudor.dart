@@ -1,20 +1,22 @@
 import 'package:sistema_gym/objetos/alumno.dart';
-import 'package:sistema_gym/objetos/disciplina.dart';
+
 class Deudor extends Alumno{
+  int? idDeudor;
   List<String> mesesAdeudados ;
   double montoAdeudado;
   int cantDiasAdeudados;
 
   Deudor({
+    this.idDeudor,
     this.mesesAdeudados = const [],
     required this.montoAdeudado,
     required this.cantDiasAdeudados,
-    required int id,
     required String nombre,
     required String apellido,
     required String correoElectronico,
-    required Disciplina disciplina,
-  }): super(id: id, nombre: nombre, apellido: apellido, correoElectronico: correoElectronico, disciplina: disciplina);
+    required int idDisciplina,
+    required int idInstitucion,
+  }): super(nombre: nombre, apellido: apellido, correoElectronico: correoElectronico, idDisciplina: idDisciplina, idInstitucion: idInstitucion);
 
   List<String> get getMesesAdeudados => mesesAdeudados;
   double get getMontoAdeudado => montoAdeudado;

@@ -17,7 +17,7 @@ class _NuevoAlumnoFormState extends State<NuevoAlumnoForm> {
   String _nombre="";
   String _apellido="";
   String _correoElectronico="";
-  Disciplina? _disciplinaSeleccionada;
+  int? _disciplina;
 
 
 
@@ -40,11 +40,11 @@ class _NuevoAlumnoFormState extends State<NuevoAlumnoForm> {
         ),
       ); // Guarda los datos del formulario
       final Alumno nuevoAlumno = Alumno(
-        id: 1,
         nombre: _nombre,
         apellido: _apellido,
         correoElectronico: _correoElectronico,
-        disciplina: _disciplinaSeleccionada!, // Cambia el monto según la lógica de descuento
+        idDisciplina: _disciplina!, 
+        idInstitucion: 1,
       );                    
       Navigator.pop(context, nuevoAlumno); // Cierra el modal
     }
@@ -139,7 +139,6 @@ class _NuevoAlumnoFormState extends State<NuevoAlumnoForm> {
                         labelText: 'Disciplina',
                         border: OutlineInputBorder(),
                       ),
-                      value: _disciplinaSeleccionada,
                       items: disciplinas.map((disciplina) {
                         return DropdownMenuItem<Disciplina>(
                           value: disciplina,
@@ -148,7 +147,7 @@ class _NuevoAlumnoFormState extends State<NuevoAlumnoForm> {
                       }).toList(),
                       onChanged: (Disciplina? newValue) {
                         setState(() {
-                          _disciplinaSeleccionada = newValue;
+                          _disciplina = newValue!.getId();
                         });
                       },
                       validator: (value) {
@@ -158,7 +157,7 @@ class _NuevoAlumnoFormState extends State<NuevoAlumnoForm> {
                         return null;
                       },
                       onSaved: (value) {
-                        _disciplinaSeleccionada = value;
+                        _disciplina = value!.getId();
                       },
                     ),                    
                     const SizedBox(height: 10),

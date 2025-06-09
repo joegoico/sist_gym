@@ -18,6 +18,20 @@ class DiscplinasPage extends StatefulWidget {
 class _DiscplinasPageState extends State<DiscplinasPage> {
   // Lista que almacena todos los alumnos creados
 
+    @override
+  void initState() {
+    super.initState();
+    // Retrasa la carga hasta que haya terminado el primer build
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final disciplinasProvider = 
+          Provider.of<DisciplinasProvider>(context, listen: false);
+      if (disciplinasProvider.disciplinas.isEmpty) {
+        print("info disciplinasProvider.disciplinas.isEmpty: ${disciplinasProvider.disciplinas.isEmpty}");
+        disciplinasProvider.cargarDisciplinas(1);
+      }
+    });
+  }
+
   // Muestra el formulario y espera que retorne los datos del alumno nuevo
   Future<void> _showNuevaDisciplinaForm(BuildContext context) async {
     final result = await showModalBottomSheet(
@@ -87,22 +101,29 @@ class _DiscplinasPageState extends State<DiscplinasPage> {
 
   @override
   Widget build(BuildContext context) {
-    final disciplinasProvider = Provider.of<DisciplinasProvider>(context).disciplinas; // Obtiene la lista de disciplinas del provider
+    final disciplinasProvider = Provider.of<DisciplinasProvider>(context);
+    final disciplinas = disciplinasProvider.disciplinas;
+    final isLoading = disciplinasProvider.isLoading;
+
     return Stack(
       children: [
-        // Si no hay alumnos, se muestra un mensaje. Caso contrario, se muestra un ListView de Cards.
-        disciplinasProvider.isEmpty
-          ? const Center(
+        if (isLoading)
+          const Center(
+            child: CircularProgressIndicator(),
+          )
+        else if (disciplinas.isEmpty)
+           const Center(
               child: Text(
                 "No hay disciplinas agregadas",
                 style: TextStyle(fontSize: 18),
               ),
             )
-          : ListView.builder(
+          else
+            ListView.builder(
               padding: const EdgeInsets.all(10),
-              itemCount: disciplinasProvider.length,
+              itemCount: disciplinas.length,
               itemBuilder: (context, index) {
-                final disciplina = disciplinasProvider[index];
+                final disciplina = disciplinas[index];
                 return Card(
                   color: Theme.of(context).colorScheme.primaryContainer,
                   shadowColor: Theme.of(context).colorScheme.shadow,
@@ -120,8 +141,8 @@ class _DiscplinasPageState extends State<DiscplinasPage> {
                             onPressed: () async{
                               final confirmacion = await showDeleteDisciplinaDialog(context, disciplina);
                               if (confirmacion!){
-                                Provider.of<DisciplinasProvider>(context, listen: false).eliminarDisciplina(disciplina);
-                              ScaffoldMessenger.of(context).showSnackBar(
+                                disciplinasProvider.eliminarDisciplina(disciplina);
+                                ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(content:Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
