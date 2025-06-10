@@ -1,7 +1,8 @@
-from fastapi import APIRouter, HTTPException
-from typing import List, Optional
+from fastapi import APIRouter
+from typing import List
 from backend.models.pagos_model import PagoRead, PagoCreate, PagoUpdate
 from backend.services.pagos_service import PagoService
+from fastapi.encoders import jsonable_encoder
 
 router = APIRouter(
     prefix="/pago",
@@ -10,13 +11,15 @@ router = APIRouter(
 
 service = PagoService()
 
+@router.get("/{id_pago}", response_model=PagoRead)
+async def get_pago(id_pago: int):
+    return service.get_by_id_pago(id_pago)
 
-@router.get("/ {id_alumno}", response_model=List[PagoRead])
+@router.get("/alumno/{id_alumno}", response_model=List[PagoRead])
 async def get_pagos(id_alumno: int ):
     return service.get_pagos_by_alumno(id_alumno)
 
-
-@router.post("/")
+@router.post("/", response_model=PagoRead)
 async def create_pago(pago: PagoCreate):
     return service.create_pago(pago)
 

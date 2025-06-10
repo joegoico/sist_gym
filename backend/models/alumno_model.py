@@ -9,14 +9,23 @@ class AlumnoBase(BaseModel):
     INSTITUCION_id_institucion: int
 
     class Config:
-        allow_population_by_field_name = True
+        validate_by_name = True
         allow_population_by_alias = True
 
 class AlumnoCreate(AlumnoBase):
     pass
 
-class AlumnoUpdate(AlumnoBase):
-    pass
+class AlumnoUpdate(BaseModel):
+    nombre: Optional[str] = None
+    apellido: Optional[str] = None
+    correo_electronico: Optional[str] = None
+    descripcion: Optional[str] = None
+
+    class Config:
+        validate_by_name = True
+        allow_population_by_alias = True
+
+
 
 class AlumnoRead(AlumnoBase):
     id_alumno: int
@@ -24,6 +33,6 @@ class AlumnoRead(AlumnoBase):
     pagos_realizados: List[str] = []  # IDs of pagos
 
     class Config:
-        orm_mode = True
-        allow_population_by_field_name = True
+        from_attributes = True
+        validate_by_name = True
         allow_population_by_alias = True

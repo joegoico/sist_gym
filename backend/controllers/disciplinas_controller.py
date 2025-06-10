@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 from typing import List
 from backend.services.disciplina_service import DisciplinaService
 from backend.models.disciplina_model import DisciplinaRead, DisciplinaCreate, DisciplinaUpdate
@@ -23,6 +23,6 @@ def create_disciplina(disciplina: DisciplinaCreate):
 def update_disciplina(disciplina_id: int, disciplina: DisciplinaUpdate):
     return service.update_disciplina(disciplina_id, disciplina)
 
-@router.delete("/{disciplina_id}", response_model=DisciplinaRead)
+@router.delete("/{disciplina_id}")
 def delete_disciplina(disciplina_id: int):
     return service.delete_disciplina(disciplina_id)
