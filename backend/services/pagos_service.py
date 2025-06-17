@@ -32,10 +32,9 @@ class PagoService:
     def create_pago(self, pago: PagoCreate):
         try:
             created = self.repo.create(pago)
-            print("pago en el servicio: ", created[0])
             if not created:
                 raise HTTPException(status_code=400, detail="Error al crear el pago")
-            print("created: ", created[0]["fecha_pago"])
+
             return created[0]
         except HTTPException:
             raise

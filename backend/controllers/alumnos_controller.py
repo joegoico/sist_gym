@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 from typing import List
 from backend.services.alumno_service import AlumnoService
 from backend.models.alumno_model import AlumnoRead, AlumnoCreate, AlumnoUpdate

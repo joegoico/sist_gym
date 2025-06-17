@@ -49,4 +49,4 @@ android/app/google-services.json
 venv/
 
 # bdd keys
-.env
+backend/.env

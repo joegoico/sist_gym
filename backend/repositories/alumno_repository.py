@@ -1,6 +1,5 @@
 from backend.database.supabase_client import get_supabase_client
 from backend.models.alumno_model import AlumnoCreate, AlumnoUpdate
-from fastapi import HTTPException
 
 class AlumnoRepository:
     def __init__(self):

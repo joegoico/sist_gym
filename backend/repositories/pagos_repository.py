@@ -14,13 +14,14 @@ class PagoRepository:
 
     def create(self, pago: PagoCreate):
         payload = pago.model_dump(by_alias=True)
-        print("payload: ", payload)
+        payload['fecha_de_pago'] = payload['fecha_de_pago'].isoformat()
         res = self.supabase.table(self.table).insert(payload).execute().data
-        print("res: ", res)
         return res
 
     def update(self, pago_id: int, pago: PagoUpdate):
-        payload = pago.model_dump(by_alias=True)
+        payload = pago.model_dump(by_alias=True, exclude_none=True)
+        if 'fecha_de_pago' in payload:
+            payload['fecha_de_pago'] = payload['fecha_de_pago'].isoformat()
         return self.supabase.table(self.table).update(payload).eq("id_pago", pago_id).execute().data
 
     def delete(self, pago_id: int):
